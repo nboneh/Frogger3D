@@ -1,0 +1,5 @@
+Who: Nir Boneh, Brian Kidd
+
+What: OpenGL Frogger 3D
+
+We plan to implement a 3D version of the classic arcade game Frogger™.  Our goal is to have a fully functional game with a couple of levels that can be played.  Some of the key features that we would like to include are: hit detection, 3D models with appropriate textures, various lighting effects, Frogger™ game logic, game music, and different animations.  The hit detection required will be to tested when the frog and a car collide, or when the frog needs to jump on a log floating down a moving river.  The models that we plan to build are the frog, cars, street scenery, and possibly a river level where you traverse between moving logs.  We also would like to add cone lighting emitting from car headlights, or radial lighting from street lamps on different levels.  Right now, the plan to split up the work is Brian will model the frog and other objects in the scene, and Nir will work on implementing the logic for the game rules.  The rest of the work will be distributed later in the year when we have a better idea on what needs to be done.  
