@@ -1,59 +1,9 @@
-/*
- *  Hello World Triangle Version 1
- */
-#include <math.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <string.h>
-#define GL_GLEXT_PROTOTYPES
-#ifdef __APPLE__
-#include <GLUT/glut.h>
-#else
-#include <GL/glut.h>
-#endif
+#include "Frogger3D.h"
 
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-
-#define Cos(th) cos(3.1415926/180*(th))
-#define Sin(th) sin(3.1415926/180*(th))
-
-double th=0;  //  Rotation around y 
-double ta=0;  // Rotation around x
-
-double w2h = 1; // Aspect ratio
-int fov=55;       //  Field of view (for perspective)
-const double dim=5;
-
-#define LEN 8192  //  Maximum length of text string
-void Print(const char* format , ...)
-{
-   char    buf[LEN];
-   char*   ch=buf;
-   va_list args;
-   //  Turn the parameters into a character string
-   va_start(args,format);
-   vsnprintf(buf,LEN,format,args);
-   va_end(args);
-   //  Display the characters one at a time at the current raster position
-   while (*ch)
-      glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,*ch++);
-}
-
-
-void project(){
-   //  Switch to manipulating the projection matrix
-    glMatrixMode(GL_PROJECTION);
-   //  Undo previous transformations
-   glLoadIdentity();
-    gluPerspective(fov,w2h,dim/4,4* dim);
-
-   //  Switch to manipulating the model matrix
-   glMatrixMode(GL_MODELVIEW);
-}
+double dim=3.0;  
+int th=0;         //  Azimuth of view angle
+int ph=0;         //  Elevation of view angle
+Board board;
 
 void idle()
 {
@@ -68,11 +18,11 @@ void display()
    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
    glLoadIdentity();
-
-   double Ex = (-2*dim*Sin(th)*Cos(ta));
-   double Ey = (+2*dim        *Sin(ta));
-   double Ez = (+2*dim*Cos(th)*Cos(ta));
-   gluLookAt(Ex,Ey,Ez , 0,0,0 , 0,Cos(ta),0);
+   double Ex = (-2*dim*Sin(th)*Cos(ph));
+   double Ey = (+2*dim        *Sin(ph));
+   double Ez = (+2*dim*Cos(th)*Cos(ph));
+   gluLookAt(Ex,Ey,Ez , 0,0,0 , 0,Cos(ph),0);
+      board.draw();
 
    //  Make scene visible
    glFlush();
@@ -121,10 +71,10 @@ void key(unsigned char ch,int x,int y)
 void reshape(int width,int height)
 {
    //  Ratio of the width to the height of the window
-    w2h = (height>0) ? (double)width/height : 1;
+    double w2h = (height>0) ? (double)width/height : 1;
    //  Set the viewport to the entire window
    glViewport(0,0, width,height);
-   project();
+   Project(55, w2h, dim);
 }
 
 
@@ -141,7 +91,7 @@ int main(int argc,char* argv[])
    glutInitWindowSize(600, 600);
    //  Create window
    glutCreateWindow("Frogger3D");
-       glutFullScreen();  
+   glutFullScreen();  
 
    //  Register display, reshape, and key callbacks
    glutDisplayFunc(display);

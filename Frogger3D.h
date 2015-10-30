@@ -1,0 +1,42 @@
+#ifndef Frogger3D
+#define Frogger3D
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <string.h>
+#include <math.h>
+
+#ifdef USEGLEW
+#include <GL/glew.h>
+#endif
+#define GL_GLEXT_PROTOTYPES
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#endif
+
+#define Cos(th) cos(3.1415926/180*(th))
+#define Sin(th) sin(3.1415926/180*(th))
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+void Print(const char* format , ...);
+void Fatal(const char* format , ...);
+unsigned int LoadTexBMP(const char* file);
+void Project(double fov,double asp,double dim);
+void ErrCheck(const char* where);
+
+#ifdef __cplusplus
+}
+class Board{
+	public: 
+		void update(double t);
+		void draw();
+};
+#endif
+
+#endif
