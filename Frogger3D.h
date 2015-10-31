@@ -32,11 +32,7 @@ void ErrCheck(const char* where);
 
 #ifdef __cplusplus
 }
-class Board{
-	public: 
-		void update(double t);
-		void draw();
-};
+
 #endif
 
 #endif

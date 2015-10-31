@@ -1,4 +1,5 @@
 #include "Frogger3D.h"
+#include "GameObjects/board.h"
 
 double dim=3.0;  
 int th=0;         //  Azimuth of view angle
@@ -22,7 +23,7 @@ void display()
    double Ey = (+2*dim        *Sin(ph));
    double Ez = (+2*dim*Cos(th)*Cos(ph));
    gluLookAt(Ex,Ey,Ez , 0,0,0 , 0,Cos(ph),0);
-      board.draw();
+   board.draw();
 
    //  Make scene visible
    glFlush();
@@ -107,3 +108,4 @@ int main(int argc,char* argv[])
    //  Return to OS
    return 0;
 }
+
