@@ -22,9 +22,10 @@ endif
 
 # Dependencies
 row.o: row.cpp row.h ../Frogger3D.h
-board.o: board.cpp  board.h row.h  ../Frogger3D.h
+frog.o: frog.cpp frog.h ../Frogger3D.h
+board.o: board.cpp  board.h row.h frog.h  ../Frogger3D.h
 
-GameObjects.a: board.o row.o
+GameObjects.a: board.o row.o frog.o
 	ar -rcs $@ $^
 
 

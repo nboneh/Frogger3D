@@ -1,15 +1,19 @@
 #include "Frogger3D.h"
 #include "GameObjects/board.h"
 
-double dim=3.0;  
+double dim=5.0;  
 int th=0;         //  Azimuth of view angle
-int ph=0;         //  Elevation of view angle
+int ph=25;         //  Elevation of view angle
+double prevT = 0;
 Board board;
 
 void idle()
 {
     //  Elapsed time in seconds
-   double t = glutGet(GLUT_ELAPSED_TIME)/1000.0;
+   double currentT = glutGet(GLUT_ELAPSED_TIME)/1000.0;
+   double t = currentT - prevT;
+   board.update(t);
+   prevT = currentT;
    glutPostRedisplay();
 }
 
@@ -35,22 +39,18 @@ void display()
 void special(int key,int x,int y)
 {
      //  Right arrow - increase rotation by 5 degree
-   if (key == GLUT_KEY_RIGHT){
-         ;
-   }
+   if (key == GLUT_KEY_RIGHT)
+      th += 5;
    //  Left arrow - decrease rotation by 5 degree
-   else if (key == GLUT_KEY_LEFT){
-        ;
-   }
+   else if (key == GLUT_KEY_LEFT)
+      th -= 5;
    
    //  Up Arrow - increase rotation by 5 degree
-   else if (key == GLUT_KEY_UP){
-        ;
-   }
+   else if (key == GLUT_KEY_UP)
+      ph -= 5;
    //  Down Arrow - decrease rotation by 5 degree
-   else if (key == GLUT_KEY_DOWN){
-          ;
-   }
+   else if (key == GLUT_KEY_DOWN)
+      ph += 5;
 
    glutPostRedisplay();
 
@@ -61,6 +61,21 @@ void key(unsigned char ch,int x,int y)
    //  Exit on ESC
    if (ch == 27)
       exit(0);
+
+   else if(ch == 'w'){
+      board.inputDirection(up);
+   }
+   else if (ch == 'd'){
+      board.inputDirection(right);
+   }
+
+   else if(ch == 's'){
+      board.inputDirection(down);
+   }
+
+   else if(ch == 'a'){
+      board.inputDirection(left);
+   }
 
 
    //  Tell GLUT it is necessary to redisplay the scene
@@ -101,7 +116,7 @@ int main(int argc,char* argv[])
    glutKeyboardFunc(key);
    glutIdleFunc(idle);
    glEnable(GL_DEPTH_TEST);
-
+   board.init();
 
    //  Pass control to GLUT for events
    glutMainLoop();

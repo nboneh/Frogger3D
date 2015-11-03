@@ -30,6 +30,13 @@ unsigned int LoadTexBMP(const char* file);
 void Project(double fov,double asp,double dim);
 void ErrCheck(const char* where);
 
+enum direction{
+	up,
+	down,
+	left,
+	right
+};
+
 #ifdef __cplusplus
 }
 
