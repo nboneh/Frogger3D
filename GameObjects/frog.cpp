@@ -14,15 +14,15 @@ void Frog::update(double t){
 		float move = t*3;
 		switch(facingDirection){
 			case up:
-			  y += move;
-			  if(y >= desty){
-			  	y = desty;
-			  	moving = false;
-			  }
+			  y -= move;
+			  if(y <= desty){
+					y = desty;
+					moving = false;
+				}
 			  break;
 			case down:
-				y -= move;
-				if(y <= desty){
+				y += move;
+				if(y >= desty){
 					y = desty;
 					moving = false;
 				}
@@ -56,10 +56,10 @@ void Frog::inputDirection(direction moveDirection){
 	moving = true; 
 	switch(facingDirection){
 		case up:
-			desty = y + 1;
+			desty = y - 1;
 			break;
 		case down:
-			desty = y -1;
+			desty = y+1;
 			break;
 		case left:
 			destx = x -1;
@@ -73,7 +73,7 @@ void Frog::inputDirection(direction moveDirection){
 
 void Frog::draw(){
 	glPushMatrix();
-	glTranslatef(x , 0, -y);
+	glTranslatef(x , 0, y);
 	switch(facingDirection){
 		case up:
 			break;

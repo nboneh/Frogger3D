@@ -5,7 +5,7 @@ double dim=5.0;
 int th=0;         //  Azimuth of view angle
 int ph=25;         //  Elevation of view angle
 double prevT = 0;
-Board board;
+Board* board;
 
 unsigned int WATER;
 unsigned int WATER2;
@@ -20,7 +20,7 @@ void idle()
     //  Elapsed time in seconds
    double currentT = glutGet(GLUT_ELAPSED_TIME)/1000.0;
    double t = currentT - prevT;
-   board.update(t);
+   board->update(t);
    prevT = currentT;
    glutPostRedisplay();
 }
@@ -35,7 +35,7 @@ void display()
    double Ey = (+2*dim        *Sin(ph));
    double Ez = (+2*dim*Cos(th)*Cos(ph));
    gluLookAt(Ex,Ey,Ez , 0,0,0 , 0,Cos(ph),0);
-   board.draw();
+   board->draw();
 
    //  Make scene visible
    glFlush();
@@ -71,18 +71,18 @@ void key(unsigned char ch,int x,int y)
       exit(0);
 
    else if(ch == 'w'){
-      board.inputDirection(up);
+      board->inputDirection(up);
    }
    else if (ch == 'd'){
-      board.inputDirection(right);
+      board->inputDirection(right);
    }
 
    else if(ch == 's'){
-      board.inputDirection(down);
+      board->inputDirection(down);
    }
 
    else if(ch == 'a'){
-      board.inputDirection(left);
+      board->inputDirection(left);
    }
 
 
@@ -135,7 +135,7 @@ int main(int argc,char* argv[])
    ROAD = LoadTexBMP("GameObjects/textures/road.bmp");
    CONCRETE = LoadTexBMP("GameObjects/textures/concrete.bmp");
 
-   board.init();
+   board = new Board();
 
    //  Pass control to GLUT for events
    glutMainLoop();

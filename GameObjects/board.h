@@ -6,11 +6,10 @@
 
 class Board{
 		 std::vector<Row *> rows;
-		 Frog frog;
+		 Frog* frog;
 		 int rowsWidth;
 	public: 
 		Board();
-		void init();
 		void update(double t);
 		void draw();
 		void inputDirection(direction d);
