@@ -1,16 +1,13 @@
 #include "frog.h"
 
-Frog::Frog(){
-
-}
-void Frog::init(int _xBoundary, int _yBoundary, float spawnX, float spawnY, direction spawnDirection){
-	xBoundary = _xBoundary;
-	yBoundary = _yBoundary;
+Frog::Frog(float spawnX, float spawnY, direction spawnDirection){
 	x = spawnX;
 	y = spawnY;
 	facingDirection = spawnDirection;
 	moving = false;
 }
+
+
 
 void Frog::update(double t){
 	if(moving){
@@ -60,23 +57,15 @@ void Frog::inputDirection(direction moveDirection){
 	switch(facingDirection){
 		case up:
 			desty = y + 1;
-			if(desty >= yBoundary)
-				moving = false;
 			break;
 		case down:
 			desty = y -1;
-			if(desty < 0)
-				moving = false;
 			break;
 		case left:
 			destx = x -1;
-			if(destx < 0)
-				moving =false;
 			break;
 		case right:
 			destx = x + 1;
-			if(destx >= xBoundary)
-				moving = false;
 			break;
 	}
 
@@ -84,7 +73,7 @@ void Frog::inputDirection(direction moveDirection){
 
 void Frog::draw(){
 	glPushMatrix();
-	glTranslatef(x -xBoundary/2, 0, -y);
+	glTranslatef(x , 0, -y);
 	switch(facingDirection){
 		case up:
 			break;
@@ -123,6 +112,20 @@ float Frog::getY(){
 
 float Frog::getX(){
 	return x;
+}
+
+void Frog::setX(float _x){
+	x = _x;
+	moving = false;
+}
+
+void Frog::setY(float _y){
+	y = _y;
+	moving = false;
+}
+
+void Frog::stopMovement(){
+	moving = false;
 }
 
 void Frog::drawJumpingFrog(){

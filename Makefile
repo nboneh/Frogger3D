@@ -27,12 +27,12 @@ CLEAN=rm -f $(EXE) *.o *.a .DS_Store; cd GameObjects; make clean
 endif
 
 # Dependencies
-Frogger3D.o: Frogger3D.cpp Frogger3D.h  GameObjects/board.h
-fatal.o: fatal.c Frogger3D.h
-loadtexbmp.o: loadtexbmp.c Frogger3D.h
-print.o: print.c Frogger3D.h 
-project.o: project.c Frogger3D.h
-errcheck.o: errcheck.c Frogger3D.h
+Frogger3D.o: Frogger3D.cpp 
+fatal.o: fatal.c 
+loadtexbmp.o: loadtexbmp.c 
+print.o: print.c 
+project.o: project.c 
+errcheck.o: errcheck.c 
 
 #  Create archive
 Frogger3D.a: fatal.o loadtexbmp.o print.o project.o errcheck.o 

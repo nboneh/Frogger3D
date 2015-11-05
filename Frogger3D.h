@@ -24,9 +24,19 @@
 extern "C" {
 #endif
 
+
+
+extern unsigned int WATER;
+extern unsigned int WATER2;
+extern unsigned int WATER3;
+extern unsigned int WATER4;
+extern unsigned int ROAD;
+extern unsigned int GRASS;
+extern unsigned int CONCRETE;
+
 void Print(const char* format , ...);
 void Fatal(const char* format , ...);
-unsigned int LoadTexBMP(const char* file);
+unsigned int  LoadTexBMP(const char* file);
 void Project(double fov,double asp,double dim);
 void ErrCheck(const char* where);
 
@@ -39,6 +49,7 @@ enum direction{
 
 #ifdef __cplusplus
 }
+
 
 #endif
 

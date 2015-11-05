@@ -7,6 +7,14 @@ int ph=25;         //  Elevation of view angle
 double prevT = 0;
 Board board;
 
+unsigned int WATER;
+unsigned int WATER2;
+unsigned int WATER3;
+unsigned int WATER4;
+unsigned int ROAD;
+unsigned int GRASS;
+unsigned int CONCRETE;
+
 void idle()
 {
     //  Elapsed time in seconds
@@ -92,6 +100,7 @@ void reshape(int width,int height)
    glViewport(0,0, width,height);
    Project(55, w2h, dim);
 }
+ 
 
 
 /*
@@ -116,6 +125,16 @@ int main(int argc,char* argv[])
    glutKeyboardFunc(key);
    glutIdleFunc(idle);
    glEnable(GL_DEPTH_TEST);
+
+   WATER4 = LoadTexBMP("GameObjects/textures/water4.bmp");
+   WATER3 = LoadTexBMP("GameObjects/textures/water3.bmp");
+   WATER2 = LoadTexBMP("GameObjects/textures/water2.bmp");
+   WATER  = LoadTexBMP("GameObjects/textures/water.bmp");
+
+   GRASS = LoadTexBMP("GameObjects/textures/grass.bmp");
+   ROAD = LoadTexBMP("GameObjects/textures/road.bmp");
+   CONCRETE = LoadTexBMP("GameObjects/textures/concrete.bmp");
+
    board.init();
 
    //  Pass control to GLUT for events

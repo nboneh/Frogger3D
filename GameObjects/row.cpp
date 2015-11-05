@@ -14,14 +14,8 @@ Row::Row(int _width, std::vector<unsigned int>  _textures, float _textureSwitchT
 void Row::init(int _width, unsigned int _texture){
   width = _width;
   texture = _texture;
-  halfWidth = _width/2;
-  texture2 = 0;
 }
-
-void Row::addSecondTexture(unsigned int _texture2){
-  texture2 = _texture2;
-}
-
+ 
 void Row::update( double t){
   if(textures.size() > 0 ){
     textureTicCount += t;
@@ -50,20 +44,13 @@ void Row::draw(){
  glBindTexture(GL_TEXTURE_2D,texture);
  for(int i = 0; i < width; i++)
  {
-    if(texture2 != 0){
-      if((i +2) % 3 == 0){
-        glBindTexture(GL_TEXTURE_2D,texture);
-      } else {
-         glBindTexture(GL_TEXTURE_2D,texture2);
-      }
-    } 
-    int x = i - halfWidth;
- 		glBegin(GL_QUADS);
+     
+ 		glBegin(GL_POLYGON);
  		glNormal3f( 0,+1, 0);
-  	glTexCoord2f(0,0);glVertex3f(x,0,0);
-   	glTexCoord2f(1,0); glVertex3f(x+1,0,0);
-  	glTexCoord2f(1,1); glVertex3f(x+1 ,0,1);
-  	glTexCoord2f(0,1); glVertex3f(x ,0,1);
+  	glTexCoord2f(0,0);glVertex3f(i,0,0);
+   	glTexCoord2f(1,0); glVertex3f(i+1,0,0);
+  	glTexCoord2f(1,1); glVertex3f(i+1 ,0,1);
+  	glTexCoord2f(0,1); glVertex3f(i ,0,1);
    	glEnd();
  	}
  	glDisable(GL_TEXTURE_2D);

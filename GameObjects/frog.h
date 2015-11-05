@@ -1,18 +1,20 @@
 #include "../Frogger3D.h"
 
 class Frog{
-	int xBoundary, yBoundary;
 	float x, y, destx, desty;
 	direction facingDirection;
 	bool moving;
 	public: 
-		Frog();
-		void init(int _xBoundary, int _yBoundary, float spawnX, float spawnY, direction spawnDirection);
+		Frog( float spawnX, float spawnY, direction spawnDirection);
 		void update(double t);
 		void inputDirection(direction moveDirection);
 		void draw();
+		void setX(float _x);
+		void setY(float _y);
 		float getY();
 		float getX();
+		int getWidth();
+		void stopMovement();
 	private:
 		void drawFrog();
 		void drawJumpingFrog();

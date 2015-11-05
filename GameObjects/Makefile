@@ -21,11 +21,14 @@ CLEAN=rm -f $(archive) *.o *.a .DS_Store
 endif
 
 # Dependencies
-row.o: row.cpp row.h ../Frogger3D.h
-frog.o: frog.cpp frog.h ../Frogger3D.h
-board.o: board.cpp  board.h row.h frog.h  ../Frogger3D.h
+row.o: row.cpp 
+winningrow.o: winningrow.cpp 
+frog.o: frog.cpp 
+board.o: board.cpp  
+movingobject.o: movingobject.cpp 
+car1.o: car1.cpp 
 
-GameObjects.a: board.o row.o frog.o
+GameObjects.a: board.o row.o winningrow.o frog.o movingobject.o car1.o
 	ar -rcs $@ $^
 
 

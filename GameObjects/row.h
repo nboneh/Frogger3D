@@ -1,20 +1,23 @@
 #include "../Frogger3D.h"
 #include <vector>
 
+#ifndef ROW_H
+#define ROW_H
+#endif
+
 class Row{
-		int width, halfWidth;
+	public: 
+		Row(int _width, unsigned int _texture);
+		Row(int _width, std::vector<unsigned int> _textures, float _textureSwitchTime);
+		void update(double t);
+		virtual void draw();
+	protected:
+		int width;
 		unsigned int texture;
 		std::vector<unsigned int> textures;
 		float textureSwitchTime;
 		float textureTicCount;
 		int currentTexture;
-		unsigned int texture2; 
-	public: 
-		Row(int _width, unsigned int _texture);
-		Row(int _width, std::vector<unsigned int> _textures, float _textureSwitchTime);
-		void addSecondTexture(unsigned int _texture2);
-		void update(double t);
-		void draw();
 	private:
 		void init(int _width, unsigned int _texture);
 };
