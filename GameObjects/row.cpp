@@ -18,17 +18,11 @@ void Row::init( unsigned int _texture){
 
 void Row::addMovingObjects(std::string type, int distanceBetween, int num ){
     MovingObject* first = getMovingObject(type);
-    direction dir = first->getMovingDirection();
     float x = first->getX();
     int width = first->getWidth();
     movingObjects.push_back(first);
     for(int i =1; i < num; i++){
-        if(dir == right){
-          x += (distanceBetween +width);
-        }
-        else if(dir == left){
-          x -= (distanceBetween + width);
-        }
+        x -= (distanceBetween + width);
         MovingObject* entry = getMovingObject(type);
         entry->setX(x);
         movingObjects.push_back(entry);

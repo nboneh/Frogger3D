@@ -18,10 +18,14 @@ Board::Board(){
 	rows.push_back(new Row(ROAD));
  	rows.push_back(new Row(ROAD));
  	rows.push_back(new Row(ROAD));
- 	rows.push_back(new Row(ROAD));
+ 	Row * secondRoadRow = new Row(ROAD);
+ 	secondRoadRow->addMovingObjects("Car2", 3,3);
+ 	rows.push_back(secondRoadRow);
+
  	Row * firstRoadRow = new Row(ROAD);
- 	firstRoadRow->addMovingObjects("Car1", 2, 3);
+ 	firstRoadRow->addMovingObjects("Car1", 3, 3);
  	rows.push_back(firstRoadRow);
+
  	rows.push_back(new Row(GRASS));
  	frog = new Frog(ROW_WIDTH/2 , rows.size(),up);
 

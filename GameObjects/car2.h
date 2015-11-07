@@ -6,7 +6,7 @@
 
 class Car2 : public MovingObject{
 	public:
-		Car2(float spawnX);
+		Car2();
 	protected:
 		void drawAfterSetup();
 

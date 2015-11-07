@@ -6,12 +6,11 @@ MovingObject::MovingObject(direction _movingDirection, float _speed, int _width)
 	movingDirection = _movingDirection;
 	speed = _speed;
 	width = _width;
+	x =  ROW_WIDTH + width ;
 	if(movingDirection == right){
-			x = -width;
 			startX = 0;
 			endX = ROW_WIDTH + WRAP_AROUND_WIDTH  ;
 	} else if (movingDirection == left){
-			x =  ROW_WIDTH + width ;
 			startX = ROW_WIDTH - width ;
 			endX = -WRAP_AROUND_WIDTH - width;
 	}
@@ -64,9 +63,6 @@ void MovingObject::setX(float _x){
 	x = _x;
 }
 
-direction MovingObject::getMovingDirection(){
-	return movingDirection;
-}
 
 float MovingObject::getX(){
 	return x;
