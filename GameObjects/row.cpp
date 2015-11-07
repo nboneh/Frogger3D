@@ -1,19 +1,38 @@
 #include "row.h"
+#include "movingobjectsfactory.h"
 
-Row::Row(int _width, unsigned int _texture){
-	init(_width, _texture);
+Row::Row(unsigned int _texture){
+	init(_texture);
 }
-Row::Row(int _width, std::vector<unsigned int>  _textures, float _textureSwitchTime){
-  init(_width, _textures.at(0));
+Row::Row( std::vector<unsigned int>  _textures, float _textureSwitchTime){
+  init( _textures.at(0));
   textureSwitchTime = _textureSwitchTime;
   textures = _textures;
   textureTicCount = 0;
   currentTexture = 0;
 }
 
-void Row::init(int _width, unsigned int _texture){
-  width = _width;
+void Row::init( unsigned int _texture){
   texture = _texture;
+}
+
+void Row::addMovingObjects(std::string type, int distanceBetween, int num ){
+    MovingObject* first = getMovingObject(type);
+    direction dir = first->getMovingDirection();
+    float x = first->getX();
+    int width = first->getWidth();
+    movingObjects.push_back(first);
+    for(int i =1; i < num; i++){
+        if(dir == right){
+          x += (distanceBetween +width);
+        }
+        else if(dir == left){
+          x -= (distanceBetween + width);
+        }
+        MovingObject* entry = getMovingObject(type);
+        entry->setX(x);
+        movingObjects.push_back(entry);
+    }
 }
  
 void Row::update( double t){
@@ -27,6 +46,10 @@ void Row::update( double t){
        }
        texture = textures.at(currentTexture);
     }
+  }
+
+  for(int i = 0; i < movingObjects.size(); i++){
+    movingObjects.at(i)->update(t);
   }
 }
 
@@ -42,7 +65,7 @@ void Row::draw(){
  glEnable(GL_TEXTURE_2D);
  glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_REPLACE); 
  glBindTexture(GL_TEXTURE_2D,texture);
- for(int i = 0; i < width; i++)
+ for(int i = 0; i < ROW_WIDTH; i++)
  {
      
  		glBegin(GL_POLYGON);
@@ -54,4 +77,8 @@ void Row::draw(){
    	glEnd();
  	}
  	glDisable(GL_TEXTURE_2D);
+
+  for(int i = 0; i < movingObjects.size(); i++){
+      movingObjects.at(i)->draw();
+  }
 }

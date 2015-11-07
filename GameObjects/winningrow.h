@@ -8,7 +8,7 @@
 class WinningRow : public Row{
 		unsigned int boundaryTexture;
 	public:
-		WinningRow(int _width, std::vector<unsigned int> _textures, float _textureSwitchTime, unsigned int _boundaryTexture);
+		WinningRow( std::vector<unsigned int> _textures, float _textureSwitchTime, unsigned int _boundaryTexture);
 		void draw();
 	private:
 		void drawLeftBoundaryRightReg(int x, int y);

@@ -24,8 +24,7 @@
 extern "C" {
 #endif
 
-
-
+extern int ROW_WIDTH;
 extern unsigned int WATER;
 extern unsigned int WATER2;
 extern unsigned int WATER3;

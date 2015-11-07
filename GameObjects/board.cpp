@@ -1,28 +1,29 @@
 #include "board.h"
 #include "WinningRow.h"
-
-
+#include <string>
 
 Board::Board(){
-	rowsWidth = 14;
 	std::vector<unsigned int> water;
 	water.push_back(WATER4);
 	water.push_back(WATER3);
 	water.push_back(WATER2);
 	water.push_back(WATER);
 
-	rows.push_back(new WinningRow(rowsWidth, water, .2, GRASS));
-	rows.push_back(new Row(rowsWidth, water, .2));
-	rows.push_back(new Row(rowsWidth, water, .2));
-	rows.push_back(new Row(rowsWidth, water, .2));
-	rows.push_back(new Row(rowsWidth, water, .2));
-	rows.push_back(new Row(rowsWidth, CONCRETE));
- 	rows.push_back(new Row(rowsWidth, ROAD));
- 	rows.push_back(new Row(rowsWidth, ROAD));
- 	rows.push_back(new Row(rowsWidth, ROAD));
- 	rows.push_back(new Row(rowsWidth, ROAD));
- 	rows.push_back(new Row(rowsWidth, GRASS));
- 	frog = new Frog(rowsWidth/2 , rows.size(),up);
+	rows.push_back(new WinningRow( water, .2, GRASS));
+	rows.push_back(new Row(water, .2));
+	rows.push_back(new Row(water, .2));
+	rows.push_back(new Row(water, .2));
+	rows.push_back(new Row(water, .2));
+	rows.push_back(new Row(CONCRETE));
+	rows.push_back(new Row(ROAD));
+ 	rows.push_back(new Row(ROAD));
+ 	rows.push_back(new Row(ROAD));
+ 	rows.push_back(new Row(ROAD));
+ 	Row * firstRoadRow = new Row(ROAD);
+ 	firstRoadRow->addMovingObjects("Car1", 2, 3);
+ 	rows.push_back(firstRoadRow);
+ 	rows.push_back(new Row(GRASS));
+ 	frog = new Frog(ROW_WIDTH/2 , rows.size(),up);
 
 }
 void Board::update( double t){
@@ -37,8 +38,8 @@ void Board::update( double t){
 		frog->setX(0);
 		frog->stopMovement();
 	}
-	else if(frog->getX() >= (rowsWidth-1)){
-		frog->setX(rowsWidth-1);
+	else if(frog->getX() > (ROW_WIDTH-1)){
+		frog->setX(ROW_WIDTH-1);
 		frog->stopMovement();
 	}
 	else if(frog->getY() > rows.size()){
@@ -56,7 +57,7 @@ void Board::inputDirection(direction d){
 void Board::draw(){
 	int numOfRows = rows.size();
 	//Adjusting camera
-	glTranslatef(-frog->getX(),0, - frog->getY() +numOfRows* .4f);
+	glTranslatef(-frog->getX(),0, - frog->getY() +numOfRows* .38f);
 	
 	//Drawing rows
 	glPushMatrix();

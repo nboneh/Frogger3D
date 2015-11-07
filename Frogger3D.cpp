@@ -14,6 +14,7 @@ unsigned int WATER4;
 unsigned int ROAD;
 unsigned int GRASS;
 unsigned int CONCRETE;
+int ROW_WIDTH = 14;
 
 void idle()
 {

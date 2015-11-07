@@ -4,9 +4,9 @@
 #include "movingobject.h"
 #endif
 
-class Car1 : public MovingObject{
+class Car2 : public MovingObject{
 	public:
-		Car1();
+		Car2(float spawnX);
 	protected:
 		void drawAfterSetup();
 

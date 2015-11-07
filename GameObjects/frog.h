@@ -1,5 +1,9 @@
 #include "../Frogger3D.h"
 
+#ifndef FROG_H
+#define FROG_H
+#endif
+
 class Frog{
 	float x, y, destx, desty;
 	direction facingDirection;

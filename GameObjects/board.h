@@ -1,13 +1,11 @@
 #include "../Frogger3D.h"
+#include "frog.h"
 #include "row.h"
 #include <vector>
-#include "frog.h"
-
 
 class Board{
 		 std::vector<Row *> rows;
 		 Frog* frog;
-		 int rowsWidth;
 	public: 
 		Board();
 		void update(double t);

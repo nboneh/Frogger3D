@@ -1,74 +1,83 @@
 #include "movingobject.h"
 
+int WRAP_AROUND_WIDTH = 2;
 
-MovingObject::MovingObject(){
-	stopped = false;
-}
-
-void MovingObject::init(float _spawnX, float _spawnY, direction _movingDirection){
+MovingObject::MovingObject(direction _movingDirection, float _speed, int _width){
 	movingDirection = _movingDirection;
-	spawnX = _spawnX;
-	spawnY = _spawnY;
-	x = spawnX;
-	y = spawnY;
+	speed = _speed;
+	width = _width;
+	if(movingDirection == right){
+			x = -width;
+			startX = 0;
+			endX = ROW_WIDTH + WRAP_AROUND_WIDTH  ;
+	} else if (movingDirection == left){
+			x =  ROW_WIDTH + width ;
+			startX = ROW_WIDTH - width ;
+			endX = -WRAP_AROUND_WIDTH - width;
+	}
+	
 }
 
 void MovingObject::update(double t){
-	if(stopped)
-		return;
 	float move = t * speed;
-	switch(movingDirection){
-		case up:
-			y += move;
-			break;
-		case down:
-			y -= move;
-			break;
-		case right:
+	if(movingDirection == right){
 			x += move;
-			break;
-		case left:
+			if(x >= endX)
+				reset();
+	} else if (movingDirection == left){
 			x -= move;
-			break;
+			if( x < endX)
+				reset();
 	}
 
 }
 void MovingObject::draw(){
-	if(stopped)
-		return;
 	glPushMatrix();
-	glTranslatef(x , 0, -y);
-	switch(movingDirection){
-		case up:
-			break;
-		case down:
-			glRotatef(180, 0,1,0);
-			glTranslatef(-1,0,1);
-			break;
-		case left:
-			glRotatef(90, 0,1,0);
-			glTranslatef(0,0,1);
-			break;
-		case right:
-			glRotatef(270, 0,1,0);
-			glTranslatef(-1,0,0);
-			break;
-	}
+	glTranslatef(x , 0, 0);
 	drawAfterSetup();
 	glPopMatrix();
 
+	//Drawing wrap around
+	if(movingDirection == right && x >=  (endX - width)){
+		glPushMatrix();
+		glTranslatef(x- ROW_WIDTH- WRAP_AROUND_WIDTH,0,0);
+		drawAfterSetup();
+		glPopMatrix();
+	}	
+
+	else if(movingDirection == left && x <= -WRAP_AROUND_WIDTH){
+		glPushMatrix();
+		glTranslatef(x + ROW_WIDTH+ WRAP_AROUND_WIDTH,0,0);
+		drawAfterSetup();
+		glPopMatrix();
+	}
+
+
+
+
 }
 
-void MovingObject::stop(){
-	stopped = true;
+float MovingObject::getWidth(){
+	return width;
+}
+void MovingObject::setX(float _x){
+	x = _x;
 }
 
-bool MovingObject::isStopped(){
-	return stopped;
+direction MovingObject::getMovingDirection(){
+	return movingDirection;
+}
+
+float MovingObject::getX(){
+	return x;
+}
+
+void MovingObject::checkColisonWithFrog(Frog* frog){
+
 }
 
 void MovingObject::reset(){
-	x = spawnX;
-	y = spawnY;
-	stopped = false;
+	x = startX;
 } 
+
+

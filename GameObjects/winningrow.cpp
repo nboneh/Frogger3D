@@ -1,6 +1,6 @@
 #include "winningrow.h"
 
-WinningRow::WinningRow(int _width, std::vector<unsigned int> _textures, float _textureSwitchTime, unsigned int _boundaryTexture): Row(_width,  _textures, _textureSwitchTime){
+WinningRow::WinningRow(std::vector<unsigned int> _textures, float _textureSwitchTime, unsigned int _boundaryTexture): Row( _textures, _textureSwitchTime){
         boundaryTexture =_boundaryTexture;
     }
 
@@ -18,7 +18,7 @@ void WinningRow::draw(){
 
 glBindTexture(GL_TEXTURE_2D,texture);
  for(int j =0; j > -2; j--){
-    for(int i = 0; i < width; i++){
+    for(int i = 0; i < ROW_WIDTH; i++){
 
       if(i % 3 == 0){
         if(j == 0){
