@@ -4,6 +4,7 @@ Frog::Frog(float _spawnX, float _spawnY, direction _spawnDirection){
 	spawnX = _spawnX;
 	spawnY = _spawnY;
 	spawnDirection = _spawnDirection;
+	deathFrameTic = .2;
 	reset();
 }
 
@@ -49,11 +50,20 @@ void Frog::update(double t){
 				break;
 		}
 
+	} else if(dying){
+		deathFrameTicCount += t;
+		if(deathFrameTicCount >= deathFrameTic){
+			deathFrameTicCount -= deathFrameTic;
+			deathFrame++;
+			if(deathFrame >= 4)
+				reset();
+		}
+
 	}
 }
 
 void Frog::inputDirection(direction moveDirection){
-	if(moving)
+	if(moving || dying)
 		return;
 	facingDirection = moveDirection;
 	moving = true; 
@@ -94,13 +104,76 @@ void Frog::draw(){
 			break;
 	}
 	glColor3f(0,1,0);
-	if(moving)
+	if(dying)
+		drawDeath();
+	else if(moving)
 		drawJumpingFrog();
 	else 
 		drawFrog();
 	glPopMatrix();
 }
 
+void Frog::drawDeath(){
+	switch(deathFrame){
+		case 0:
+			if(typeOfDeath == roadkill){
+				glColor3f(1,0,0);
+				glBegin(GL_POLYGON);
+    			glVertex3f(0,.01, 0);
+    			glVertex3f(0,.01, -.2);
+    			glVertex3f(.2,.01, -.2);
+    			glVertex3f(.2,.01, 0);
+    			glEnd();
+
+			}
+			else if(typeOfDeath == drown){
+
+
+			}
+			break;
+		case 1:
+			if(typeOfDeath == roadkill){
+				glColor3f(1,0,0);
+				glBegin(GL_POLYGON);
+    			glVertex3f(0,.01, 0);
+    			glVertex3f(0,.01, -.6);
+    			glVertex3f(.6,.01, -.6);
+    			glVertex3f(.6,.01, 0);
+    			glEnd();
+				
+			}
+
+			else if(typeOfDeath == drown){
+
+			}
+			break;
+		case 2:
+			if(typeOfDeath == roadkill){
+				glColor3f(1,0,0);
+				glBegin(GL_POLYGON);
+    			glVertex3f(0,.01, 0);
+    			glVertex3f(0,.01, -.8);
+    			glVertex3f(.8,.01, -.8);
+    			glVertex3f(.8,.01, 0);
+    			glEnd();
+			}
+
+			else if(typeOfDeath == drown){
+
+			}
+			break;
+		case 3:
+			//Draw skull
+			glColor3f(1,0,0);
+			glBegin(GL_POLYGON);
+    		glVertex3f(0,.01, 0);
+    		glVertex3f(0,.01, -1);
+    		glVertex3f(1,.01, -1);
+    		glVertex3f(1,.01, 0);
+    		glEnd();
+		  	break;
+	}
+}
 void Frog::drawFrog(){
    glBegin(GL_POLYGON);
    glVertex3f(0,.01, 0);
@@ -109,10 +182,13 @@ void Frog::drawFrog(){
    glEnd();
 }
 
-void Frog::kill(deathType _typeOfDeath){
+void Frog::die(deathType _typeOfDeath){
+	if(dying)
+		return;
 	typeOfDeath = _typeOfDeath;
-
 	dying = true; 
+	deathFrameTicCount = 0;
+	deathFrame = 0;
 }
 
 float Frog::getY(){

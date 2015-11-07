@@ -12,6 +12,15 @@ Row::Row( std::vector<unsigned int>  _textures, float _textureSwitchTime){
   currentTexture = 0;
 }
 
+void Row::checkColisonWithFrog(Frog* frog){
+  for(int i = 0; i < movingObjects.size(); i++){
+    if(movingObjects.at(i)->checkColisonWithFrog(frog)){
+      frog->die(roadkill);
+      break;
+    }
+  }
+}
+
 void Row::init( unsigned int _texture){
   texture = _texture;
 }

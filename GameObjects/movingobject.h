@@ -14,7 +14,7 @@ class MovingObject{
 	   	MovingObject(direction _movingDirection, float _speed, int _width);
 		void update(double t);
 		void draw();
-		void checkColisonWithFrog(Frog* frog);
+		bool checkColisonWithFrog(Frog* frog);
 		void setX(float _x);
 		float getX();
 		float getWidth();

@@ -62,11 +62,14 @@ void Board::draw(){
 	int numOfRows = rows.size();
 	//Adjusting camera
 	glTranslatef(-frog->getX(),0, - frog->getY() +numOfRows* .38f);
+	int checkColisionAtY = ceil(frog->getY())-1;
 	
 	//Drawing rows
 	glPushMatrix();
 	for(int i = 0; i < numOfRows;i++){
  		rows.at(i)->draw();
+ 		if(i == checkColisionAtY)
+ 			rows.at(i)->checkColisonWithFrog(frog);
  		glTranslatef(0,0,1);
  	}
  	glPopMatrix();

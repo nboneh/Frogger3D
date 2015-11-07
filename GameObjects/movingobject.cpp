@@ -68,8 +68,8 @@ float MovingObject::getX(){
 	return x;
 }
 
-void MovingObject::checkColisonWithFrog(Frog* frog){
-
+bool MovingObject::checkColisonWithFrog(Frog* frog){
+	return frog->getX() +1 >= x && x + width >= frog->getX();
 }
 
 void MovingObject::reset(){
