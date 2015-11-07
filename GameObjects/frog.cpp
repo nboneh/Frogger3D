@@ -1,13 +1,19 @@
 #include "frog.h"
 
-Frog::Frog(float spawnX, float spawnY, direction spawnDirection){
+Frog::Frog(float _spawnX, float _spawnY, direction _spawnDirection){
+	spawnX = _spawnX;
+	spawnY = _spawnY;
+	spawnDirection = _spawnDirection;
+	reset();
+}
+
+void Frog::reset(){
 	x = spawnX;
 	y = spawnY;
 	facingDirection = spawnDirection;
 	moving = false;
+	dying = false;
 }
-
-
 
 void Frog::update(double t){
 	if(moving){
@@ -49,10 +55,7 @@ void Frog::update(double t){
 void Frog::inputDirection(direction moveDirection){
 	if(moving)
 		return;
-	if(facingDirection != moveDirection){
-		facingDirection = moveDirection;
-		return;
-	}
+	facingDirection = moveDirection;
 	moving = true; 
 	switch(facingDirection){
 		case up:
@@ -106,6 +109,12 @@ void Frog::drawFrog(){
    glEnd();
 }
 
+void Frog::kill(deathType _typeOfDeath){
+	typeOfDeath = _typeOfDeath;
+
+	dying = true; 
+}
+
 float Frog::getY(){
 	return y;
 }
@@ -134,5 +143,4 @@ void Frog::drawJumpingFrog(){
   	glVertex3f(.5,.01, -1.5);
    glVertex3f(1,.01, 0);
    glEnd();
-
 }

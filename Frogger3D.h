@@ -46,6 +46,11 @@ enum direction{
 	right
 };
 
+enum deathType{
+	water,
+	car
+};
+
 #ifdef __cplusplus
 }
 

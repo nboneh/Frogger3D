@@ -13,6 +13,7 @@ class Row{
 		Row( std::vector<unsigned int> _textures, float _textureSwitchTime);
 		void update(double t);
 		void addMovingObjects(std::string type, int distanceBetween, int num );
+		void checkColisonWithFrog(Frog* frog);
 		virtual void draw();
 	protected:
 		unsigned int texture;
