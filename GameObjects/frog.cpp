@@ -4,69 +4,106 @@ Frog::Frog(float _spawnX, float _spawnY, direction _spawnDirection){
 	spawnX = _spawnX;
 	spawnY = _spawnY;
 	spawnDirection = _spawnDirection;
-	deathFrameTic = .2;
-	reset();
-}
-
-void Frog::reset(){
+	deathFrameTic = .1;
 	x = spawnX;
 	y = spawnY;
 	facingDirection = spawnDirection;
-	moving = false;
-	dying = false;
+	state = normal;
+	lives =3;
+	farthestY = (int)y;
 }
 
+
 void Frog::update(double t){
-	if(moving){
-		float move = t*3;
+	float move;
+	bool yFinished = false; 
+	bool xFinished = false;
+	switch(state){
+	case normal:
+		break;
+	case moving:
+		move = t*3;
 		switch(facingDirection){
 			case up:
 			  y -= move;
 			  if(y <= desty){
 					y = desty;
-					moving = false;
+					state = normal;
+					if(y < farthestY){
+						SCORE +=  (farthestY -(int)y ) *10;
+						farthestY = (int)y;
+					}
 				}
 			  break;
 			case down:
 				y += move;
 				if(y >= desty){
 					y = desty;
-					moving = false;
+					state = normal;
 				}
 				break;
 			case left:
 				x -= move;
 				if(x <= destx){
 					x = destx;
-					moving = false;
+					state = normal;
 				}
 				break;
 			case right:
 				x += move;
 				if(x >= destx){
 					x = destx;
-					moving = false;
+					state = normal;
 				}
 				break;
 		}
+		break;
+	case respawning:
+			//Moving camera to respawn location
+			x += respawnRateX*t;
+			y += respawnRateY*t;
 
-	} else if(dying){
-		deathFrameTicCount += t;
-		if(deathFrameTicCount >= deathFrameTic){
-			deathFrameTicCount -= deathFrameTic;
-			deathFrame++;
-			if(deathFrame >= 4)
-				reset();
+		
+			if(respawnRateY >= 0 && y >= spawnY ){
+				y = spawnY;
+				yFinished = true; 
+			}
+			else if(respawnRateY < 0 && y <= spawnY){
+				y = spawnY;
+				yFinished = true; 
+			}
+
+			if(respawnRateX >= 0 && x >= spawnX ){
+				x = spawnX;
+				xFinished = true; 
+			}
+			else if(respawnRateX < 0 && x <= spawnX){
+				x= spawnX;
+				xFinished = true; 
+			}
+
+			if(yFinished && xFinished)
+				state = normal;
+			break;
+	case dying: 
+			//Playing death animation
+			deathFrameTicCount += t;
+			if(deathFrameTicCount >= deathFrameTic){
+				deathFrameTicCount -= deathFrameTic;
+				deathFrame++;
+				if(deathFrame >= 4){
+					respawn();
+				}
+			}
+			break;
 		}
-
 	}
-}
 
 void Frog::inputDirection(direction moveDirection){
-	if(moving || dying)
+	if(state != normal)
 		return;
 	facingDirection = moveDirection;
-	moving = true; 
+	state = moving; 
 	switch(facingDirection){
 		case up:
 			desty = y - 1;
@@ -82,6 +119,26 @@ void Frog::inputDirection(direction moveDirection){
 			break;
 	}
 
+}
+
+void Frog::respawn(){
+	//Calculating camera movement rate
+	farthestY = spawnY;
+	state = respawning;
+	float distToSpawnX = spawnX -x;
+	float distToSpawnY = spawnY -y;
+	float angle = atan (fabs(distToSpawnX/distToSpawnY)) * 180 / PI;
+					
+	respawnRateX = 5*Sin(angle);
+	if(distToSpawnX < 0)
+		respawnRateX = -respawnRateX;
+
+	respawnRateY = 5*Cos(angle);
+	if(distToSpawnY < 0)
+		respawnRateY = -respawnRateY;
+
+	facingDirection = spawnDirection;
+			
 }
 
 void Frog::draw(){
@@ -104,12 +161,19 @@ void Frog::draw(){
 			break;
 	}
 	glColor3f(0,1,0);
-	if(dying)
-		drawDeath();
-	else if(moving)
-		drawJumpingFrog();
-	else 
-		drawFrog();
+	switch(state){
+		case dying:
+			drawDeath();
+			break;
+		case moving:
+			drawJumpingFrog();
+			break;
+		case normal: 
+			drawFrog();
+			break;
+		case respawning:
+			break;
+	}
 	glPopMatrix();
 }
 
@@ -172,6 +236,8 @@ void Frog::drawDeath(){
     		glVertex3f(1,.01, 0);
     		glEnd();
 		  	break;
+		case 4:
+			break;
 	}
 }
 void Frog::drawFrog(){
@@ -183,12 +249,14 @@ void Frog::drawFrog(){
 }
 
 void Frog::die(deathType _typeOfDeath){
-	if(dying)
+	if(state == dying || state == respawning)
 		return;
+	stopMovement();
 	typeOfDeath = _typeOfDeath;
-	dying = true; 
+	state = dying; 
 	deathFrameTicCount = 0;
 	deathFrame = 0;
+	lives--;
 }
 
 float Frog::getY(){
@@ -201,16 +269,14 @@ float Frog::getX(){
 
 void Frog::setX(float _x){
 	x = _x;
-	moving = false;
 }
 
 void Frog::setY(float _y){
 	y = _y;
-	moving = false;
 }
 
 void Frog::stopMovement(){
-	moving = false;
+	state = normal;
 }
 
 void Frog::drawJumpingFrog(){

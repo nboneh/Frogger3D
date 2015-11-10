@@ -24,5 +24,7 @@ class MovingObject{
 		float x, speed;
 		int endX, startX, width;
 		direction movingDirection;
+	private:
+		bool detectColision(Frog* frog, float objectX);
 
 };

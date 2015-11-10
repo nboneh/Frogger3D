@@ -15,6 +15,7 @@ unsigned int ROAD;
 unsigned int GRASS;
 unsigned int CONCRETE;
 int ROW_WIDTH = 14;
+int SCORE = 0;
 
 void idle()
 {
@@ -37,6 +38,24 @@ void display()
    double Ez = (+2*dim*Cos(th)*Cos(ph));
    gluLookAt(Ex,Ey,Ez , 0,0,0 , 0,Cos(ph),0);
    board->draw();
+
+   glLineWidth(3);
+   glRotatef(-th,0,1,0);
+   glRotatef(-ph,1,0,0);
+   
+   glPushMatrix();
+   glColor3f(1,1,1);
+   glTranslatef(-5, -5,0);
+   glScalef(1/152.0, 1/152.0, 1/152.0);
+   Print("Score");
+   glPopMatrix();
+
+   glPushMatrix();
+   glColor3f(1,0,0);
+   glTranslatef(-2.5, -5,0);
+   glScalef(1/152.0, 1/152.0, 1/152.0);
+   Print("%d", SCORE);
+   glPopMatrix();
 
    //  Make scene visible
    glFlush();
@@ -117,7 +136,7 @@ int main(int argc,char* argv[])
    glutInitWindowSize(600, 600);
    //  Create window
    glutCreateWindow("Frogger3D");
-   glutFullScreen();  
+   //glutFullScreen();  
 
    //  Register display, reshape, and key callbacks
    glutDisplayFunc(display);
@@ -125,7 +144,6 @@ int main(int argc,char* argv[])
    glutSpecialFunc(special);
    glutKeyboardFunc(key);
    glutIdleFunc(idle);
-   glEnable(GL_DEPTH_TEST);
 
    WATER4 = LoadTexBMP("GameObjects/textures/water4.bmp");
    WATER3 = LoadTexBMP("GameObjects/textures/water3.bmp");

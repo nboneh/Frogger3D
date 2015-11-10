@@ -28,9 +28,12 @@ board.o: board.cpp
 movingobject.o: movingobject.cpp 
 car1.o: car1.cpp 
 car2.o: car2.cpp 
+car3.o: car3.cpp
+car4.o: car4.cpp
+truck.o: truck.cpp
 movingobjectsfactory.o: movingobjectsfactory.cpp
 
-GameObjects.a: board.o row.o winningrow.o frog.o movingobject.o car1.o car2.o movingobjectsfactory.o
+GameObjects.a: board.o row.o winningrow.o frog.o movingobject.o car1.o car2.o car3.o car4.o truck.o movingobjectsfactory.o
 	ar -rcs $@ $^
 
 

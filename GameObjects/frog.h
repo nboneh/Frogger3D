@@ -7,15 +7,14 @@
 class Frog{
 	float spawnX, spawnY;
 	float deathFrameTicCount, deathFrameTic;
-	int deathFrame;
-	float x, y, destx, desty;
+	int deathFrame, lives, farthestY;
+	float x, y, destx, desty, respawnRateX, respawnRateY;
 	direction facingDirection,spawnDirection;
 	deathType typeOfDeath;
-	bool dying, moving;
+	frogState state;
 	public: 
 		Frog( float _spawnX, float _spawnY, direction _spawnDirection);
 		void update(double t);
-		void reset();
 		void inputDirection(direction moveDirection);
 		void draw();
 		void setX(float _x);
@@ -24,6 +23,7 @@ class Frog{
 		float getX();
 		void die(deathType _typeOfDeath);
 		void stopMovement();
+		void respawn();
 	private:
 		void drawDeath();
 		void drawFrog();

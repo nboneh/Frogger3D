@@ -1,6 +1,6 @@
 #include "car1.h"
 
-Car1::Car1(): MovingObject(left, (3/2.0), 1){
+Car1::Car1(): MovingObject(left, 1.5f, 1){
 } 
 
 void Car1::drawAfterSetup(){

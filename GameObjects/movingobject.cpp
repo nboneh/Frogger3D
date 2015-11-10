@@ -69,11 +69,25 @@ float MovingObject::getX(){
 }
 
 bool MovingObject::checkColisonWithFrog(Frog* frog){
-	return frog->getX() +1 >= x && x + width >= frog->getX();
+	if(detectColision(frog, x))
+		return true;
+	
+	//Check wrap around colision
+	if(movingDirection == right && x >=  (endX - width))
+		return detectColision(frog, x- ROW_WIDTH- WRAP_AROUND_WIDTH);
+
+	else if(movingDirection == left && x <= -WRAP_AROUND_WIDTH)
+		return detectColision(frog, x + ROW_WIDTH+ WRAP_AROUND_WIDTH);
+
+	return false; 
 }
 
 void MovingObject::reset(){
 	x = startX;
 } 
+
+bool MovingObject::detectColision(Frog* frog, float objectX){
+	return frog->getX() +1 >=  objectX && objectX + width >= frog->getX();
+}
 
 

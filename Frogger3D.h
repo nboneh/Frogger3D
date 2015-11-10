@@ -19,11 +19,13 @@
 
 #define Cos(th) cos(3.1415926/180*(th))
 #define Sin(th) sin(3.1415926/180*(th))
+#define PI 3.14159265
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+extern int SCORE;
 extern int ROW_WIDTH;
 extern unsigned int WATER;
 extern unsigned int WATER2;
@@ -49,6 +51,13 @@ enum direction{
 enum deathType{
 	drown,
 	roadkill
+};
+
+enum frogState{
+	normal,
+	moving,
+	dying,
+	respawning
 };
 
 #ifdef __cplusplus
