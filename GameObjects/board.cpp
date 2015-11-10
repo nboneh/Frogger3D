@@ -72,10 +72,9 @@ void Board::inputDirection(direction d){
 
 void Board::draw(){
 	int numOfRows = rows.size();
-	glEnable(GL_DEPTH_TEST);
 	glPushMatrix();
 	//Adjusting camera
-	glTranslatef(-frog->getX(),0, - frog->getY() +numOfRows* .38f);
+	glTranslatef(-frog->getX(),0, - frog->getY() +numOfRows* .36f);
 	
 	//Drawing rows
 	glPushMatrix();
@@ -88,5 +87,5 @@ void Board::draw(){
  	//Drawing Frog
  	frog->draw();
  	glPopMatrix();
- 	glDisable(GL_DEPTH_TEST);
+
 }

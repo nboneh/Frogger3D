@@ -18,7 +18,7 @@ MovingObject::MovingObject(direction _movingDirection, float _speed, int _width)
 }
 
 void MovingObject::update(double t){
-	float move = t * speed;
+	 move = t * speed;
 	if(movingDirection == right){
 			x += move;
 			if(x >= endX)

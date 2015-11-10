@@ -276,7 +276,8 @@ void Frog::setY(float _y){
 }
 
 void Frog::stopMovement(){
-	state = normal;
+	if(state == moving)
+		state = normal;
 }
 
 void Frog::drawJumpingFrog(){

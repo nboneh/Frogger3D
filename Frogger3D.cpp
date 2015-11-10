@@ -27,6 +27,29 @@ void idle()
    glutPostRedisplay();
 }
 
+void printScore(){
+   glDisable(GL_DEPTH_TEST);
+   glLineWidth(3);
+   glRotatef(-th,0,1,0);
+   glRotatef(-ph,1,0,0);
+   
+   glPushMatrix();
+   glTranslatef(-5, -5,0);
+   glScalef(1/152.0, 1/152.0, 1/152.0);
+   glColor3f(1,1,1);
+   Print("Score");
+   glPopMatrix();
+
+   glPushMatrix();
+   glColor3f(1,0,0);
+   glTranslatef(-2.5, -5,0);
+   glScalef(1/152.0, 1/152.0, 1/152.0);
+   Print("%d", SCORE);
+   glPopMatrix();
+   glEnable(GL_DEPTH_TEST);
+
+}
+
 void display()
 {
    //  Clear screen
@@ -39,29 +62,13 @@ void display()
    gluLookAt(Ex,Ey,Ez , 0,0,0 , 0,Cos(ph),0);
    board->draw();
 
-   glLineWidth(3);
-   glRotatef(-th,0,1,0);
-   glRotatef(-ph,1,0,0);
-   
-   glPushMatrix();
-   glColor3f(1,1,1);
-   glTranslatef(-5, -5,0);
-   glScalef(1/152.0, 1/152.0, 1/152.0);
-   Print("Score");
-   glPopMatrix();
-
-   glPushMatrix();
-   glColor3f(1,0,0);
-   glTranslatef(-2.5, -5,0);
-   glScalef(1/152.0, 1/152.0, 1/152.0);
-   Print("%d", SCORE);
-   glPopMatrix();
-
+   printScore();
    //  Make scene visible
    glFlush();
    glutSwapBuffers();
    glutPostRedisplay();
 }
+
 
 
 void special(int key,int x,int y)
@@ -144,6 +151,7 @@ int main(int argc,char* argv[])
    glutSpecialFunc(special);
    glutKeyboardFunc(key);
    glutIdleFunc(idle);
+   glEnable(GL_DEPTH_TEST);
 
    WATER4 = LoadTexBMP("GameObjects/textures/water4.bmp");
    WATER3 = LoadTexBMP("GameObjects/textures/water3.bmp");

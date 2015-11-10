@@ -14,7 +14,7 @@ class MovingObject{
 	   	MovingObject(direction _movingDirection, float _speed, int _width);
 		void update(double t);
 		void draw();
-		bool checkColisonWithFrog(Frog* frog);
+		virtual bool checkColisonWithFrog(Frog* frog);
 		void setX(float _x);
 		float getX();
 		float getWidth();
@@ -24,6 +24,7 @@ class MovingObject{
 		float x, speed;
 		int endX, startX, width;
 		direction movingDirection;
+		float move;
 	private:
 		bool detectColision(Frog* frog, float objectX);
 
