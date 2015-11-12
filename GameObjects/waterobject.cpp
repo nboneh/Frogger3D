@@ -15,7 +15,7 @@ bool WaterObject::checkColisonWithFrog(Frog * frog){
 		}
 		else if(movingDirection == right){
 			frog->setX(frog->getX() + move);
-			if(frog->getX() > ROW_WIDTH)
+			if(frog->getX() > (ROW_WIDTH-1))
 				frog->die(drown);
 		}
 	}

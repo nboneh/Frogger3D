@@ -34,12 +34,17 @@ extern unsigned int WATER4;
 extern unsigned int ROAD;
 extern unsigned int GRASS;
 extern unsigned int CONCRETE;
+extern unsigned int BARK;
+extern unsigned int LOG;
 
 void Print(const char* format , ...);
 void Fatal(const char* format , ...);
 unsigned int  LoadTexBMP(const char* file);
 void Project(double fov,double asp,double dim);
 void ErrCheck(const char* where);
+
+void drawCylinder(unsigned int texture, unsigned int topTexture);
+void drawBall();
 
 enum direction{
 	up,

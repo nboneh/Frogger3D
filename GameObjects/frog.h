@@ -23,6 +23,8 @@ class Frog{
 		float getX();
 		void die(deathType _typeOfDeath);
 		void stopMovement();
+		bool isInNormalState();
+		bool movingVertically();
 		void respawn();
 	private:
 		void drawDeath();

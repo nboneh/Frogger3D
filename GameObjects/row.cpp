@@ -12,17 +12,32 @@ Row::Row( std::vector<unsigned int>  _textures, float _textureSwitchTime){
   currentTexture = 0;
 }
 
+void Row::setAsWaterRow(){
+  waterRow = true; 
+}
 void Row::checkColisonWithFrog(Frog* frog){
-  for(int i = 0; i < movingObjects.size(); i++){
-    if(movingObjects.at(i)->checkColisonWithFrog(frog)){
-      frog->die(roadkill);
-      break;
+  if(waterRow){
+    bool drownFrog = frog->isInNormalState(); 
+    for(int i = 0; i < movingObjects.size(); i++){
+      if(movingObjects.at(i)->checkColisonWithFrog(frog))
+        drownFrog = false;
+    }
+    if(drownFrog)
+      frog->die(drown);
+    
+  } else {
+    for(int i = 0; i < movingObjects.size(); i++){
+      if(movingObjects.at(i)->checkColisonWithFrog(frog)){
+        frog->die(roadkill);
+        break;
+      }
     }
   }
 }
 
 void Row::init( unsigned int _texture){
   texture = _texture;
+  waterRow = false; 
 }
 
 void Row::addMovingObjects(std::string type, int distanceBetween, int num ){
@@ -64,6 +79,10 @@ void Row::draw(){
   glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
   glMaterialfv(GL_FRONT,GL_EMISSION,Emission);
 
+  glPushMatrix();
+  if(waterRow)
+    glTranslatef(0,-.5,0);
+
 
  glEnable(GL_TEXTURE_2D);
  glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_REPLACE); 
@@ -84,4 +103,6 @@ void Row::draw(){
   for(int i = 0; i < movingObjects.size(); i++){
       movingObjects.at(i)->draw();
   }
+
+  glPopMatrix();
 }

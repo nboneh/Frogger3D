@@ -22,7 +22,7 @@ void Frog::update(double t){
 	case normal:
 		break;
 	case moving:
-		move = t*3;
+		move = t*5;
 		switch(facingDirection){
 			case up:
 			  y -= move;
@@ -100,7 +100,7 @@ void Frog::update(double t){
 	}
 
 void Frog::inputDirection(direction moveDirection){
-	if(state != normal)
+	if(!isInNormalState())
 		return;
 	facingDirection = moveDirection;
 	state = moving; 
@@ -248,6 +248,9 @@ void Frog::drawFrog(){
    glEnd();
 }
 
+bool Frog::isInNormalState(){
+	return state == normal;
+}
 void Frog::die(deathType _typeOfDeath){
 	if(state == dying || state == respawning)
 		return;
@@ -280,10 +283,15 @@ void Frog::stopMovement(){
 		state = normal;
 }
 
+bool Frog::movingVertically(){
+  	return state == moving && (facingDirection == up || facingDirection == down);
+}
+
+
 void Frog::drawJumpingFrog(){
    glBegin(GL_POLYGON);
-    glVertex3f(0,.01, 0);
-  	glVertex3f(.5,.01, -1.5);
+   glVertex3f(0,.01, 0);
+   glVertex3f(.5,.01, -1.5);
    glVertex3f(1,.01, 0);
    glEnd();
 }

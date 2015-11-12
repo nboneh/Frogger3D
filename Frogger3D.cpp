@@ -3,7 +3,7 @@
 
 double dim=5.0;  
 int th=0;         //  Azimuth of view angle
-int ph=25;         //  Elevation of view angle
+int ph=45;         //  Elevation of view angle
 double prevT = 0;
 Board* board;
 
@@ -14,6 +14,9 @@ unsigned int WATER4;
 unsigned int ROAD;
 unsigned int GRASS;
 unsigned int CONCRETE;
+unsigned int BARK;
+unsigned int LOG;
+
 int ROW_WIDTH = 14;
 int SCORE = 0;
 
@@ -46,6 +49,7 @@ void printScore(){
    glScalef(1/152.0, 1/152.0, 1/152.0);
    Print("%d", SCORE);
    glPopMatrix();
+
    glEnable(GL_DEPTH_TEST);
 
 }
@@ -62,7 +66,8 @@ void display()
    gluLookAt(Ex,Ey,Ez , 0,0,0 , 0,Cos(ph),0);
    board->draw();
 
-   printScore();
+  printScore();
+
    //  Make scene visible
    glFlush();
    glutSwapBuffers();
@@ -143,7 +148,7 @@ int main(int argc,char* argv[])
    glutInitWindowSize(600, 600);
    //  Create window
    glutCreateWindow("Frogger3D");
-   //glutFullScreen();  
+   glutFullScreen();  
 
    //  Register display, reshape, and key callbacks
    glutDisplayFunc(display);
@@ -153,14 +158,17 @@ int main(int argc,char* argv[])
    glutIdleFunc(idle);
    glEnable(GL_DEPTH_TEST);
 
-   WATER4 = LoadTexBMP("GameObjects/textures/water4.bmp");
-   WATER3 = LoadTexBMP("GameObjects/textures/water3.bmp");
-   WATER2 = LoadTexBMP("GameObjects/textures/water2.bmp");
-   WATER  = LoadTexBMP("GameObjects/textures/water.bmp");
+   WATER4 = LoadTexBMP("textures/water4.bmp");
+   WATER3 = LoadTexBMP("textures/water3.bmp");
+   WATER2 = LoadTexBMP("textures/water2.bmp");
+   WATER  = LoadTexBMP("textures/water.bmp");
 
-   GRASS = LoadTexBMP("GameObjects/textures/grass.bmp");
-   ROAD = LoadTexBMP("GameObjects/textures/road.bmp");
-   CONCRETE = LoadTexBMP("GameObjects/textures/concrete.bmp");
+   GRASS = LoadTexBMP("textures/grass.bmp");
+   ROAD = LoadTexBMP("textures/road.bmp");
+   CONCRETE = LoadTexBMP("textures/concrete.bmp");
+
+   BARK = LoadTexBMP("textures/bark.bmp");
+   LOG = LoadTexBMP("textures/log.bmp");
 
    board = new Board();
 

@@ -15,6 +15,8 @@ void WinningRow::draw(){
 
  glEnable(GL_TEXTURE_2D);
  glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_REPLACE); 
+glPushMatrix();
+    glTranslatef(0,-.5,0);
 
 glBindTexture(GL_TEXTURE_2D,texture);
  for(int j =0; j > -2; j--){
@@ -43,6 +45,7 @@ glBindTexture(GL_TEXTURE_2D,texture);
       }
     }
   }
+  glPopMatrix();
   glDisable(GL_TEXTURE_2D);
 } 
 

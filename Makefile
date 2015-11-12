@@ -32,10 +32,11 @@ fatal.o: fatal.c
 loadtexbmp.o: loadtexbmp.c 
 print.o: print.c 
 project.o: project.c 
-errcheck.o: errcheck.c 
+errcheck.o: errcheck.c
+drawshapes.o: drawshapes.c 
 
 #  Create archive
-Frogger3D.a: fatal.o loadtexbmp.o print.o project.o errcheck.o 
+Frogger3D.a: fatal.o loadtexbmp.o print.o project.o errcheck.o drawshapes.o
 	ar -rcs $@ $^
 
 # Compile rules

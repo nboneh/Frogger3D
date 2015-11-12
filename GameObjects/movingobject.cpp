@@ -6,19 +6,19 @@ MovingObject::MovingObject(direction _movingDirection, float _speed, int _width)
 	movingDirection = _movingDirection;
 	speed = _speed;
 	width = _width;
-	x =  ROW_WIDTH + width ;
+	x =  ROW_WIDTH - width/2.0 ;
 	if(movingDirection == right){
-			startX = 0;
+			startX = -WRAP_AROUND_WIDTH;
 			endX = ROW_WIDTH + WRAP_AROUND_WIDTH  ;
 	} else if (movingDirection == left){
-			startX = ROW_WIDTH - width ;
+			startX =  ROW_WIDTH + WRAP_AROUND_WIDTH -width ;
 			endX = -WRAP_AROUND_WIDTH - width;
 	}
 	
 }
 
 void MovingObject::update(double t){
-	 move = t * speed;
+	move = t * speed;
 	if(movingDirection == right){
 			x += move;
 			if(x >= endX)
@@ -37,16 +37,16 @@ void MovingObject::draw(){
 	glPopMatrix();
 
 	//Drawing wrap around
-	if(movingDirection == right && x >=  (endX - width)){
+	if(movingDirection == right && (x+width) >= endX){
 		glPushMatrix();
-		glTranslatef(x- ROW_WIDTH- WRAP_AROUND_WIDTH,0,0);
+		glTranslatef(startX -(endX - x) ,0,0);
 		drawAfterSetup();
 		glPopMatrix();
 	}	
 
-	else if(movingDirection == left && x <= -WRAP_AROUND_WIDTH){
+	else if(movingDirection == left && (x-width) <= endX){
 		glPushMatrix();
-		glTranslatef(x + ROW_WIDTH+ WRAP_AROUND_WIDTH,0,0);
+		glTranslatef(startX + (x - endX) ,0,0);
 		drawAfterSetup();
 		glPopMatrix();
 	}
@@ -73,11 +73,11 @@ bool MovingObject::checkColisonWithFrog(Frog* frog){
 		return true;
 	
 	//Check wrap around colision
-	if(movingDirection == right && x >=  (endX - width))
-		return detectColision(frog, x- ROW_WIDTH- WRAP_AROUND_WIDTH);
+	if(movingDirection == right && (x+width) >= endX)
+		return detectColision(frog, startX -(endX - x));
 
-	else if(movingDirection == left && x <= -WRAP_AROUND_WIDTH)
-		return detectColision(frog, x + ROW_WIDTH+ WRAP_AROUND_WIDTH);
+	else if(movingDirection == left && (x-width) <= endX)
+		return detectColision(frog, startX + (x - endX));
 
 	return false; 
 }

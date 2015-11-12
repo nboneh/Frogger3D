@@ -4,6 +4,10 @@
 #include "movingobject.h"
 #endif
 
+#ifndef WATEROBJECT_H
+#define WATEROBJECT_H
+#endif
+
 
 class WaterObject : public MovingObject{
 	public:

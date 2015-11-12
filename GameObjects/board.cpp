@@ -10,10 +10,23 @@ Board::Board(){
 	water.push_back(WATER);
 
 	rows.push_back(new WinningRow( water, .2, GRASS));
-	rows.push_back(new Row(water, .2));
-	rows.push_back(new Row(water, .2));
-	rows.push_back(new Row(water, .2));
-	rows.push_back(new Row(water, .2));
+	Row * fifthWaterRow = new Row(water, .2);
+	fifthWaterRow->setAsWaterRow();
+	rows.push_back(fifthWaterRow);
+
+	Row * fourthWaterRow = new Row(water, .2);
+	fourthWaterRow->setAsWaterRow();
+	rows.push_back(fourthWaterRow);
+
+	Row * thirdWaterRow = new Row(water, .2);
+	thirdWaterRow->setAsWaterRow();
+	rows.push_back(thirdWaterRow);
+	
+	Row * secondWaterRow = new Row(water, .2);
+	secondWaterRow->setAsWaterRow();
+	secondWaterRow->addMovingObjects("ShortLog", 3, 3 );
+	rows.push_back(secondWaterRow);
+	
 	rows.push_back(new Row(CONCRETE));
  	
 	Row * fifthRoadRow = new Row(ROAD);

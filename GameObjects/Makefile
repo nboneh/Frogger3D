@@ -33,8 +33,9 @@ car4.o: car4.cpp
 truck.o: truck.cpp
 waterobject.o: waterobject.cpp
 movingobjectsfactory.o: movingobjectsfactory.cpp
+log.o: log.cpp
 
-GameObjects.a: board.o row.o winningrow.o frog.o movingobject.o car1.o car2.o car3.o car4.o truck.o movingobjectsfactory.o waterobject.o
+GameObjects.a: board.o row.o winningrow.o frog.o movingobject.o car1.o car2.o car3.o car4.o truck.o movingobjectsfactory.o waterobject.o log.o
 	ar -rcs $@ $^
 
 

@@ -4,6 +4,7 @@
 #include "car3.h"
 #include "car4.h"
 #include "truck.h"
+#include "log.h"
 
 MovingObject* getMovingObject(std::string type){
 	MovingObject *movingObject = NULL;
@@ -17,5 +18,11 @@ MovingObject* getMovingObject(std::string type){
 		movingObject = new Car4();
 	else if(type == "Truck")
 		movingObject = new Truck();
+	/*else if(type == "LongLog")
+		movingObject = new Log();
+	else if(type == "AverageLog")
+		movingObject = new Log();*/
+	else if(type == "ShortLog")
+		movingObject = new Log(1,3);
 	return movingObject;
 }
