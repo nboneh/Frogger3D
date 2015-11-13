@@ -17,6 +17,8 @@ unsigned int CONCRETE;
 unsigned int BARK;
 unsigned int LOG;
 
+int widthOfScreen;
+int heightOfScreen;
 int ROW_WIDTH = 14;
 int SCORE = 0;
 
@@ -126,6 +128,8 @@ void key(unsigned char ch,int x,int y)
 
 void reshape(int width,int height)
 {
+   widthOfScreen = width;
+   heightOfScreen = height;
    //  Ratio of the width to the height of the window
     double w2h = (height>0) ? (double)width/height : 1;
    //  Set the viewport to the entire window

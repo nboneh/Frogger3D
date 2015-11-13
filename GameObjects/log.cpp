@@ -9,6 +9,6 @@ void Log::drawAfterSetup(){
 	glTranslatef(0, 0,.5);
 	glRotatef(90, 0,1,0);
 	glScalef(1,1,width);
-	drawCylinder(LOG, BARK);
+	drawCylinder(BARK, LOG);
 	glPopMatrix();
 }

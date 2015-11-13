@@ -8,7 +8,7 @@ class Frog{
 	float spawnX, spawnY;
 	float deathFrameTicCount, deathFrameTic;
 	int deathFrame, lives, farthestY;
-	float x, y, destx, desty, respawnRateX, respawnRateY;
+	float x, y, totalMove, respawnRateX, respawnRateY;
 	direction facingDirection,spawnDirection;
 	deathType typeOfDeath;
 	frogState state;

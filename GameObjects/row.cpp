@@ -99,7 +99,6 @@ void Row::draw(){
    	glEnd();
  	}
  	glDisable(GL_TEXTURE_2D);
-
   for(int i = 0; i < movingObjects.size(); i++){
       movingObjects.at(i)->draw();
   }

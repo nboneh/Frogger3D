@@ -23,38 +23,28 @@ void Frog::update(double t){
 		break;
 	case moving:
 		move = t*5;
+		totalMove += move;
+
+		if(totalMove > 1){
+			state = normal;
+			move = move - (totalMove -1);
+			if(y < farthestY){
+				SCORE +=  (farthestY -(int)y ) *10;
+				farthestY = (int)y;
+			}
+	    }
 		switch(facingDirection){
 			case up:
-			  y -= move;
-			  if(y <= desty){
-					y = desty;
-					state = normal;
-					if(y < farthestY){
-						SCORE +=  (farthestY -(int)y ) *10;
-						farthestY = (int)y;
-					}
-				}
-			  break;
+			  	y -= move;
+			 	break;
 			case down:
 				y += move;
-				if(y >= desty){
-					y = desty;
-					state = normal;
-				}
 				break;
 			case left:
 				x -= move;
-				if(x <= destx){
-					x = destx;
-					state = normal;
-				}
 				break;
 			case right:
 				x += move;
-				if(x >= destx){
-					x = destx;
-					state = normal;
-				}
 				break;
 		}
 		break;
@@ -104,20 +94,7 @@ void Frog::inputDirection(direction moveDirection){
 		return;
 	facingDirection = moveDirection;
 	state = moving; 
-	switch(facingDirection){
-		case up:
-			desty = y - 1;
-			break;
-		case down:
-			desty = y+1;
-			break;
-		case left:
-			destx = x -1;
-			break;
-		case right:
-			destx = x + 1;
-			break;
-	}
+	totalMove = 0;
 
 }
 

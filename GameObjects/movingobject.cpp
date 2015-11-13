@@ -22,11 +22,11 @@ void MovingObject::update(double t){
 	if(movingDirection == right){
 			x += move;
 			if(x >= endX)
-				reset();
+				x = startX + (x - endX);
 	} else if (movingDirection == left){
 			x -= move;
 			if( x < endX)
-				reset();
+				x = startX - (endX -x);
 	}
 
 }
@@ -82,9 +82,6 @@ bool MovingObject::checkColisonWithFrog(Frog* frog){
 	return false; 
 }
 
-void MovingObject::reset(){
-	x = startX;
-} 
 
 bool MovingObject::detectColision(Frog* frog, float objectX){
 	return frog->getX() +1 >=  objectX && objectX + width >= frog->getX();

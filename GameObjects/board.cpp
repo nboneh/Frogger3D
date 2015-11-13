@@ -12,6 +12,7 @@ Board::Board(){
 	rows.push_back(new WinningRow( water, .2, GRASS));
 	Row * fifthWaterRow = new Row(water, .2);
 	fifthWaterRow->setAsWaterRow();
+	fifthWaterRow->addMovingObjects("AverageLog", 2, 3 );
 	rows.push_back(fifthWaterRow);
 
 	Row * fourthWaterRow = new Row(water, .2);
@@ -20,6 +21,7 @@ Board::Board(){
 
 	Row * thirdWaterRow = new Row(water, .2);
 	thirdWaterRow->setAsWaterRow();
+	thirdWaterRow->addMovingObjects("LongLog", 3, 2 );
 	rows.push_back(thirdWaterRow);
 	
 	Row * secondWaterRow = new Row(water, .2);
@@ -87,7 +89,7 @@ void Board::draw(){
 	int numOfRows = rows.size();
 	glPushMatrix();
 	//Adjusting camera
-	glTranslatef(-frog->getX(),0, - frog->getY() +numOfRows* .36f);
+	glTranslatef(-frog->getX(),0, - frog->getY() +numOfRows* .3f);
 	
 	//Drawing rows
 	glPushMatrix();
@@ -105,8 +107,8 @@ void Board::draw(){
  	//Hide wrap around edges from showing moving objects
  	glColor3f(0,0,0);
 	glBegin(GL_POLYGON);
-    glVertex3f(-5,1, -1);
-    glVertex3f(-5,1, numOfRows+1);
+    glVertex3f(-7,1, -1);
+    glVertex3f(-7,1, numOfRows+1);
     glVertex3f(0,1, numOfRows+1);
     glVertex3f(0,1, -1);
     glEnd();
@@ -119,8 +121,8 @@ void Board::draw(){
     glEnd();
 
      glBegin(GL_POLYGON);
-    glVertex3f(ROW_WIDTH+5,1, -1);
-    glVertex3f(ROW_WIDTH+5,1, numOfRows+1);
+    glVertex3f(ROW_WIDTH+7,1, -1);
+    glVertex3f(ROW_WIDTH+7,1, numOfRows+1);
     glVertex3f(ROW_WIDTH,1, numOfRows+1);
     glVertex3f(ROW_WIDTH,1, -1);
     glEnd();

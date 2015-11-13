@@ -18,11 +18,11 @@ MovingObject* getMovingObject(std::string type){
 		movingObject = new Car4();
 	else if(type == "Truck")
 		movingObject = new Truck();
-	/*else if(type == "LongLog")
-		movingObject = new Log();
+	else if(type == "LongLog")
+		movingObject = new Log(3,6);
 	else if(type == "AverageLog")
-		movingObject = new Log();*/
+		movingObject = new Log(2,4);
 	else if(type == "ShortLog")
-		movingObject = new Log(1,3);
+		movingObject = new Log(1.2,3);
 	return movingObject;
 }

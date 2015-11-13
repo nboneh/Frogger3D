@@ -18,7 +18,6 @@ class MovingObject{
 		void setX(float _x);
 		float getX();
 		float getWidth();
-		void reset();
 	protected:
 		virtual void drawAfterSetup() =0;
 		float x, speed;
