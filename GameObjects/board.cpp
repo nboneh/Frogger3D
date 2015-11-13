@@ -97,8 +97,46 @@ void Board::draw(){
  	}
  	glPopMatrix();
 
+
  	//Drawing Frog
  	frog->draw();
+
+
+ 	//Hide wrap around edges from showing moving objects
+ 	glColor3f(0,0,0);
+	glBegin(GL_POLYGON);
+    glVertex3f(-5,1, -1);
+    glVertex3f(-5,1, numOfRows+1);
+    glVertex3f(0,1, numOfRows+1);
+    glVertex3f(0,1, -1);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glVertex3f(0,-1, -1);
+    glVertex3f(0,-1, numOfRows+1);
+    glVertex3f(0,1, numOfRows+1);
+    glVertex3f(0,1, -1);
+    glEnd();
+
+     glBegin(GL_POLYGON);
+    glVertex3f(ROW_WIDTH+5,1, -1);
+    glVertex3f(ROW_WIDTH+5,1, numOfRows+1);
+    glVertex3f(ROW_WIDTH,1, numOfRows+1);
+    glVertex3f(ROW_WIDTH,1, -1);
+    glEnd();
+
+
+     glBegin(GL_POLYGON);
+    glVertex3f(ROW_WIDTH,-1, -1);
+    glVertex3f(ROW_WIDTH,-1, numOfRows+1);
+    glVertex3f(ROW_WIDTH,1, numOfRows+1);
+    glVertex3f(ROW_WIDTH,1, -1);
+    glEnd();
+
+
+
  	glPopMatrix();
+
+ 	
 
 }
