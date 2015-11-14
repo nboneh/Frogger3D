@@ -5,6 +5,7 @@
 #include "car4.h"
 #include "truck.h"
 #include "log.h"
+#include "turtles.h"
 
 MovingObject* getMovingObject(std::string type){
 	MovingObject *movingObject = NULL;
@@ -24,5 +25,10 @@ MovingObject* getMovingObject(std::string type){
 		movingObject = new Log(2,4);
 	else if(type == "ShortLog")
 		movingObject = new Log(1.2,3);
+	else if(type == "ThreeTurtles")
+		movingObject = new Turtles(2.5,3);
+	else if(type == "TwoTurtles")
+		movingObject = new Turtles(2,2);
+
 	return movingObject;
 }

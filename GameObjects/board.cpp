@@ -17,6 +17,7 @@ Board::Board(){
 
 	Row * fourthWaterRow = new Row(water, .2);
 	fourthWaterRow->setAsWaterRow();
+	fourthWaterRow->addMovingObjects("TwoTurtles", 1, 5);
 	rows.push_back(fourthWaterRow);
 
 	Row * thirdWaterRow = new Row(water, .2);
@@ -28,6 +29,11 @@ Board::Board(){
 	secondWaterRow->setAsWaterRow();
 	secondWaterRow->addMovingObjects("ShortLog", 3, 3 );
 	rows.push_back(secondWaterRow);
+
+	Row * firstWaterRow = new Row(water, .2);
+	firstWaterRow->setAsWaterRow();
+	firstWaterRow->addMovingObjects("ThreeTurtles", 1, 4 );
+	rows.push_back(firstWaterRow);
 	
 	rows.push_back(new Row(CONCRETE));
  	
@@ -36,7 +42,7 @@ Board::Board(){
  	rows.push_back(fifthRoadRow);
 
 	Row * fourthRoadRow = new Row(ROAD);
- 	fourthRoadRow->addMovingObjects("Car4", 1,0);
+ 	fourthRoadRow->addMovingObjects("Car4", 0,1);
  	rows.push_back(fourthRoadRow);
  		
  	Row * thirdRoadRow = new Row(ROAD);
