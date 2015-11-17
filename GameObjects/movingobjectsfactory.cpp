@@ -26,9 +26,14 @@ MovingObject* getMovingObject(std::string type){
 	else if(type == "ShortLog")
 		movingObject = new Log(1.2,3);
 	else if(type == "ThreeTurtles")
-		movingObject = new Turtles(2.5,3);
+		movingObject = new Turtles(2.5,3,false);
 	else if(type == "TwoTurtles")
-		movingObject = new Turtles(2,2);
+		movingObject = new Turtles(2,2, false);
+	else if(type == "SubmergingThreeTurtles")
+		movingObject = new Turtles(2.5,3,true);
+	else if(type == "SubmergingTwoTurtles")
+		movingObject = new Turtles(2,2, true);
+		
 
 	return movingObject;
 }

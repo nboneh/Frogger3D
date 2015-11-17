@@ -10,11 +10,14 @@ Row::Row( std::vector<unsigned int>  _textures, float _textureSwitchTime){
   textures = _textures;
   textureTicCount = 0;
   currentTexture = 0;
+  distanceBetweenMovingObjects =0 ;
 }
 
 void Row::setAsWaterRow(){
   waterRow = true; 
 }
+
+
 void Row::checkColisonWithFrog(Frog* frog){
   if(waterRow){
     bool drownFrog = !frog->movingVertically(); 
@@ -35,13 +38,31 @@ void Row::checkColisonWithFrog(Frog* frog){
   }
 }
 
+
 void Row::init( unsigned int _texture){
   texture = _texture;
   waterRow = false; 
 }
 
+
+void Row::addMovingObject(std::string type){
+  MovingObject * newMovingObject =  getMovingObject(type);
+
+  if(movingObjects.size() >0){
+    MovingObject * lastMovingObject = movingObjects.at(movingObjects.size()-1);
+    float x = lastMovingObject->getX();
+    int width = lastMovingObject->getWidth();
+
+    newMovingObject->setX(x - distanceBetweenMovingObjects -width );
+  }
+  movingObjects.push_back(newMovingObject);
+
+
+}
+
 void Row::addMovingObjects(std::string type, int distanceBetween, int num ){
     MovingObject* first = getMovingObject(type);
+    distanceBetweenMovingObjects = distanceBetween;
     float x = first->getX();
     int width = first->getWidth();
     movingObjects.push_back(first);

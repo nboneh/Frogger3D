@@ -13,6 +13,7 @@ class Row{
 		Row( std::vector<unsigned int> _textures, float _textureSwitchTime);
 		void update(double t);
 		void addMovingObjects(std::string type, int distanceBetween, int num );
+		void addMovingObject(std::string type);
 		void checkColisonWithFrog(Frog* frog);
 		void setAsWaterRow();
 		virtual void draw();
@@ -24,6 +25,7 @@ class Row{
 		float textureSwitchTime;
 		float textureTicCount;
 		int currentTexture;
+		int distanceBetweenMovingObjects;
 	private:
 		void init( unsigned int _texture);
 };

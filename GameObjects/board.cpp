@@ -17,7 +17,8 @@ Board::Board(){
 
 	Row * fourthWaterRow = new Row(water, .2);
 	fourthWaterRow->setAsWaterRow();
-	fourthWaterRow->addMovingObjects("TwoTurtles", 1, 5);
+	fourthWaterRow->addMovingObjects("TwoTurtles", 1, 4);
+	fourthWaterRow->addMovingObject("SubmergingTwoTurtles");
 	rows.push_back(fourthWaterRow);
 
 	Row * thirdWaterRow = new Row(water, .2);
@@ -32,7 +33,8 @@ Board::Board(){
 
 	Row * firstWaterRow = new Row(water, .2);
 	firstWaterRow->setAsWaterRow();
-	firstWaterRow->addMovingObjects("ThreeTurtles", 1, 4 );
+	firstWaterRow->addMovingObjects("ThreeTurtles", 1, 3);
+	firstWaterRow->addMovingObject("SubmergingThreeTurtles");
 	rows.push_back(firstWaterRow);
 	
 	rows.push_back(new Row(CONCRETE));

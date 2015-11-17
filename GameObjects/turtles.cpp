@@ -1,23 +1,25 @@
 #include "turtles.h"
 
-int TOTAL_NORMAL_FRAMES = 3;
-int TOTAL_FRAMES = 6;
-int TOTAL_FRAME_COUNT_TILL_SUBMERGING = 2;
+int TOTAL_FRAMES = 3;
+float TIME_TILL_SUBMERGE = .3;
 float FRAME_TIC = .2;
+float sumbergeSpeed = 1.3;
+float MIN_ELEVATION = -.8;
 
 
-Turtles::Turtles(float _speed, int numOfTurtles):WaterObject( left, _speed,  numOfTurtles){
+Turtles::Turtles(float _speed, int numOfTurtles, bool _submergingTurtles):WaterObject( left, _speed,  numOfTurtles){
 	frame = 0;
-	submergingTurtles = true;
+	submergingTurtles = _submergingTurtles;
 	currentlySubmerging = false;
 	hittingFrog = false;
-	descendSubmergeFrames = false;
-	frameCountTillSubmerging = 0;
 	ticFrameCounter = 0;
+	submergingCounter = 0;
+	elevation = 0;
 }
 
 void Turtles::drawAfterSetup(){
 	glPushMatrix();
+	glTranslatef(0,elevation,0);
 	for(int i = 0; i < width; i++){
 		switch(frame){
 			case 0:
@@ -29,14 +31,7 @@ void Turtles::drawAfterSetup(){
 			case 2:
 				drawTurtleSwimming2();
 				break;
-			case 3:
-				drawSubmergedTurtle1();
-				break;
-			case 4:
-				drawSubmergedTurtle2();
-				break;
-			case 5:
-			 	break;
+
 		}
 		glTranslatef(1,0,0);
 	}
@@ -73,68 +68,43 @@ void Turtles::drawTurtleSwimming2(){
     glEnd();
 }
 
-void Turtles::drawSubmergedTurtle1(){
-	glColor3f(1,0,0);
-	glBegin(GL_POLYGON);
-    glVertex3f(.2,.3, .2);
-    glVertex3f(.2,.3, .8);
-    glVertex3f(.8,.3, .8);
-    glVertex3f(.8,.3, .2);
-    glEnd();
-}
-
-
-void Turtles::drawSubmergedTurtle2(){
-	glColor3f(1,0,0);
-	glBegin(GL_POLYGON);
-    glVertex3f(.2,.1, .2);
-    glVertex3f(.2,.1, .8);
-    glVertex3f(.8,.1, .8);
-    glVertex3f(.8,.1, .2);
-    glEnd();
-}
 
 
 void Turtles::update(double t){
 	WaterObject::update(t);
 	ticFrameCounter += t;
 	if(ticFrameCounter >= FRAME_TIC){
-		
 		ticFrameCounter -= FRAME_TIC;
-		
-		if(currentlySubmerging){
-			//Draw Submerging frames
-			if(descendSubmergeFrames){
-				frame--;
-				if(frame < TOTAL_NORMAL_FRAMES){
-					frame = 0;
-					descendSubmergeFrames = false; 
-					currentlySubmerging = false;
-				}
-			} else {
-				frame++;
-				if(frame >= TOTAL_FRAMES){
-					descendSubmergeFrames = true;
-					frame -= 2;
-				}
+		frame++;
+		if(frame >= TOTAL_FRAMES)
+			frame = 0;
+	}
+
+	if(currentlySubmerging){
+		if(currentlyAscending){
+			elevation += sumbergeSpeed * t;
+			if(elevation >= 0){
+				elevation = 0;
+				currentlyAscending = false;
+				currentlySubmerging = false;
 
 			}
-		} else {
-			frame++;
-			if(frame >= TOTAL_NORMAL_FRAMES){
-				frame = 0;
+		}
+		else {
+			elevation -= sumbergeSpeed * t;
+			if(elevation <= MIN_ELEVATION){
+				elevation = MIN_ELEVATION;
+				currentlyAscending = true;
 			}
+		}
 
-			//Check if start submerging
-			if(submergingTurtles && !hittingFrog){
-				frameCountTillSubmerging++;
-				if(frameCountTillSubmerging >= TOTAL_FRAME_COUNT_TILL_SUBMERGING){
-					frameCountTillSubmerging = 0;
-					currentlySubmerging = true;
-				
-					//Setting to first submerge frame
-					frame = TOTAL_NORMAL_FRAMES; 
-				}
+	} else {
+		//Check if start submerging
+		if(submergingTurtles && !hittingFrog){
+			submergingCounter += t;
+			if(submergingCounter >= TIME_TILL_SUBMERGE){
+				currentlySubmerging = true; 
+				submergingCounter = 0;
 			}
 		}
 	}
@@ -149,6 +119,6 @@ bool Turtles::checkColisonWithFrog(Frog* frog){
 		hittingFrog = WaterObject::checkColisonWithFrog(frog);
 
 	if(hittingFrog)
-		frameCountTillSubmerging = 0;
+		submergingCounter = 0;
 	return hittingFrog;
 }

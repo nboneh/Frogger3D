@@ -7,12 +7,13 @@
 class Turtles : public WaterObject{
 	int frame ;
 	float ticFrameCounter;
-	bool submergingTurtles,currentlySubmerging, hittingFrog, descendSubmergeFrames;
-	int frameCountTillSubmerging;
+	bool submergingTurtles,currentlySubmerging, hittingFrog, currentlyAscending;
+	float submergingCounter;
+	float elevation ;
 
 
 	public:
-		Turtles(float speed, int numOfTurtles);
+		Turtles(float speed, int numOfTurtles, bool _submergingTurtles);
 	 	void update(double t);
 	protected:
 		void drawAfterSetup();
@@ -22,7 +23,4 @@ class Turtles : public WaterObject{
 
 		void drawTurtleSwimming1();
 		void drawTurtleSwimming2();
-
-		void drawSubmergedTurtle1();
-		void drawSubmergedTurtle2();
 };
