@@ -12,7 +12,7 @@ class MovingObject{
 
 	public: 
 	   	MovingObject(direction _movingDirection, float _speed, int _width);
-		void update(double t);
+	   	virtual void update(double t);
 		void draw();
 		virtual bool checkColisonWithFrog(Frog* frog);
 		void setX(float _x);
@@ -24,7 +24,6 @@ class MovingObject{
 		int endX, startX, width;
 		direction movingDirection;
 		float move;
-	private:
-		bool detectColision(Frog* frog, float objectX);
+		virtual bool detectColision(Frog* frog, float objectX);
 
 };

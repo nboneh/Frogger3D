@@ -17,7 +17,7 @@ void Row::setAsWaterRow(){
 }
 void Row::checkColisonWithFrog(Frog* frog){
   if(waterRow){
-    bool drownFrog = frog->isInNormalState(); 
+    bool drownFrog = !frog->movingVertically(); 
     for(int i = 0; i < movingObjects.size(); i++){
       if(movingObjects.at(i)->checkColisonWithFrog(frog))
         drownFrog = false;

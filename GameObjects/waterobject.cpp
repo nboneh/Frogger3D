@@ -22,3 +22,7 @@ bool WaterObject::checkColisonWithFrog(Frog * frog){
 	return hitFrog;
 
 }
+bool WaterObject::detectColision(Frog* frog, float objectX){
+	//Making hit box smaller for water objects so frog does not stand on air
+	return frog->getX() +1 >=  (objectX+.25) && (objectX-.25) + width >= frog->getX();
+}

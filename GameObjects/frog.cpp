@@ -1,10 +1,12 @@
 #include "frog.h"
 
+int TOTAL_DEATH_FRAME = 4;
+float DEATH_FRAME_TIC = .1;
+
 Frog::Frog(float _spawnX, float _spawnY, direction _spawnDirection){
 	spawnX = _spawnX;
 	spawnY = _spawnY;
 	spawnDirection = _spawnDirection;
-	deathFrameTic = .1;
 	x = spawnX;
 	y = spawnY;
 	facingDirection = spawnDirection;
@@ -78,10 +80,10 @@ void Frog::update(double t){
 	case dying: 
 			//Playing death animation
 			deathFrameTicCount += t;
-			if(deathFrameTicCount >= deathFrameTic){
-				deathFrameTicCount -= deathFrameTic;
+			if(deathFrameTicCount >= DEATH_FRAME_TIC){
+				deathFrameTicCount -= DEATH_FRAME_TIC;
 				deathFrame++;
-				if(deathFrame >= 4){
+				if(deathFrame >= TOTAL_DEATH_FRAME){
 					respawn();
 				}
 			}

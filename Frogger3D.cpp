@@ -152,7 +152,7 @@ int main(int argc,char* argv[])
    glutInitWindowSize(600, 600);
    //  Create window
    glutCreateWindow("Frogger3D");
-   glutFullScreen();  
+   //glutFullScreen();  
 
    //  Register display, reshape, and key callbacks
    glutDisplayFunc(display);

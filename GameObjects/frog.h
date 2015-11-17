@@ -5,8 +5,7 @@
 #endif
 
 class Frog{
-	float spawnX, spawnY;
-	float deathFrameTicCount, deathFrameTic;
+	float spawnX, spawnY, deathFrameTicCount;
 	int deathFrame, lives, farthestY;
 	float x, y, totalMove, respawnRateX, respawnRateY;
 	direction facingDirection,spawnDirection;
