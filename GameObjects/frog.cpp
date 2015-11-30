@@ -139,7 +139,7 @@ void Frog::draw(){
 			glTranslatef(-1,0,0);
 			break;
 	}
-	glColor3f(0,1,0);
+	glScalef(.25, .25, .1666);
 	switch(state){
 		case dying:
 			drawDeath();
@@ -219,12 +219,87 @@ void Frog::drawDeath(){
 			break;
 	}
 }
-void Frog::drawFrog(){
-   glBegin(GL_POLYGON);
-   glVertex3f(0,.01, 0);
-   glVertex3f(.5,.01, -1);
-   glVertex3f(1,.01, 0);
+
+static void drawFrogBody(){
+	glColor3f(0,1,0);
+
+
+   //Back
+   glBegin(GL_QUADS);
+   glNormal3f( 0, 0, 1);
+   glVertex3f(1,0, 0);
+   glVertex3f(1,1, 0);
+   glVertex3f(3,1, 0);
+   glVertex3f(3,0, 0);
    glEnd();
+
+   //Bottom
+   glBegin(GL_QUADS);
+    glNormal3f( 0, -.98, -.195);
+   glNormal3f( 0, 0, 1);
+   glVertex3f(1,0, 0);
+   glVertex3f(0,1, -5);
+   glVertex3f(4,1, -5);
+   glVertex3f(3,0, 0);
+   glEnd();
+
+   //Top
+   glBegin(GL_QUADS);
+   glNormal3f( 0, .857, .51);
+   glVertex3f(1,1, 0);
+   glVertex3f(0,4, -5);
+   glVertex3f(4,4, -5);
+   glVertex3f(3,1, 0);
+   glEnd();
+
+    //Left Side
+   glBegin(GL_QUADS);
+   glNormal3f( -.98, 0, .195);
+   glVertex3f(1,0, 0);
+   glVertex3f(0,1, -5);
+   glVertex3f(0,4, -5);
+   glVertex3f(1,1, 0);
+   glEnd();
+
+
+   //Right Side
+   glBegin(GL_QUADS);
+   glNormal3f( .98, 0, .195);
+   glVertex3f(3,1, 0);
+   glVertex3f(4,4, -5);
+   glVertex3f(4,1, -5);
+   glVertex3f(3,0, 0);
+   glEnd();
+
+   //Drawing Face
+   glPushMatrix();
+   glTranslatef(4,2.5,-5);
+   glScalef(4, 3,2);
+   glRotatef(90,0,0,1);
+   glRotatef(-90,1,0,0);
+   drawHalfCylinder();
+   glPopMatrix();
+
+   glPushMatrix();
+   glTranslatef(.5,0,-1);
+   glScalef(.5,1,1);
+   drawCube();
+   glPopMatrix();
+
+   glPushMatrix();
+   glTranslatef(3,0,-1);
+   glScalef(.5,1,1);
+   drawCube();
+   glPopMatrix();
+
+}
+
+void Frog::drawJumpingFrog(){
+ 	drawFrogBody();
+}
+
+void Frog::drawFrog(){
+   drawFrogBody();
 }
 
 bool Frog::isInNormalState(){
@@ -267,10 +342,3 @@ bool Frog::movingVertically(){
 }
 
 
-void Frog::drawJumpingFrog(){
-   glBegin(GL_POLYGON);
-   glVertex3f(0,.01, 0);
-   glVertex3f(.5,.01, -1.5);
-   glVertex3f(1,.01, 0);
-   glEnd();
-}

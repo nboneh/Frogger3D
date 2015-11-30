@@ -16,6 +16,70 @@ int specular  =   0;  // Specular intensity (%)
 int shininess =   0;  // Shininess (power of two)
 float shinyvec[1];    
 
+
+void drawCube()
+{
+  //  Set specular color to white
+   float white[] = {1,1,1,1};
+   float Emission[]  = {0.0,0.0,0.01*emission,1.0};
+   glMaterialfv(GL_FRONT_AND_BACK,GL_SHININESS,shinyvec);
+   glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
+   glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,Emission);
+   //  Offset, scale and rotate
+   //  Enable textures
+   //  Front
+   glBegin(GL_QUADS);
+   glNormal3f( 0, 0, 1);
+   glTexCoord2f(0,0); glVertex3f(0,0, 1);
+   glTexCoord2f(1,0); glVertex3f(1,0, 1);
+   glTexCoord2f(1,1); glVertex3f(1,1, 1);
+   glTexCoord2f(0,1); glVertex3f(0,1, 1);
+   glEnd();
+   //  Back
+   glBegin(GL_QUADS);
+   glNormal3f( 0, 0,-1);
+   glTexCoord2f(0,0); glVertex3f(0,0,0);
+   glTexCoord2f(1,0); glVertex3f(1,0,0);
+   glTexCoord2f(1,1); glVertex3f(1,1,0);
+   glTexCoord2f(0,1); glVertex3f(0,1,0);
+   glEnd();
+   //  Right
+   glBegin(GL_QUADS);
+   glNormal3f(1, 0, 0);
+   glTexCoord2f(0,0); glVertex3f(1,0,0);
+   glTexCoord2f(1,0); glVertex3f(1,1,0);
+   glTexCoord2f(1,1); glVertex3f(1,1,1);
+   glTexCoord2f(0,1); glVertex3f(1,0,1);
+   glEnd();
+   //  Left
+   glBegin(GL_QUADS);
+   glNormal3f(-1, 0, 0);
+   glTexCoord2f(0,0); glVertex3f(0,0,0);
+   glTexCoord2f(1,0); glVertex3f(0,1,0);
+   glTexCoord2f(1,1); glVertex3f(0,1,1);
+   glTexCoord2f(0,1); glVertex3f(0,0,1);
+   glEnd();
+   //  Top
+   glBegin(GL_QUADS);
+   glNormal3f( 0,+1, 0);
+   glTexCoord2f(0,0); glVertex3f(0,1,0);
+   glTexCoord2f(1,0); glVertex3f(0,1,1);
+   glTexCoord2f(1,1); glVertex3f(1,1,1);
+   glTexCoord2f(0,1); glVertex3f(1,1,0);
+   glEnd();
+   //  Bottom
+   glBegin(GL_QUADS);
+   glNormal3f( 0,-1, 0);
+   glTexCoord2f(0,0); glVertex3f(0,0,0);
+   glTexCoord2f(1,0); glVertex3f(0,0,1);
+   glTexCoord2f(1,1); glVertex3f(1,0,1);
+   glTexCoord2f(0,1); glVertex3f(1,0,0);
+   glEnd();
+   //  Undo transformations and textures
+
+
+}
+
 /*
  *  Draw vertex in polar coordinates with normal
  */
@@ -80,6 +144,18 @@ static void Circle()
     glEnd();
 }
 
+static void HalfCircle() 
+{ 
+   glBegin(GL_TRIANGLE_FAN); //BEGIN CIRCLE
+    for (int i = 0; i <= 180; i++)   {
+      float x= Cos(i);
+      float y = Sin(i);
+        glTexCoord2f((x+1)*.5,(y+1)*.5); glVertex2f (x, y );
+    }
+    glEnd();
+}
+
+
  void drawCylinder(unsigned int texture, unsigned int topTexture){
    float yellow[] = {1.0,1.0,0.0,1.0};
    float Emission[]  = {0.0,0.0,0.01*emission,1.0};
@@ -116,4 +192,36 @@ static void Circle()
 
     glDisable(GL_TEXTURE_2D);
  	
+ }
+
+ void drawHalfCylinder(){
+   float yellow[] = {1.0,1.0,0.0,1.0};
+   float Emission[]  = {0.0,0.0,0.01*emission,1.0};
+   //  Save transformation
+   glMaterialfv(GL_FRONT,GL_SHININESS,shinyvec);
+   glMaterialfv(GL_FRONT,GL_SPECULAR,yellow);
+   glMaterialfv(GL_FRONT,GL_EMISSION,Emission);
+  
+  glPushMatrix();
+   glScalef(.5,.5,1);
+  
+   glBegin(GL_QUAD_STRIP);
+   for (int th=-90;th<=90;th+=2*inc)
+   {
+        VertexCylinder(th,0,0);
+        VertexCylinder(th,inc,1);
+    }
+    glEnd();
+
+   
+   glNormal3f(0,0,-1);
+  HalfCircle();
+  glTranslatef(0,0,1);
+
+  glNormal3f(0,0,1);
+  HalfCircle();
+
+    glPopMatrix();
+
+  
  }

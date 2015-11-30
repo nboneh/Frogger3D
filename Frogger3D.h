@@ -44,7 +44,9 @@ void Project(double fov,double asp,double dim);
 void ErrCheck(const char* where);
 
 void drawCylinder(unsigned int texture, unsigned int topTexture);
+void drawHalfCylinder();
 void drawBall();
+void drawCube();
 
 enum direction{
 	up,
