@@ -130,7 +130,7 @@ void Frog::draw(){
 			break;
 		case right:
 			glRotatef(270, 0,1,0);
-			glTranslatef(-.8,0,.2);
+			glTranslatef(-.8,0,-.2);
 			break;
 	}
 	glScalef(.15, .15, .09996);
