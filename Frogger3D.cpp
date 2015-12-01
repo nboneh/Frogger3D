@@ -22,6 +22,48 @@ int heightOfScreen;
 int ROW_WIDTH = 14;
 int SCORE = 0;
 
+float distance  =   7;  // Light distance
+int smooth    =   1;  // Smooth/Flat shading
+int local     =   0;  // Local Viewer Model
+int ambient   =  30;  // Ambient intensity (%)
+int diffuse   = 100;  // Diffuse intensity (%)
+int specular  =   0;  // Specular intensity (%)
+int shininess =   0;  // Shininess (power of two)
+float shinyvec[1];    // Shininess (value)
+double zh =  310;  // Light azimuth
+float ylight  =   5;  // Elevation of light
+
+
+void drawLight(){
+   //  Translate intensity to color vectors
+   float Ambient[]   = {0.01*ambient ,0.01*ambient ,0.01*ambient ,1.0};
+   float Diffuse[]   = {0.01*diffuse ,0.01*diffuse ,0.01*diffuse ,1.0};
+   float Specular[]  = {0.01*specular,0.01*specular,0.01*specular,1.0};
+   //  Light position
+
+   float Position[]  = {distance*Cos(zh),ylight,distance*Sin(zh),1.0};
+    //  Draw light position as ball (still no lighting here)
+   glColor3f(1,1,1);
+   glPushMatrix();
+   glTranslatef(Position[0],Position[1],Position[2]);
+   glScalef(.1, .1,.1);
+   drawBall();
+   glPopMatrix();
+   //  OpenGL should normalize normal vectors
+   glEnable(GL_NORMALIZE);
+   //  Enable lighting
+   glEnable(GL_LIGHTING);
+   //  glColor sets ambient and diffuse color materials
+   glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
+   glEnable(GL_COLOR_MATERIAL);
+   //  Enable light 0
+   glEnable(GL_LIGHT0);
+   //  Set ambient, diffuse, specular components and position of light 0
+   glLightfv(GL_LIGHT0,GL_AMBIENT ,Ambient);
+   glLightfv(GL_LIGHT0,GL_DIFFUSE ,Diffuse);
+   glLightfv(GL_LIGHT0,GL_SPECULAR,Specular);
+   glLightfv(GL_LIGHT0,GL_POSITION,Position);
+}
 void idle()
 {
     //  Elapsed time in seconds
@@ -66,9 +108,13 @@ void display()
    double Ey = (+2*dim        *Sin(ph));
    double Ez = (+2*dim*Cos(th)*Cos(ph));
    gluLookAt(Ex,Ey,Ez , 0,0,0 , 0,Cos(ph),0);
+
+   drawLight();
    board->draw();
 
-  printScore();
+   printScore();
+
+
 
    //  Make scene visible
    glFlush();

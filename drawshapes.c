@@ -5,26 +5,13 @@
 
  int inc       =  10;  // Ball and cylinder increment 
 
- int one       =   1;  // Unit value
-int distance  =   5;  // Light distance
-int smooth    =   1;  // Smooth/Flat shading
-int local     =   0;  // Local Viewer Model
 int emission  =   0;  // Emission intensity (%)
-int ambient   =  30;  // Ambient intensity (%)
-int diffuse   = 100;  // Diffuse intensity (%)
-int specular  =   0;  // Specular intensity (%)
-int shininess =   0;  // Shininess (power of two)
 float shinyvec[1];    
 
 
 void drawCube()
 {
-  //  Set specular color to white
-   float white[] = {1,1,1,1};
-   float Emission[]  = {0.0,0.0,0.01*emission,1.0};
-   glMaterialfv(GL_FRONT_AND_BACK,GL_SHININESS,shinyvec);
-   glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
-   glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,Emission);
+
    //  Offset, scale and rotate
    //  Enable textures
    //  Front
@@ -101,18 +88,11 @@ static void Vertex(double th,double ph)
  */
  void drawBall()
 {
-   int th,ph;
-   float yellow[] = {1.0,1.0,0.0,1.0};
-   float Emission[]  = {0.0,0.0,0.01*emission,1.0};
-   //  Save transformation
-   glMaterialfv(GL_FRONT,GL_SHININESS,shinyvec);
-   glMaterialfv(GL_FRONT,GL_SPECULAR,yellow);
-   glMaterialfv(GL_FRONT,GL_EMISSION,Emission);
    //  Bands of latitude
-   for (ph=-90;ph<90;ph+=inc)
+   for (int ph=-90;ph<90;ph+=inc)
    {
       glBegin(GL_QUAD_STRIP);
-      for (th=0;th<=360;th+=2*inc)
+      for (int th=0;th<=360;th+=2*inc)
       {
          Vertex(th,ph);
          Vertex(th,ph+inc);
@@ -124,12 +104,12 @@ static void Vertex(double th,double ph)
 
 static void VertexCylinder(double th,double ph,double z)
 {
-   double x = Sin(th)*Cos(ph);
-   double y = Cos(th)*Cos(ph);
-   //  For a sphere at the origin, the position
-   //  and normal vectors are the same
-   glNormal3d(x,y,z);
-   	glTexCoord2f(th/360 ,z); glVertex3d(x,y,z);
+  double x = Sin(th)*Cos(ph);
+  double y = Cos(th)*Cos(ph);
+  //  For a sphere at the origin, the position
+  //  and normal vectors are the same
+  glNormal3d(x,y,z);
+  glTexCoord2f(th/360 ,z); glVertex3d(x,y,z);
 }
 
 
@@ -157,71 +137,56 @@ static void HalfCircle()
 
 
  void drawCylinder(unsigned int texture, unsigned int topTexture){
-   float yellow[] = {1.0,1.0,0.0,1.0};
-   float Emission[]  = {0.0,0.0,0.01*emission,1.0};
-   //  Save transformation
-   glMaterialfv(GL_FRONT,GL_SHININESS,shinyvec);
-   glMaterialfv(GL_FRONT,GL_SPECULAR,yellow);
-   glMaterialfv(GL_FRONT,GL_EMISSION,Emission);
 	
 	glPushMatrix();
-   glScalef(.5,.5,1);
-   glColor3f(1,1,1);
-       glEnable(GL_TEXTURE_2D);
- glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_REPLACE); 
- glBindTexture(GL_TEXTURE_2D,texture);
+  glScalef(.5,.5,1);
+  glEnable(GL_TEXTURE_2D);
+  glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE); 
+  glBindTexture(GL_TEXTURE_2D,texture);
  
-   glBegin(GL_QUAD_STRIP);
-   for (int th=0;th<=360;th+=2*inc)
-   {
-        VertexCylinder(th,0,0);
-        VertexCylinder(th,inc,1);
-    }
-    glEnd();
+  glBegin(GL_QUAD_STRIP);
+  for (int th=0;th<=360;th+=2*inc)
+  {
+      VertexCylinder(th,0,0);
+      VertexCylinder(th,inc,1);
+  }
+  glEnd();
 
-	 glBindTexture(GL_TEXTURE_2D,topTexture);
+	glBindTexture(GL_TEXTURE_2D,topTexture);
 
-	 glNormal3f(0,0,-1);
+	glNormal3f(0,0,-1);
 	Circle();
 	glTranslatef(0,0,1);
 
 	glNormal3f(0,0,1);
 	Circle();
 
-    glPopMatrix();
+  glPopMatrix();
 
-    glDisable(GL_TEXTURE_2D);
+  glDisable(GL_TEXTURE_2D);
  	
- }
+}
 
  void drawHalfCylinder(){
-   float yellow[] = {1.0,1.0,0.0,1.0};
-   float Emission[]  = {0.0,0.0,0.01*emission,1.0};
-   //  Save transformation
-   glMaterialfv(GL_FRONT,GL_SHININESS,shinyvec);
-   glMaterialfv(GL_FRONT,GL_SPECULAR,yellow);
-   glMaterialfv(GL_FRONT,GL_EMISSION,Emission);
   
   glPushMatrix();
-   glScalef(.5,.5,1);
+  glScalef(.5,.5,1);
   
-   glBegin(GL_QUAD_STRIP);
-   for (int th=-90;th<=90;th+=2*inc)
-   {
-        VertexCylinder(th,0,0);
-        VertexCylinder(th,inc,1);
-    }
-    glEnd();
+  glBegin(GL_QUAD_STRIP);
+  for (int th=-90;th<=90;th+=2*inc)
+  {
+    VertexCylinder(th,0,0);
+    VertexCylinder(th,inc,1);
+  }
+  glEnd();
 
    
-   glNormal3f(0,0,-1);
+  glNormal3f(0,0,-1);
   HalfCircle();
   glTranslatef(0,0,1);
 
   glNormal3f(0,0,1);
   HalfCircle();
 
-    glPopMatrix();
-
-  
- }
+  glPopMatrix();
+}
