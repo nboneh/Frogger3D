@@ -69,6 +69,9 @@ float MovingObject::getX(){
 }
 
 bool MovingObject::checkColisonWithFrog(Frog* frog){
+	if(!frog->isHittable())
+		return false;
+
 	if(detectColision(frog, x))
 		return true;
 	
@@ -84,7 +87,7 @@ bool MovingObject::checkColisonWithFrog(Frog* frog){
 
 
 bool MovingObject::detectColision(Frog* frog, float objectX){
-	return frog->getX() +1 >=  objectX && objectX + width >= frog->getX();
+	return (frog->getX() +.8) >=  objectX && objectX + width >= (frog->getX()+.2);
 }
 
 

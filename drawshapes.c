@@ -135,8 +135,28 @@ static void HalfCircle()
     glEnd();
 }
 
+void drawCylinderNoText(){
+    glPushMatrix();
+  glScalef(.5,.5,1);
+  glBegin(GL_QUAD_STRIP);
+  for (int th=0;th<=360;th+=2*inc)
+  {
+      VertexCylinder(th,0,0);
+      VertexCylinder(th,inc,1);
+  }
+  glEnd();
 
- void drawCylinder(unsigned int texture, unsigned int topTexture){
+  glNormal3f(0,0,-1);
+  Circle();
+  glTranslatef(0,0,1);
+
+  glNormal3f(0,0,1);
+  Circle();
+  glPopMatrix();
+
+}
+
+void drawCylinder(unsigned int texture, unsigned int topTexture){
 	
 	glPushMatrix();
   glScalef(.5,.5,1);

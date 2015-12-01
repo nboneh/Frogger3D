@@ -43,6 +43,7 @@ unsigned int  LoadTexBMP(const char* file);
 void Project(double fov,double asp,double dim);
 void ErrCheck(const char* where);
 
+void drawCylinderNoText();
 void drawCylinder(unsigned int texture, unsigned int topTexture);
 void drawHalfCylinder();
 void drawBall();

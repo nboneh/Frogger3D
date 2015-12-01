@@ -7,4 +7,4 @@ Arrow Keys - to rotate scene (feature will be removed later)
 
 Left to be done:
 Car models, turtle models, and death animations. Add game logic to winning row, lives, levels, and timer.
-Hopefully add shadows.
+Hopefully add shadows and sounds.

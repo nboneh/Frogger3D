@@ -56,23 +56,16 @@ void Frog::update(double t){
 			y += respawnRateY*t;
 
 		
-			if(respawnRateY >= 0 && y >= spawnY ){
+			if(fabs(y - spawnY) < .05 ){
 				y = spawnY;
 				yFinished = true; 
 			}
-			else if(respawnRateY < 0 && y <= spawnY){
-				y = spawnY;
-				yFinished = true; 
-			}
-
-			if(respawnRateX >= 0 && x >= spawnX ){
+		
+			if(fabs(x- spawnX) < .05 ){
 				x = spawnX;
 				xFinished = true; 
 			}
-			else if(respawnRateX < 0 && x <= spawnX){
-				x= spawnX;
-				xFinished = true; 
-			}
+		
 
 			if(yFinished && xFinished)
 				state = normal;
@@ -92,7 +85,7 @@ void Frog::update(double t){
 	}
 
 void Frog::inputDirection(direction moveDirection){
-	if(!isInNormalState())
+	if(state != normal)
 		return;
 	facingDirection = moveDirection;
 	state = moving; 
@@ -125,21 +118,22 @@ void Frog::draw(){
 	glTranslatef(x , 0, y);
 	switch(facingDirection){
 		case up:
+			glTranslatef(.2,0,-.2);
 			break;
 		case down:
 			glRotatef(180, 0,1,0);
-			glTranslatef(-1,0,1);
+			glTranslatef(-.8,0,.8);
 			break;
 		case left:
 			glRotatef(90, 0,1,0);
-			glTranslatef(0,0,1);
+			glTranslatef(.2,0,.8);
 			break;
 		case right:
 			glRotatef(270, 0,1,0);
-			glTranslatef(-1,0,0);
+			glTranslatef(-.8,0,.2);
 			break;
 	}
-	glScalef(.25, .25, .1666);
+	glScalef(.15, .15, .09996);
 	switch(state){
 		case dying:
 			drawDeath();
@@ -280,6 +274,111 @@ static void drawFrogBody(){
    drawHalfCylinder();
    glPopMatrix();
 
+   //Mouth
+   glColor3f(1,0,0);
+   glPushMatrix();
+   glTranslatef(3,2.2,-5.1);
+   glScalef(2, 1,2);
+   glRotatef(90,0,0,1);
+   glRotatef(-90,1,0,0);
+   drawHalfCylinder();
+   glPopMatrix();
+
+   glColor3f(1,1,1);
+   
+   //Upper teeth
+   glPushMatrix();
+   glTranslatef(3,2.4,-5.1);
+   glScalef(2, .5,2);
+   glRotatef(90,0,0,1);
+   glRotatef(-90,1,0,0);
+   drawHalfCylinder();
+   glPopMatrix();
+
+   //Lower teeth
+   glPushMatrix();
+   glTranslatef(3,2,-5.1);
+   glScalef(2, .5,2);
+   glRotatef(90,0,0,1);
+   glRotatef(-90,1,0,0);
+   drawHalfCylinder();
+   glPopMatrix();
+
+   //Left Nostril
+   glColor3f(0,0,0);
+   glPushMatrix();
+   glTranslatef(2.2,3,-5.9);
+   glScalef(.1,.1,.1);
+   drawBall();
+   glPopMatrix();
+
+   //Right Nostril
+   glColor3f(0,0,0);
+   glPushMatrix();
+   glTranslatef(1.8,3,-5.9);
+   glScalef(.1,.1,.1);
+   drawBall();
+   glPopMatrix();
+
+   //Drawing left eye lid
+   glColor3f(0,1,0);
+   glPushMatrix();
+   glTranslatef(1.25,4,-4.75);
+   drawBall();
+   glPopMatrix();
+
+   //Drawing left eye ball
+   glColor3f(1,1,1);
+   glPushMatrix();
+   glTranslatef(1.25,4,-5.15);
+   glScalef(.8,.8,.8);
+   drawBall();
+   glPopMatrix();
+
+   //Drawing left eye pupil
+   glColor3f(0,0,0);
+   glPushMatrix();
+   glTranslatef(1.25,4.1,-5.78);
+   glScalef(.4,.2,.2);
+   drawBall();
+   glPopMatrix();
+
+   //Drawing right eye lid
+   glColor3f(0,1,0);
+   glPushMatrix();
+   glTranslatef(2.75,4,-4.75);
+   drawBall();
+   glPopMatrix();
+
+   //Drawing right eye ball
+   glColor3f(1,1,1);
+   glPushMatrix();
+   glTranslatef(2.75,4,-5.15);
+   glScalef(.8,.8,.8);
+   drawBall();
+   glPopMatrix();
+
+   //Drawing right eye pupil
+   glColor3f(0,0,0);
+   glPushMatrix();
+   glTranslatef(2.75,4.1,-5.78);
+   glScalef(.4,.2,.2);
+   drawBall();
+   glPopMatrix();
+
+   //Tail
+   glPushMatrix();
+   glColor3f(1,1,0);
+   glTranslatef(2,1,-4);
+   glScalef(1,1,3);
+   glRotatef(30, 1,0,0);
+   glRotatef(45, 0,0,1);
+   drawCube();
+   glPopMatrix();
+}
+
+static void drawToe(){
+   glColor3f(0,1,0);
    glPushMatrix();
    glTranslatef(.5,0,-1);
    glScalef(.5,1,1);
@@ -287,24 +386,96 @@ static void drawFrogBody(){
    glPopMatrix();
 
    glPushMatrix();
-   glTranslatef(3,0,-1);
-   glScalef(.5,1,1);
-   drawCube();
+   glTranslatef(0,.2,-.5);
+   glRotatef(90,0,1,0);
+   glScalef(.3,.3,1);
+   drawCylinderNoText();
+   glPopMatrix();
+
+    glPushMatrix();
+   glTranslatef(0,.2,-1.3);
+   glRotatef(50,0,1,0);
+   glScalef(.3,.3,1);
+   drawCylinderNoText();
+   glPopMatrix();
+
+   glPushMatrix();
+   glTranslatef(0,.2,.3);
+   glRotatef(130,0,1,0);
+   glScalef(.3,.3,1);
+   drawCylinderNoText();
    glPopMatrix();
 
 }
 
 void Frog::drawJumpingFrog(){
  	drawFrogBody();
+
+ 	//Draw back left Toe
+   glPushMatrix();
+   glTranslatef(.1,0,.5);
+   glRotatef(15,0,1,0);
+   drawToe();
+   glPopMatrix();
+
+   //Draw back right toe
+   glPushMatrix();
+   glTranslatef(3.9,0,-.5);
+   glRotatef(165,0,1,0);
+   drawToe();
+   glPopMatrix();
+
+   //Draw front left Toe
+   glPushMatrix();
+   glTranslatef(0,.7,-6.6);
+    glRotatef(30,1,0,0);
+   glRotatef(-90,0,1,0);
+   drawToe();
+   glPopMatrix();
+
+    //Draw front right Toe
+   glPushMatrix();
+   glTranslatef(3,.7,-6.6);
+   glRotatef(30,1,0,0);
+   glRotatef(-90,0,1,0);
+   drawToe();
+   glPopMatrix();
+
 }
 
 void Frog::drawFrog(){
    drawFrogBody();
+
+    //Draw back left Toe
+   drawToe();
+
+   //Draw back right toe
+   glPushMatrix();
+   glTranslatef(4,0,-1);
+   glRotatef(180,0,1,0);
+   drawToe();
+   glPopMatrix();
+
+   //Draw front left Toe
+   glPushMatrix();
+   glTranslatef(0,0,-5);
+   glRotatef(-90,0,1,0);
+   drawToe();
+   glPopMatrix();
+
+    //Draw front right Toe
+   glPushMatrix();
+   glTranslatef(3,0,-5);
+   glRotatef(-90,0,1,0);
+   drawToe();
+   glPopMatrix();
+
+
 }
 
-bool Frog::isInNormalState(){
+/*bool Frog::isInNormalState(){
 	return state == normal;
-}
+}*/
 void Frog::die(deathType _typeOfDeath){
 	if(state == dying || state == respawning)
 		return;
@@ -341,4 +512,7 @@ bool Frog::movingVertically(){
   	return state == moving && (facingDirection == up || facingDirection == down);
 }
 
+bool Frog::isHittable(){
+	return state == normal || state == moving;
+}
 
