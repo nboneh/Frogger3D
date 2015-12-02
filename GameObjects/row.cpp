@@ -21,7 +21,7 @@ void Row::setAsWaterRow(){
 void Row::checkColisonWithFrog(Frog* frog){
   if(waterRow){
     bool drownFrog = !frog->movingVertically(); 
-    for(int i = 0; i < movingObjects.size(); i++){
+    for(unsigned int i = 0; i < movingObjects.size(); i++){
       if(movingObjects.at(i)->checkColisonWithFrog(frog))
         drownFrog = false;
     }
@@ -29,7 +29,7 @@ void Row::checkColisonWithFrog(Frog* frog){
       frog->die(drown);
     
   } else {
-    for(int i = 0; i < movingObjects.size(); i++){
+    for(unsigned int i = 0; i < movingObjects.size(); i++){
       if(movingObjects.at(i)->checkColisonWithFrog(frog)){
         frog->die(roadkill);
         break;
@@ -87,7 +87,7 @@ void Row::update( double t){
     }
   }
 
-  for(int i = 0; i < movingObjects.size(); i++){
+  for(unsigned int i = 0; i < movingObjects.size(); i++){
     movingObjects.at(i)->update(t);
   }
 }
@@ -120,7 +120,7 @@ void Row::draw(){
    	glEnd();
  	}
  	glDisable(GL_TEXTURE_2D);
-  for(int i = 0; i < movingObjects.size(); i++){
+  for(unsigned int i = 0; i < movingObjects.size(); i++){
       movingObjects.at(i)->draw();
   }
 

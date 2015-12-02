@@ -16,12 +16,12 @@ float ylight  =   5;  // Elevation of light
 
 static void drawLight(){
 	  //  Translate intensity to color vectors
-   float Ambient[]   = {0.01*ambient ,0.01*ambient ,0.01*ambient ,1.0};
-   float Diffuse[]   = {0.01*diffuse ,0.01*diffuse ,0.01*diffuse ,1.0};
-   float Specular[]  = {0.01*specular,0.01*specular,0.01*specular,1.0};
+   float Ambient[]   = {0.01f*ambient ,0.01f*ambient ,0.01f*ambient ,1.0};
+   float Diffuse[]   = {0.01f*diffuse ,0.01f*diffuse ,0.01f*diffuse ,1.0};
+   float Specular[]  = {0.01f*specular,0.01f*specular,0.01f*specular,1.0};
    //  Light position
 
-   float Position[]  = {distance*Cos(zh),ylight,distance*Sin(zh),1.0};
+   float Position[]  = {distance*(float)(Cos(zh)),ylight,(float)distance*(float)(Sin(zh)),1.0};
     //  Draw light position as ball (still no lighting here)
    glColor3f(1,1,1);
    glPushMatrix();

@@ -46,7 +46,7 @@ Frogger3D.a: fatal.o loadtexbmp.o print.o project.o errcheck.o drawshapes.o
 	g++ -c $(CFLG) $<
 
 #  Link
-Frogger3D: Frogger3D.o Frogger3D.a GameObjects/GameObjects.a
+Frogger3D: Frogger3D.o GameObjects/GameObjects.a Frogger3D.a 
 	g++ -O3 -o $@ $^   $(LIBS)
 
 #  Clean

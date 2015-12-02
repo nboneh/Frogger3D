@@ -24,7 +24,8 @@ class Row{
 		std::vector<MovingObject *> movingObjects;
 		float textureSwitchTime;
 		float textureTicCount;
-		int currentTexture;
+		//current texture is position in the array of textures
+		unsigned int currentTexture;
 		int distanceBetweenMovingObjects;
 	private:
 		void init( unsigned int _texture);

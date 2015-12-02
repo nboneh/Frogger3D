@@ -23,7 +23,7 @@ endif
 # Dependencies
 row.o: row.cpp 
 winningrow.o: winningrow.cpp 
-frog.o: frog.cpp 
+frog.o: frog.cpp ../drawshapes.c
 board.o: board.cpp  
 movingobject.o: movingobject.cpp 
 car1.o: car1.cpp 
@@ -36,7 +36,7 @@ movingobjectsfactory.o: movingobjectsfactory.cpp
 log.o: log.cpp
 turtles.o: turtles.cpp
 
-GameObjects.a: board.o row.o winningrow.o frog.o movingobject.o car1.o car2.o car3.o car4.o truck.o movingobjectsfactory.o waterobject.o log.o turtles.o
+GameObjects.a: board.o row.o winningrow.o frog.o movingobject.o car1.o car2.o car3.o car4.o truck.o movingobjectsfactory.o waterobject.o log.o turtles.o 
 	ar -rcs $@ $^
 
 
