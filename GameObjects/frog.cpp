@@ -269,7 +269,7 @@ void Frog::update(double t){
 	case respawning:
 			//Moving frog to respawn location
 			if(!yFinished){
-				if((respawnRateY >= 0 && y >= spawnY)  || (respawnRateY < 0 && y <= spawnY)){
+				if((respawnRateY >= 0 && y >= spawnY)  || (respawnRateY < 0 && y <= spawnY)|| (fabs(respawnRateY) < .1)){
 					y = spawnY;
 					yFinished = true;
 				} else {
@@ -279,7 +279,7 @@ void Frog::update(double t){
 
 
 			if(!xFinished){
-				if((respawnRateX >= 0 && x >= spawnX) || (respawnRateX < 0 && x <= spawnX )){
+				if((respawnRateX >= 0 && x >= spawnX) || (respawnRateX < 0 && x <= spawnX ) || (fabs(respawnRateX) < .1)){
 					x = spawnX;
 					xFinished = true;
 				}else {
