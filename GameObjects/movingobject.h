@@ -24,6 +24,6 @@ class MovingObject{
 		int endX, startX, width;
 		direction movingDirection;
 		float move;
-	    bool detectColision(Frog* frog, float objectX);
+	    virtual bool detectColision(Frog* frog, float objectX);
 
 };

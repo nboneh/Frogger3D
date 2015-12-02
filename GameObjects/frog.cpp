@@ -498,10 +498,14 @@ float Frog::getX(){
 }
 
 void Frog::setX(float _x){
+  if(state==dying || state == respawning)
+    return;
 	x = _x;
 }
 
 void Frog::setY(float _y){
+  if(state==dying || state == respawning)
+    return;
 	y = _y;
 }
 
@@ -512,9 +516,5 @@ void Frog::stopMovement(){
 
 bool Frog::movingVertically(){
   	return state == moving && (facingDirection == up || facingDirection == down);
-}
-
-bool Frog::isMovable(){
-  return state==normal || state == moving;
 }
 
