@@ -1,7 +1,7 @@
 #include "../Frogger3D.h"
 #include <vector>
 #include <string>
-#include "MovingObject.h"
+#include "movingobject.h"
 
 #ifndef ROW_H
 #define ROW_H

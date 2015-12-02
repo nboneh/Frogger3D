@@ -51,19 +51,32 @@ void Frog::update(double t){
 		}
 		break;
 	case respawning:
-			//Moving camera to respawn location
-			x += respawnRateX*t;
-			y += respawnRateY*t;
-
-		
-			if(fabs(y - spawnY) < .05 ){
-				y = spawnY;
-				yFinished = true; 
+			//Moving frog to respawn location
+			if(!yFinished){
+				if(respawnRateY >= 0 && y >= spawnY ){
+					y = spawnY;
+					yFinished = true; 
+				}
+				else if(respawnRateY < 0 && y <= spawnY){
+					y = spawnY;
+					yFinished = true; 
+				} else {
+					y += respawnRateY*t;
+				}
 			}
-		
-			if(fabs(x- spawnX) < .05 ){
-				x = spawnX;
-				xFinished = true; 
+
+			
+			if(!xFinished){
+				if(respawnRateX >= 0 && x >= spawnX ){
+					x = spawnX;
+					xFinished = true; 
+				}
+				else if(respawnRateX < 0 && x <= spawnX){
+					x= spawnX;
+					xFinished = true; 
+				}else {
+					x += respawnRateX*t;
+				}
 			}
 		
 
@@ -377,7 +390,7 @@ static void drawFrogBody(){
    glPopMatrix();
 }
 
-static void drawToe(){
+static void drawLeg(){
    glColor3f(0,1,0);
    glPushMatrix();
    glTranslatef(.5,0,-1);
@@ -411,34 +424,34 @@ static void drawToe(){
 void Frog::drawJumpingFrog(){
  	drawFrogBody();
 
- 	//Draw back left Toe
+ 	//Draw back left Leg
    glPushMatrix();
    glTranslatef(.1,0,.5);
    glRotatef(15,0,1,0);
-   drawToe();
+   drawLeg();
    glPopMatrix();
 
-   //Draw back right toe
+   //Draw back right Leg
    glPushMatrix();
    glTranslatef(3.9,0,-.5);
    glRotatef(165,0,1,0);
-   drawToe();
+   drawLeg();
    glPopMatrix();
 
-   //Draw front left Toe
+   //Draw front left Leg
    glPushMatrix();
    glTranslatef(0,.7,-6.6);
     glRotatef(30,1,0,0);
    glRotatef(-90,0,1,0);
-   drawToe();
+  drawLeg();
    glPopMatrix();
 
-    //Draw front right Toe
+    //Draw front right Leg
    glPushMatrix();
    glTranslatef(3,.7,-6.6);
    glRotatef(30,1,0,0);
    glRotatef(-90,0,1,0);
-   drawToe();
+   drawLeg();
    glPopMatrix();
 
 }
@@ -446,36 +459,33 @@ void Frog::drawJumpingFrog(){
 void Frog::drawFrog(){
    drawFrogBody();
 
-    //Draw back left Toe
-   drawToe();
+    //Draw back left leg
+   drawLeg();
 
-   //Draw back right toe
+   //Draw back right leg
    glPushMatrix();
    glTranslatef(4,0,-1);
    glRotatef(180,0,1,0);
-   drawToe();
+   drawLeg();
    glPopMatrix();
 
-   //Draw front left Toe
+   //Draw front left leg
    glPushMatrix();
    glTranslatef(0,0,-5);
    glRotatef(-90,0,1,0);
-   drawToe();
+   drawLeg();
    glPopMatrix();
 
-    //Draw front right Toe
+    //Draw front right leg
    glPushMatrix();
    glTranslatef(3,0,-5);
    glRotatef(-90,0,1,0);
-   drawToe();
+ 	drawLeg();
    glPopMatrix();
 
 
 }
 
-/*bool Frog::isInNormalState(){
-	return state == normal;
-}*/
 void Frog::die(deathType _typeOfDeath){
 	if(state == dying || state == respawning)
 		return;
@@ -510,9 +520,5 @@ void Frog::stopMovement(){
 
 bool Frog::movingVertically(){
   	return state == moving && (facingDirection == up || facingDirection == down);
-}
-
-bool Frog::isHittable(){
-	return state == normal || state == moving;
 }
 

@@ -22,7 +22,6 @@ class Frog{
 		float getX();
 		void die(deathType _typeOfDeath);
 		void stopMovement();
-		bool isHittable();
 		bool movingVertically();
 		void respawn();
 	private:

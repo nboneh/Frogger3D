@@ -1,5 +1,5 @@
 #include "board.h"
-#include "WinningRow.h"
+#include "winningrow.h"
 #include <string>
 
 
