@@ -11,7 +11,7 @@ class Frog{
 	direction facingDirection,spawnDirection;
 	deathType typeOfDeath;
 	frogState state;
-	public: 
+	public:
 		Frog( float _spawnX, float _spawnY, direction _spawnDirection);
 		void update(double t);
 		void inputDirection(direction moveDirection);

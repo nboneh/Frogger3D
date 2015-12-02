@@ -1,7 +1,7 @@
 #include "Frogger3D.h"
 #include "GameObjects/board.h"
 
-double dim=5.0;  
+double dim=5.0;
 int th=0;         //  Azimuth of view angle
 int ph=45;         //  Elevation of view angle
 double prevT = 0;
@@ -37,7 +37,7 @@ void printScore(){
    glLineWidth(3);
    glRotatef(-th,0,1,0);
    glRotatef(-ph,1,0,0);
-   
+
    glPushMatrix();
    glTranslatef(-5, -5,0);
    glScalef(1/152.0, 1/152.0, 1/152.0);
@@ -89,7 +89,7 @@ void special(int key,int x,int y)
    //  Left arrow - decrease rotation by 5 degree
    else if (key == GLUT_KEY_LEFT)
       th -= 5;
-   
+
    //  Up Arrow - increase rotation by 5 degree
    else if (key == GLUT_KEY_UP)
       ph -= 5;
@@ -139,7 +139,7 @@ void reshape(int width,int height)
    glViewport(0,0, width,height);
    Project(55, w2h, dim);
 }
- 
+
 
 
 /*
@@ -155,7 +155,7 @@ int main(int argc,char* argv[])
    glutInitWindowSize(600, 600);
    //  Create window
    glutCreateWindow("Frogger3D");
-  // glutFullScreen();  
+   glutFullScreen();  
 
    //  Register display, reshape, and key callbacks
    glutDisplayFunc(display);
@@ -184,4 +184,3 @@ int main(int argc,char* argv[])
    //  Return to OS
    return 0;
 }
-
