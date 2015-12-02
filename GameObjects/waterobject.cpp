@@ -6,6 +6,8 @@ WaterObject::WaterObject(direction _movingDirection, float _speed, int _width) :
 } 
 
 bool WaterObject::checkColisonWithFrog(Frog * frog){
+	if(!frog->isMovable())
+		return false;
 	bool hitFrog = MovingObject::checkColisonWithFrog(frog);
 	if(hitFrog){
 		if(movingDirection == left){

@@ -53,11 +53,7 @@ void Frog::update(double t){
 	case respawning:
 			//Moving frog to respawn location
 			if(!yFinished){
-				if(respawnRateY >= 0 && y >= spawnY ){
-					y = spawnY;
-					yFinished = true; 
-				}
-				else if(respawnRateY < 0 && y <= spawnY){
+				if((respawnRateY >= 0 && y >= spawnY)  || (respawnRateY < 0 && y <= spawnY)){
 					y = spawnY;
 					yFinished = true; 
 				} else {
@@ -67,12 +63,8 @@ void Frog::update(double t){
 
 			
 			if(!xFinished){
-				if(respawnRateX >= 0 && x >= spawnX ){
+				if((respawnRateX >= 0 && x >= spawnX) || (respawnRateX < 0 && x <= spawnX )){
 					x = spawnX;
-					xFinished = true; 
-				}
-				else if(respawnRateX < 0 && x <= spawnX){
-					x= spawnX;
 					xFinished = true; 
 				}else {
 					x += respawnRateX*t;
@@ -520,5 +512,9 @@ void Frog::stopMovement(){
 
 bool Frog::movingVertically(){
   	return state == moving && (facingDirection == up || facingDirection == down);
+}
+
+bool Frog::isMovable(){
+  return state==normal || state == moving;
 }
 
