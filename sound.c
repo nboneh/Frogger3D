@@ -1,11 +1,12 @@
 #include "Frogger3D.h"
 
-void PlaySound(const char* soundname){
+void PlaySound(const char *soundname)
+{
 	char * command = "";
 	#ifdef __APPLE__
 		command = "afplay";
 	#else
-		command = "aplay"
+		command = "aplay";
 	#endif
 		
 	char *folder = "sounds/";
@@ -14,10 +15,10 @@ void PlaySound(const char* soundname){
 	strcat(str, " ");
 	strcat(str, folder);
 	strcat(str, soundname);
-
-	int pid = fork ();
-	if(pid == 0){
+	
+	int pid;
+	if((pid = fork()) == 0){
 		system(str);
-		exit(EXIT_SUCCESS);
+		exit(0);
 	}
 }

@@ -33,8 +33,12 @@ void idle()
    glutPostRedisplay();
 }
 
+void printLives(){
+   int lives = board->getFrogLives();
+   //for(int i = 0; i < )
+}
+
 void printScore(){
-   glDisable(GL_DEPTH_TEST);
    glLineWidth(3);
    glRotatef(-th,0,1,0);
    glRotatef(-ph,1,0,0);
@@ -53,8 +57,6 @@ void printScore(){
    Print("%d", SCORE);
    glPopMatrix();
 
-   glEnable(GL_DEPTH_TEST);
-
 }
 
 void display()
@@ -70,7 +72,10 @@ void display()
 
    board->draw();
 
+   glDisable(GL_DEPTH_TEST);
    printScore();
+
+   glEnable(GL_DEPTH_TEST);
 
 
 

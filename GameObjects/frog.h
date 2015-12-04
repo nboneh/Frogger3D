@@ -26,6 +26,7 @@ class Frog{
 		bool movingVertically();
 		bool isRespawning();
 		void respawn();
+		int getLives();
 	private:
 		void drawDeath();
 		void drawFrog();
