@@ -16,7 +16,114 @@ Turtles::Turtles(float _speed, int numOfTurtles, bool _submergingTurtles):WaterO
 	submergingCounter = 0;
 	elevation = 0;
 }
+static void drawTurtleBody(){
+	glColor3f(1,0,0);
+	glPushMatrix();
+	glTranslatef(0,0,.5);
+	glScalef(.36,.08,.24);
+	drawBall();
+	glPopMatrix();
+}
+static void drawTurtleHead(){
+	glColor3f(0,1,0);
+        glPushMatrix();
+        glTranslatef(-.43,0,.5);
+        glScalef(.062,.016,.051);
+        drawBall();
+        glPopMatrix();
 
+}
+static void drawTurtleLegs1(){
+	glColor3f(0,1,0);
+	//upperleft leg
+        glPushMatrix();
+        glTranslatef(-.22,0,.27);
+        glScalef(.048,.016,.072);
+        drawBall();
+        glPopMatrix();
+	//lowerleft leg
+	glPushMatrix();
+        glTranslatef(-.22,0,.73);
+        glScalef(.048,.016,.072);
+        drawBall();
+        glPopMatrix();
+	//upperright leg
+	 glPushMatrix();
+        glTranslatef(.23,0,.27);
+        glScalef(.048,.016,.072);
+        drawBall();
+        glPopMatrix();
+	//upperleft leg
+	 glPushMatrix();
+        glTranslatef(.23,0,.73);
+        glScalef(.048,.016,.072);
+        drawBall();
+        glPopMatrix();
+}
+
+static void drawTurtleLegs(){
+	glColor3f(0,1,0);
+        //upperleft leg
+        glPushMatrix();
+        glTranslatef(-.19,0,.27);
+        glScalef(.048,.016,.072);
+        drawBall();
+        glPopMatrix();
+        //lowerleft leg
+        glPushMatrix();
+        glTranslatef(-.19,0,.73);
+        glScalef(.048,.016,.072);
+        glRotatef(30,0,0,1);
+	drawBall();
+        glPopMatrix();
+        //upperright leg
+         glPushMatrix();
+        glTranslatef(.26,0,.27);
+        glScalef(.048,.016,.072);
+	glRotatef(30,1,0,0);
+        drawBall();
+        glPopMatrix();
+        //upperleft leg
+         glPushMatrix();
+        glTranslatef(.26,0,.73);
+        glScalef(.048,.016,.072);
+	glRotatef(30,0,0,1);
+        drawBall();
+        glPopMatrix();
+
+
+}
+static void drawTurtleLegs2(){
+	 glColor3f(0,1,0);
+        //upperleft leg
+        glPushMatrix();
+        glTranslatef(-.16,0,.27);
+        glScalef(.048,.016,.072);
+        drawBall();
+        glPopMatrix();
+        //lowerleft leg
+        glPushMatrix();
+        glTranslatef(-.16,0,.73);
+        glScalef(.048,.016,.072);
+        drawBall();
+        glPopMatrix();
+        //upperright leg
+         glPushMatrix();
+        glTranslatef(.29,0,.27);
+        glScalef(.048,.016,.072);
+        drawBall();
+        glPopMatrix();
+        //upperleft leg
+         glPushMatrix();
+        glTranslatef(.29,0,.73);
+        glScalef(.048,.016,.072);
+        drawBall();
+        glPopMatrix();
+
+
+
+
+}
 void Turtles::drawAfterSetup(){
 	glPushMatrix();
 	glTranslatef(0,elevation,0);
@@ -39,32 +146,25 @@ void Turtles::drawAfterSetup(){
 }
 
 void Turtles::drawTurtle(){
-	glColor3f(1,0,0);
-	glBegin(GL_POLYGON);
-    glVertex3f(.2,.5, .2);
-    glVertex3f(.2,.5, .8);
-    glVertex3f(.8,.5, .8);
-    glVertex3f(.8,.5, .2);
+	drawTurtleBody();
+	drawTurtleHead();
+	drawTurtleLegs();
+
     glEnd();
 }
 
 void Turtles::drawTurtleSwimming1(){
-	glColor3f(1,0,0);
-	glBegin(GL_POLYGON);
-    glVertex3f(.25,.5, .25);
-    glVertex3f(.25,.5, .75);
-    glVertex3f(.75,.5, .75);
-    glVertex3f(.75,.5, .25);
-    glEnd();
+	drawTurtleBody();
+	drawTurtleHead();
+	drawTurtleLegs1();
+	 glEnd();
 }
 
 void Turtles::drawTurtleSwimming2(){
-	glColor3f(1,0,0);
-	glBegin(GL_POLYGON);
-   	glVertex3f(.3,.5, .3);
-    glVertex3f(.3,.5, .7);
-    glVertex3f(.7,.5, .7);
-    glVertex3f(.7,.5, .3);
+	drawTurtleBody();
+	drawTurtleHead();
+	drawTurtleLegs2();
+
     glEnd();
 }
 
