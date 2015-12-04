@@ -133,6 +133,7 @@ void Turtles::drawAfterSetup(){
 				drawTurtle();
 				break;
 			case 1:
+			case 3:
 				drawTurtleSwimming1();
 				break;
 			case 2:
