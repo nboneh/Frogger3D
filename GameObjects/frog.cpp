@@ -14,8 +14,8 @@ Frog::Frog(float _spawnX, float _spawnY, direction _spawnDirection){
 	facingDirection = spawnDirection;
 	state = normal;
   resetLives();
-	lives =0;
 	farthestY = (int)y;
+  decreaseLife = true;
 }
 
 
@@ -83,6 +83,10 @@ void Frog::update(double t){
 				state = normal;
         TIME = 60;
         UPDATE_TIME = true;
+        if(decreaseLife){
+          lives--;
+          decreaseLife = false;
+        }
       }
 
 			break;
@@ -138,6 +142,8 @@ void Frog::respawn(){
 }
 
 void Frog::draw(){
+  if(lives == 0)
+    return;
 	glPushMatrix();
 	glTranslatef(x , 0, y);
 	switch(facingDirection){
@@ -510,7 +516,7 @@ void Frog::die(deathType _typeOfDeath){
 	state = dying;
 	deathFrameTicCount = 0;
 	deathFrame = 0;
-	lives--;
+	decreaseLife = true;
 }
 
 float Frog::getY(){

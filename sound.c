@@ -3,13 +3,14 @@
 void PlaySound(const char *soundname)
 {
 	char * command = "";
+
 	#ifdef __APPLE__
 		command = "afplay";
 	#else
 		command = "aplay";
 	#endif
 		
-	char *folder = "sounds/";
+	char* folder = "sounds/";
 	char str[90];
 	strcpy(str, command);
 	strcat(str, " ");
@@ -22,3 +23,4 @@ void PlaySound(const char *soundname)
 		exit(0);
 	}
 }
+
