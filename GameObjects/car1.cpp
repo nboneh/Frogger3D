@@ -1,6 +1,6 @@
 #include "car1.h"
 
-Car1::Car1(): MovingObject(left, 1.5f, 1){
+Car1::Car1(): Car(left, 1.5f, 1){
 } 
 
 void Car1::drawAfterSetup(){
@@ -11,4 +11,6 @@ void Car1::drawAfterSetup(){
     glVertex3f(1,.01, 1);
     glVertex3f(1,.01, 0);
     glEnd();
+
+    Car::drawWheels();
 }

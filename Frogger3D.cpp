@@ -16,6 +16,8 @@ unsigned int GRASS;
 unsigned int CONCRETE;
 unsigned int BARK;
 unsigned int LOG;
+unsigned int WHEEL;
+unsigned int WHEEL_TREAD;
 
 int widthOfScreen;
 int heightOfScreen;
@@ -339,6 +341,9 @@ int main(int argc,char* argv[])
 
    BARK = LoadTexBMP("textures/bark.bmp");
    LOG = LoadTexBMP("textures/log.bmp");
+
+   WHEEL = LoadTexBMP("textures/wheel.bmp");
+   WHEEL_TREAD = LoadTexBMP("textures/wheeltread.bmp");
 
    board = new Board();
   PlaySound("start.wav");

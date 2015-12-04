@@ -117,7 +117,7 @@ static void Circle()
    for (i = 0; i <= 360; i++)   {
      float x= Cos(i);
      float y = Sin(i);
-       glTexCoord2f((x+1)*.5,(y+1)*.5); glVertex2f (x, y );
+       glTexCoord2f((x+1.25)*.5 ,(y+1)*.5); glVertex2f (x, y );
    }
    glEnd();
 }

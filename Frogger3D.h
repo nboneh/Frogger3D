@@ -41,6 +41,9 @@ extern unsigned int GRASS;
 extern unsigned int CONCRETE;
 extern unsigned int BARK;
 extern unsigned int LOG;
+extern unsigned int WHEEL;
+extern unsigned int WHEEL_TREAD;
+
 extern bool FROG_PASS_CARS;
 extern bool BIRD_EYE_VIEW;
 

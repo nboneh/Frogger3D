@@ -1,6 +1,6 @@
 #include "car4.h"
 
-Car4::Car4(): MovingObject(right, 5, 1){
+Car4::Car4(): Car(right, 5, 1){
 	playSpeeding = false;
 } 
 
@@ -12,10 +12,12 @@ void Car4::drawAfterSetup(){
     glVertex3f(1,.01, 1);
     glVertex3f(1,.01, 0);
     glEnd();
+
+    Car::drawWheels();
 }
 
 void Car4::update(double t){
-	MovingObject::update(t);
+	Car::update(t);
 	if(!BIRD_EYE_VIEW && FROG_PASS_CARS)
 		return;
 	

@@ -1,10 +1,10 @@
 #include "../Frogger3D.h"
 
-#ifndef MOVINGOBJECT_H
-#include "movingobject.h"
+#ifndef CAR_H
+#include "car.h"
 #endif
 
-class Car1 : public MovingObject{
+class Car1 : public Car{
 	public:
 		Car1();
 	protected:
