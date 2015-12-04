@@ -30,6 +30,8 @@ extern "C" {
 
 extern int SCORE;
 extern int ROW_WIDTH;
+extern float TIME;
+
 extern unsigned int WATER;
 extern unsigned int WATER2;
 extern unsigned int WATER3;
@@ -40,6 +42,14 @@ extern unsigned int CONCRETE;
 extern unsigned int BARK;
 extern unsigned int LOG;
 extern bool FROG_PASS_CARS;
+
+extern bool UPDATE_TIME;
+extern bool PRINT_WIN_TIME;
+
+extern int WIN_TIME;
+extern int LEVEL;
+
+
 
 void Print(const char* format , ...);
 void Fatal(const char* format , ...);

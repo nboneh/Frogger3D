@@ -27,6 +27,7 @@ class Frog{
 		bool isRespawning();
 		void respawn();
 		int getLives();
+		void resetLives();
 	private:
 		void drawDeath();
 		void drawFrog();

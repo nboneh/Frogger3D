@@ -12,4 +12,6 @@ class Board{
 		void draw();
 		void inputDirection(direction d);
 		int getFrogLives();
+		void resetFrogLives();
+
 };

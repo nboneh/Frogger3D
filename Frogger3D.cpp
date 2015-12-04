@@ -21,13 +21,25 @@ int widthOfScreen;
 int heightOfScreen;
 int ROW_WIDTH = 14;
 int SCORE = 0;
+float TIME = 60;
 bool FROG_PASS_CARS = false;
+bool UPDATE_TIME = true;
+bool PRINT_WIN_TIME = false;
+int WIN_TIME = 0;
+int LEVEL = 0;
 
 void idle()
 {
     //  Elapsed time in seconds
    double currentT = glutGet(GLUT_ELAPSED_TIME)/1000.0;
    double t = currentT - prevT;
+  
+   if(UPDATE_TIME && TIME >= 0){
+      TIME = TIME - t;
+      PRINT_WIN_TIME = false;
+   }
+
+  
    board->update(t);
    prevT = currentT;
    glutPostRedisplay();
@@ -35,7 +47,14 @@ void idle()
 
 void printLives(){
    int lives = board->getFrogLives();
-   //for(int i = 0; i < )
+   for(int i = 0; i < lives; i++){
+      glPushMatrix();
+      glTranslatef(-6+i,-4 ,0);
+      glScalef(.7,.7,1);
+      glRotatef(-90,1,0,0);
+      draw2DFrog();
+      glPopMatrix();
+   }
 }
 
 void printScore(){
@@ -44,7 +63,7 @@ void printScore(){
    glRotatef(-ph,1,0,0);
 
    glPushMatrix();
-   glTranslatef(-5, -5,0);
+   glTranslatef(-6, -5,0);
    glScalef(1/152.0, 1/152.0, 1/152.0);
    glColor3f(1,1,1);
    Print("Score");
@@ -52,11 +71,76 @@ void printScore(){
 
    glPushMatrix();
    glColor3f(1,0,0);
-   glTranslatef(-2.5, -5,0);
+   glTranslatef(-3.5, -5,0);
    glScalef(1/152.0, 1/152.0, 1/152.0);
    Print("%d", SCORE);
    glPopMatrix();
 
+}
+
+void drawTime(){
+   glPushMatrix();
+   glTranslatef(5.1, -5,0);
+   glScalef(1/152.0, 1/152.0, 1/152.0);
+   glColor3f(1,1,0);
+   Print("Time");
+   glPopMatrix();
+
+
+  float startX = 5 -5*(TIME/60);
+   glColor3f(0,1,0);
+   glBegin(GL_POLYGON);
+    glVertex3f(startX,-4.5, 0);
+    glVertex3f(startX,-5, 0);
+    glVertex3f(5,-5, 0);
+    glVertex3f(5,-4.5, 0);
+    glEnd();
+}
+
+
+void printWinTime(){
+   glColor3f(0,0,0);
+    glBegin(GL_POLYGON);
+    glVertex3f(-2,-.2, 0);
+    glVertex3f(-2,.8, 0);
+    glVertex3f(2.2,.8, 0);
+    glVertex3f(2.2,-.2, 0);
+    glEnd();
+
+    glPushMatrix();
+   glTranslatef(-1.8, 0,0);
+   glScalef(1/152.0, 1/152.0, 1/152.0);
+   glColor3f(1,0,0);
+   Print("Time: %d", WIN_TIME );
+   glPopMatrix();
+}
+
+void printGameOver(){
+
+  glColor3f(0,0,0);
+  glBegin(GL_POLYGON);
+  glVertex3f(-2.7,-.6, 0);
+  glVertex3f(-2.7,1.3, 0);
+  glVertex3f(3.4,1.3, 0);
+  glVertex3f(3.4,-.6, 0);
+  glEnd();
+
+
+  glPushMatrix();
+  glTranslatef(-1.9, .4,0);
+  glScalef(1/152.0, 1/152.0, 1/152.0);
+  glColor3f(1,0,0);
+  Print("Game Over");
+  glPopMatrix();
+
+
+ 
+  glPushMatrix();
+  glTranslatef(-2.5, -.4,0);
+  glScalef(1/300.0, 1/300.0, 1/300.0);
+  glColor3f(1,1,1);
+  Print("Press any button to retry");
+  glPopMatrix();
 }
 
 void display()
@@ -71,12 +155,24 @@ void display()
    gluLookAt(Ex,Ey,Ez , 0,0,0 , 0,Cos(ph),0);
 
    board->draw();
-
+   
+   glDisable(GL_LIGHTING);
    glDisable(GL_DEPTH_TEST);
    printScore();
+   printLives();
+   drawTime();
+  
+   if(PRINT_WIN_TIME){
+      printWinTime();
+   }
+   if(board->getFrogLives() == 0){
+      UPDATE_TIME = false;
+      printGameOver();
+
+   }
 
    glEnable(GL_DEPTH_TEST);
-
+   glEnable(GL_LIGHTING);
 
 
    //  Make scene visible
@@ -109,6 +205,14 @@ void special(int key,int x,int y)
 
 void key(unsigned char ch,int x,int y)
 {
+    if(board->getFrogLives() == 0){
+      UPDATE_TIME =true;
+      board->resetFrogLives();
+      SCORE =0;
+      LEVEL =0;
+      PlaySound("start.wav");
+      return;
+    }
    //  Exit on ESC
    if (ch == 27)
       exit(0);
@@ -184,6 +288,7 @@ int main(int argc,char* argv[])
    LOG = LoadTexBMP("textures/log.bmp");
 
    board = new Board();
+  PlaySound("start.wav");
 
    //  Pass control to GLUT for events
    glutMainLoop();

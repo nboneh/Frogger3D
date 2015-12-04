@@ -24,6 +24,17 @@ void WinningRow::checkColisonWithFrog(Frog* frog){
                     PlaySound("win.wav");
                     frog->respawn();
                     wonAreas.at(i) = true;
+                    SCORE += floor(TIME) * 10;
+                    PRINT_WIN_TIME = true;
+                    WIN_TIME = TIME;
+                    for(int j = 0; j < numOfWinningAreas; j++){
+                        //Checking if get all winning areas
+                        if(wonAreas.at(j) == false)
+                            return;
+                    }
+                    SCORE += 1000;
+                    LEVEL++;
+                    reset();
                 }
                 return;
             }

@@ -13,7 +13,8 @@ Frog::Frog(float _spawnX, float _spawnY, direction _spawnDirection){
 	y = spawnY;
 	facingDirection = spawnDirection;
 	state = normal;
-	lives =3;
+  resetLives();
+	lives =0;
 	farthestY = (int)y;
 }
 
@@ -77,10 +78,13 @@ void Frog::update(double t){
 					x += respawnRateX*t;
 				}
 			}
-
-
-			if(yFinished && xFinished)
+      
+      if(yFinished && xFinished){
 				state = normal;
+        TIME = 60;
+        UPDATE_TIME = true;
+      }
+
 			break;
 	case dying:
 			//Playing death animation
@@ -116,6 +120,8 @@ void Frog::respawn(){
 	state = respawning;
 	float distToSpawnX = spawnX -x;
 	float distToSpawnY = spawnY -y;
+  if(distToSpawnY == 0)
+    distToSpawnY = .01;
 	float angle = atan (fabs(distToSpawnX/distToSpawnY)) * 180 / PI;
 
 	respawnRateX = 5*Sin(angle);
@@ -127,6 +133,7 @@ void Frog::respawn(){
 		respawnRateY = -respawnRateY;
 
 	facingDirection = spawnDirection;
+  UPDATE_TIME = false;
 
 }
 
@@ -542,4 +549,8 @@ bool Frog::isRespawning(){
 
 int Frog::getLives(){
   return lives;
+}
+
+void Frog::resetLives(){
+  lives = 3;
 }

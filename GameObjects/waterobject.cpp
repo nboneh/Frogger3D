@@ -25,5 +25,5 @@ bool WaterObject::checkColisonWithFrog(Frog * frog){
 
 
 bool WaterObject::detectColision(Frog* frog, float objectX){
-	return (frog->getX() +.6) >=  objectX && objectX + width >= (frog->getX()+.4);
+	return (frog->getX() +.7) >=  objectX && objectX + width >= (frog->getX()+.3);
 }
