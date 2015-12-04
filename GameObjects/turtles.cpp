@@ -31,93 +31,120 @@ static void drawTurtleHead(){
         glScalef(.062,.016,.051);
         drawBall();
         glPopMatrix();
-
-}
-static void drawTurtleLegs1(){
-	glColor3f(0,1,0);
-	//upperleft leg
+        
+        glColor3f(0,1,0);
         glPushMatrix();
-        glTranslatef(-.22,0,.27);
-        glScalef(.048,.016,.072);
+        glTranslatef(.38,0,.5);
+        glScalef(.03,.02,.02);
         drawBall();
         glPopMatrix();
-	//lowerleft leg
-	glPushMatrix();
-        glTranslatef(-.22,0,.73);
-        glScalef(.048,.016,.072);
-        drawBall();
-        glPopMatrix();
-	//upperright leg
-	 glPushMatrix();
-        glTranslatef(.23,0,.27);
-        glScalef(.048,.016,.072);
-        drawBall();
-        glPopMatrix();
-	//upperleft leg
-	 glPushMatrix();
-        glTranslatef(.23,0,.73);
-        glScalef(.048,.016,.072);
-        drawBall();
-        glPopMatrix();
+        
+
 }
 
 static void drawTurtleLegs(){
-	glColor3f(0,1,0);
+		glColor3f(0,1,0);
+	
         //upperleft leg
         glPushMatrix();
-        glTranslatef(-.19,0,.27);
-        glScalef(.048,.016,.072);
-        drawBall();
+        glTranslatef(-.30,0,.25);
+        glScalef(.090,.016,.15);
+        glRotatef(55,0,1,0);
+        drawCylinderNoText();
         glPopMatrix();
+        
         //lowerleft leg
         glPushMatrix();
-        glTranslatef(-.19,0,.73);
-        glScalef(.048,.016,.072);
-        glRotatef(30,0,0,1);
-	drawBall();
+        glTranslatef(-.26,0,.66);
+        glScalef(.090,.016,.15); 
+        glRotatef(-55,0,1,0);
+		drawCylinderNoText();
         glPopMatrix();
+        
         //upperright leg
-         glPushMatrix();
-        glTranslatef(.26,0,.27);
-        glScalef(.048,.016,.072);
-	glRotatef(30,1,0,0);
-        drawBall();
+        glPushMatrix();
+        glTranslatef(.20,0,.25);
+        glScalef(.090,.016,.15);
+        glRotatef(50,0,1,0);
+        drawCylinderNoText();;
         glPopMatrix();
-        //upperleft leg
-         glPushMatrix();
-        glTranslatef(.26,0,.73);
-        glScalef(.048,.016,.072);
-	glRotatef(30,0,0,1);
-        drawBall();
+        
+        //lowerright leg
+        glPushMatrix();
+        glTranslatef(.19,0,.68);
+        glScalef(.090,.016,.15);
+		glRotatef(55,0,1,0);
+        drawCylinderNoText();
         glPopMatrix();
 
 
 }
-static void drawTurtleLegs2(){
-	 glColor3f(0,1,0);
-        //upperleft leg
-        glPushMatrix();
-        glTranslatef(-.16,0,.27);
-        glScalef(.048,.016,.072);
-        drawBall();
+
+static void drawTurtleLegs1(){
+		glColor3f(0,1,0);
+		//upperleft leg
+		glPushMatrix();
+        glTranslatef(-.19,0,.28);
+        glScalef(.3,.016,.10);
+        glRotatef(-15,0,1,0);
+        drawCylinderNoText();
         glPopMatrix();
+        
         //lowerleft leg
         glPushMatrix();
-        glTranslatef(-.16,0,.73);
-        glScalef(.048,.016,.072);
-        drawBall();
+        glTranslatef(-.282,0,.62);
+        glScalef(.3,.016,.10); 
+        glRotatef(15,0,1,0);
+		drawCylinderNoText();
         glPopMatrix();
+        
         //upperright leg
-         glPushMatrix();
-        glTranslatef(.29,0,.27);
-        glScalef(.048,.016,.072);
-        drawBall();
+        glPushMatrix();
+        glTranslatef(.38,0,.30);
+        glScalef(.3,.016,.10);
+        glRotatef(-75,0,1,0);
+        drawCylinderNoText();;
         glPopMatrix();
+        
+        //lowerright leg
+        glPushMatrix();
+        glTranslatef(.09,0,.67);
+        glScalef(.3,.016,.10);
+		glRotatef(75,0,1,0);
+        drawCylinderNoText();
+        glPopMatrix();
+}
+
+
+static void drawTurtleLegs2(){
+		glColor3f(0,1,0);
+		
         //upperleft leg
-         glPushMatrix();
-        glTranslatef(.29,0,.73);
-        glScalef(.048,.016,.072);
-        drawBall();
+        glPushMatrix();
+        glTranslatef(-.19,0,.21);
+        glScalef(.090,.016,.12);
+        drawCylinderNoText();
+        glPopMatrix();
+        
+        //lowerleft leg
+        glPushMatrix();
+        glTranslatef(-.19,0,.68);
+        glScalef(.090,.016,.12); 
+		drawCylinderNoText();
+        glPopMatrix();
+        
+        //upperright leg
+        glPushMatrix();
+        glTranslatef(.20,0,.21);
+        glScalef(.090,.016,.12);
+        drawCylinderNoText();;
+        glPopMatrix();
+        
+        //upperleft leg
+        glPushMatrix();
+        glTranslatef(.20,0,.68);
+        glScalef(.090,.016,.12);
+        drawCylinderNoText();
         glPopMatrix();
 
 
@@ -130,11 +157,11 @@ void Turtles::drawAfterSetup(){
 	for(int i = 0; i < width; i++){
 		switch(frame){
 			case 0:
-				drawTurtle();
+				drawTurtleSwimming1();
 				break;
 			case 1:
 			case 3:
-				drawTurtleSwimming1();
+				drawTurtle();
 				break;
 			case 2:
 				drawTurtleSwimming2();
