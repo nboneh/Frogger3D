@@ -1,7 +1,7 @@
 #include "turtles.h"
 
 int TOTAL_FRAMES = 3;
-float TIME_TILL_SUBMERGE = .3;
+float TIME_TILL_SUBMERGE = .6;
 float FRAME_TIC = .2;
 float sumbergeSpeed = 1.3;
 float MIN_ELEVATION = -.8;

@@ -34,9 +34,10 @@ print.o: print.c
 project.o: project.c 
 errcheck.o: errcheck.c
 drawshapes.o: drawshapes.c 
+sound.o: sound.c
 
 #  Create archive
-Frogger3D.a: fatal.o loadtexbmp.o print.o project.o errcheck.o drawshapes.o
+Frogger3D.a: fatal.o loadtexbmp.o print.o project.o errcheck.o drawshapes.o sound.o
 	ar -rcs $@ $^
 
 # Compile rules

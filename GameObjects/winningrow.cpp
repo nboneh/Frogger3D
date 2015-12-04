@@ -2,21 +2,51 @@
 
 WinningRow::WinningRow(std::vector<unsigned int> _textures, float _textureSwitchTime, unsigned int _boundaryTexture): Row( _textures, _textureSwitchTime){
         boundaryTexture =_boundaryTexture;
+        numOfWinningAreas = ROW_WIDTH/3 + 1;
+        wonAreas.resize(numOfWinningAreas);
+        reset();
+}
+
+void WinningRow::reset(){
+    for(unsigned int i = 0; i < numOfWinningAreas; i++){
+        wonAreas.at(i) = false;
     }
+}
+
+void WinningRow::checkColisonWithFrog(Frog* frog){
+    if(frog->isRespawning())
+        return;
+    for(int i = 0; i < numOfWinningAreas; i++){
+        if(wonAreas.at(i) == false){
+            float x = .5 + i *3;
+            if((frog->getX() +.6) >=  x && (x + 1) >= (frog->getX()+.4)){
+                if(!frog->movingVertically()){
+                    PlaySound("win.wav");
+                    frog->respawn();
+                    wonAreas.at(i) = true;
+                }
+                return;
+            }
+        }
+    }
+    frog->stopMovement();
+    frog->setY(ceil(frog->getY()));
+    PlaySound("fail.wav");
+}
 
 void WinningRow::draw(){
-  float white[] = {1,1,1,1};
-  float Emission[]  = {0.0,0.0,0,1.0};
-  float shinyvec[] = {0};
-  glMaterialfv(GL_FRONT_AND_BACK,GL_SHININESS,shinyvec);
-  glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
-  glMaterialfv(GL_FRONT,GL_EMISSION,Emission);
+float white[] = {1,1,1,1};
+float Emission[]  = {0.0,0.0,0,1.0};
+float shinyvec[] = {0};
+glMaterialfv(GL_FRONT_AND_BACK,GL_SHININESS,shinyvec);
+glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
+glMaterialfv(GL_FRONT,GL_EMISSION,Emission);
 
 
- glEnable(GL_TEXTURE_2D);
- glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_REPLACE); 
+glEnable(GL_TEXTURE_2D);
+glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_REPLACE); 
 glPushMatrix();
-    glTranslatef(0,-.5,0);
+glTranslatef(0,-.4,0);
 
 glBindTexture(GL_TEXTURE_2D,texture);
  for(int j =0; j > -2; j--){
@@ -27,6 +57,16 @@ glBindTexture(GL_TEXTURE_2D,texture);
           drawLeftBoundaryRightReg(i,j);
           i++;
           drawLeftRegRightBoundary(i,0);
+          if(wonAreas.at(i/3)){
+            glBindTexture(GL_TEXTURE_2D,FROG);
+            glBegin(GL_POLYGON);
+            glNormal3f( 0,+1, 0);
+            glTexCoord2f(0,0);glVertex3f(i-.5,.01,j-.5);
+            glTexCoord2f(1,0); glVertex3f(i+.5,.01,j-.5);
+            glTexCoord2f(1,1); glVertex3f(i+.5 ,.01,j+1);
+            glTexCoord2f(0,1); glVertex3f(i-.5 ,.01,j+1);
+            glEnd();
+          }
         } else{
           drawLeftBoundaryRightRegWithTop(i,j);
           i++;

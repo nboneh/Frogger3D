@@ -6,6 +6,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include <math.h>
+#include <unistd.h>
 
 #ifdef USEGLEW
 #include <GL/glew.h>
@@ -20,6 +21,7 @@
 #define Cos(th) cos(3.1415926/180*(th))
 #define Sin(th) sin(3.1415926/180*(th))
 #define PI 3.14159265
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -36,12 +38,15 @@ extern unsigned int GRASS;
 extern unsigned int CONCRETE;
 extern unsigned int BARK;
 extern unsigned int LOG;
+extern unsigned int FROG;
+extern bool FROG_PASS_CARS;
 
 void Print(const char* format , ...);
 void Fatal(const char* format , ...);
 unsigned int  LoadTexBMP(const char* file);
 void Project(double fov,double asp,double dim);
 void ErrCheck(const char* where);
+void PlaySound(const char* soundname);
 
 void drawCylinderNoText();
 void drawCylinder(unsigned int texture, unsigned int topTexture);
