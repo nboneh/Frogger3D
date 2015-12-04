@@ -27,20 +27,22 @@ bool UPDATE_TIME = true;
 bool PRINT_WIN_TIME = false;
 int WIN_TIME = 0;
 int LEVEL = 0;
+bool paused = false;
+bool BIRD_EYE_VIEW = false;
 
 void idle()
 {
     //  Elapsed time in seconds
    double currentT = glutGet(GLUT_ELAPSED_TIME)/1000.0;
    double t = currentT - prevT;
-  
-   if(UPDATE_TIME && TIME >= 0){
-      TIME = TIME - t;
-      PRINT_WIN_TIME = false;
+    
+    if(!paused){
+    if(UPDATE_TIME && TIME >= 0){
+       TIME = TIME - t;
+       PRINT_WIN_TIME = false;
+    }
+    board->update(t);
    }
-
-  
-   board->update(t);
    prevT = currentT;
    glutPostRedisplay();
 }
@@ -143,6 +145,35 @@ void printGameOver(){
   glPopMatrix();
 }
 
+void printPause(){
+
+  glColor3f(0,0,0);
+  glBegin(GL_POLYGON);
+  glVertex3f(-3.2,-.6, 0);
+  glVertex3f(-3.2,1.3, 0);
+  glVertex3f(3.3,1.3, 0);
+  glVertex3f(3.3,-.6, 0);
+  glEnd();
+
+
+  glPushMatrix();
+  glTranslatef(-1.5, .4,0);
+  glScalef(1/152.0, 1/152.0, 1/152.0);
+  glColor3f(1,0,0);
+  Print("Paused");
+  glPopMatrix();
+
+
+ 
+  glPushMatrix();
+  glTranslatef(-3, -.4,0);
+  glScalef(1/300.0, 1/300.0, 1/300.0);
+  glColor3f(1,1,1);
+  Print("Press any button to resume");
+  glPopMatrix();
+}
+
+
 void display()
 {
    //  Clear screen
@@ -161,14 +192,16 @@ void display()
    printScore();
    printLives();
    drawTime();
-  
-   if(PRINT_WIN_TIME){
+    
+   if(paused){
+    printPause();
+   }
+   else if(PRINT_WIN_TIME){
       printWinTime();
    }
-   if(board->getFrogLives() == 0){
+   else if(board->getFrogLives() == 0){
       UPDATE_TIME = false;
       printGameOver();
-
    }
 
    glEnable(GL_DEPTH_TEST);
@@ -213,6 +246,12 @@ void key(unsigned char ch,int x,int y)
       PlaySound("start.wav");
       return;
     }
+
+    if(paused){
+      paused = false;
+      PlaySound("clickoff.wav");
+      return;
+    }
    //  Exit on ESC
    if (ch == 27)
       exit(0);
@@ -232,6 +271,20 @@ void key(unsigned char ch,int x,int y)
       board->inputDirection(left);
    }
 
+    else if(ch == 'm'  || ch == 'M'){
+      if(BIRD_EYE_VIEW){
+        BIRD_EYE_VIEW = false;
+        ph=45; 
+      } else {
+         BIRD_EYE_VIEW = true;
+        ph=90; 
+      }
+   }
+
+   else if(ch == 'p'  || ch == 'P'){
+      paused = true; 
+      PlaySound("clickon.wav");
+   }
 
    //  Tell GLUT it is necessary to redisplay the scene
    glutPostRedisplay();

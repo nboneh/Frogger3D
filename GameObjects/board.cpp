@@ -144,7 +144,12 @@ void Board::draw(){
 	int numOfRows = rows.size();
 	glPushMatrix();
 	//Adjusting camera
-	glTranslatef(-frog->getX(),0, - frog->getY() +numOfRows* .3f);
+	if(BIRD_EYE_VIEW){
+		glTranslatef(-(ROW_WIDTH/2),-6, -(numOfRows/2));
+		//glScalef(1.2, 1, .75);
+	} else {
+		glTranslatef(-frog->getX(),0, - frog->getY() +numOfRows* .3f);
+	}
 	
 	//Drawing rows
 	glPushMatrix();

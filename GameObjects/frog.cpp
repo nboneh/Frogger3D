@@ -59,6 +59,10 @@ void Frog::update(double t){
 		}
 		break;
 	case respawning:
+      if(BIRD_EYE_VIEW && !PRINT_WIN_TIME){
+        x = spawnX;
+        y = spawnY;
+      }
 			//Moving frog to respawn location
 			if(!yFinished){
 				if((respawnRateY >= 0 && y >= spawnY)  || (respawnRateY < 0 && y <= spawnY)|| (fabs(respawnRateY) < .1)){

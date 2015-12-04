@@ -42,6 +42,7 @@ extern unsigned int CONCRETE;
 extern unsigned int BARK;
 extern unsigned int LOG;
 extern bool FROG_PASS_CARS;
+extern bool BIRD_EYE_VIEW;
 
 extern bool UPDATE_TIME;
 extern bool PRINT_WIN_TIME;

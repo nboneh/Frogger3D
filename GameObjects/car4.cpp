@@ -16,7 +16,7 @@ void Car4::drawAfterSetup(){
 
 void Car4::update(double t){
 	MovingObject::update(t);
-	if(FROG_PASS_CARS)
+	if(!BIRD_EYE_VIEW && FROG_PASS_CARS)
 		return;
 	
 	if(playSpeeding && x >= 0){
