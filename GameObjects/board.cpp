@@ -135,7 +135,9 @@ void Board::inputDirection(direction d){
 	frog->inputDirection(d);
 }
 
-
+int Board::getFrogLives(){
+	return frog->getLives();
+}
 void Board::draw(){
 	int numOfRows = rows.size();
 	glPushMatrix();

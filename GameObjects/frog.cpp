@@ -539,3 +539,7 @@ bool Frog::movingVertically(){
 bool Frog::isRespawning(){
   return state == respawning;
 }
+
+int Frog::getLives(){
+  return lives;
+}
