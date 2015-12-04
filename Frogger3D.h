@@ -7,6 +7,7 @@
 #include <string.h>
 #include <math.h>
 #include <unistd.h>
+#include <stdbool.h>
 
 #ifdef USEGLEW
 #include <GL/glew.h>
@@ -38,7 +39,6 @@ extern unsigned int GRASS;
 extern unsigned int CONCRETE;
 extern unsigned int BARK;
 extern unsigned int LOG;
-extern unsigned int FROG;
 extern bool FROG_PASS_CARS;
 
 void Print(const char* format , ...);
@@ -53,6 +53,7 @@ void drawCylinder(unsigned int texture, unsigned int topTexture);
 void drawHalfCylinder();
 void drawBall();
 void drawCube();
+void draw2DFrog();
 
 enum direction{
 	up,

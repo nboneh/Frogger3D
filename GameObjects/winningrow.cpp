@@ -58,14 +58,10 @@ glBindTexture(GL_TEXTURE_2D,texture);
           i++;
           drawLeftRegRightBoundary(i,0);
           if(wonAreas.at(i/3)){
-            glBindTexture(GL_TEXTURE_2D,FROG);
-            glBegin(GL_POLYGON);
-            glNormal3f( 0,+1, 0);
-            glTexCoord2f(0,0);glVertex3f(i-.5,.01,j-.5);
-            glTexCoord2f(1,0); glVertex3f(i+.5,.01,j-.5);
-            glTexCoord2f(1,1); glVertex3f(i+.5 ,.01,j+1);
-            glTexCoord2f(0,1); glVertex3f(i-.5 ,.01,j+1);
-            glEnd();
+            glPushMatrix();
+            glTranslatef(i-.5,0,0);
+            draw2DFrog();
+            glPopMatrix();
           }
         } else{
           drawLeftBoundaryRightRegWithTop(i,j);

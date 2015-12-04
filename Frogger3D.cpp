@@ -16,7 +16,6 @@ unsigned int GRASS;
 unsigned int CONCRETE;
 unsigned int BARK;
 unsigned int LOG;
-unsigned int FROG;
 
 int widthOfScreen;
 int heightOfScreen;
@@ -178,8 +177,6 @@ int main(int argc,char* argv[])
 
    BARK = LoadTexBMP("textures/bark.bmp");
    LOG = LoadTexBMP("textures/log.bmp");
-
-   FROG =LoadTexBMP("textures/frog.bmp");
 
    board = new Board();
 
