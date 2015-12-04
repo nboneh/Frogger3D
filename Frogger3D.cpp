@@ -21,6 +21,7 @@ int widthOfScreen;
 int heightOfScreen;
 int ROW_WIDTH = 14;
 int SCORE = 0;
+bool FROG_PASS_CARS = false;
 
 void idle()
 {

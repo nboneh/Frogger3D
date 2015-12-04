@@ -22,20 +22,25 @@ void Frog::update(double t){
 	float move;
 	bool yFinished = false;
 	bool xFinished = false;
+
 	switch(state){
 	case normal:
 		break;
 	case moving:
 		move = t*5;
 		totalMove += move;
+    if(playMoveSound  && totalMove > .1){
+      PlaySound("hop.wav");
+      playMoveSound = false;
+    }
 
 		if(totalMove > 1){
 			state = normal;
 			move = move - (totalMove -1);
-			if(y < farthestY){
-				SCORE +=  (farthestY -(int)y ) *10;
-				farthestY = (int)y;
-			}
+			   if(y < farthestY){
+				    SCORE +=  (farthestY -(int)y ) *10;
+				    farthestY = (int)y;
+			   }
 	    }
 		switch(facingDirection){
 			case up:
@@ -89,6 +94,10 @@ void Frog::update(double t){
 			}
 			break;
 		}
+    if(y <= 7)
+      FROG_PASS_CARS = true;
+    else 
+      FROG_PASS_CARS = false;
 	}
 
 void Frog::inputDirection(direction moveDirection){
@@ -97,6 +106,7 @@ void Frog::inputDirection(direction moveDirection){
 	facingDirection = moveDirection;
 	state = moving;
 	totalMove = 0;
+  playMoveSound = true;
 
 }
 
@@ -485,6 +495,11 @@ void Frog::die(deathType _typeOfDeath){
 		return;
 	stopMovement();
 	typeOfDeath = _typeOfDeath;
+  if(typeOfDeath == roadkill)
+    PlaySound("squash.wav");
+  else if(typeOfDeath == drown)
+    PlaySound("plunk.wav");
+
 	state = dying;
 	deathFrameTicCount = 0;
 	deathFrame = 0;
@@ -514,8 +529,13 @@ void Frog::setY(float _y){
 void Frog::stopMovement(){
 	if(state == moving)
 		state = normal;
+
 }
 
 bool Frog::movingVertically(){
   	return state == moving && (facingDirection == up || facingDirection == down);
+}
+
+bool Frog::isRespawning(){
+  return state == respawning;
 }

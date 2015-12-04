@@ -14,7 +14,7 @@ class Row{
 		void update(double t);
 		void addMovingObjects(std::string type, int distanceBetween, int num );
 		void addMovingObject(std::string type);
-		void checkColisonWithFrog(Frog* frog);
+		virtual void checkColisonWithFrog(Frog* frog);
 		void setAsWaterRow();
 		virtual void draw();
 	protected:

@@ -11,6 +11,7 @@ class Frog{
 	direction facingDirection,spawnDirection;
 	deathType typeOfDeath;
 	frogState state;
+	bool playMoveSound;
 	public:
 		Frog( float _spawnX, float _spawnY, direction _spawnDirection);
 		void update(double t);
@@ -23,6 +24,7 @@ class Frog{
 		void die(deathType _typeOfDeath);
 		void stopMovement();
 		bool movingVertically();
+		bool isRespawning();
 		void respawn();
 	private:
 		void drawDeath();

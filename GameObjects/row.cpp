@@ -102,7 +102,7 @@ void Row::draw(){
 
   glPushMatrix();
   if(waterRow)
-    glTranslatef(0,-.5,0);
+    glTranslatef(0,-.4,0);
 
 
  glEnable(GL_TEXTURE_2D);

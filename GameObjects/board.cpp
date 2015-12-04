@@ -50,6 +50,7 @@ Board::Board(){
 	water.push_back(WATER3);
 	water.push_back(WATER2);
 	water.push_back(WATER);
+	PlaySound("start.wav");
 
 	rows.push_back(new WinningRow( water, .2, GRASS));
 	Row * fifthWaterRow = new Row(water, .2);
@@ -57,7 +58,7 @@ Board::Board(){
 	fifthWaterRow->addMovingObjects("AverageLog", 2, 3 );
 	rows.push_back(fifthWaterRow);
 
-	Row * fourthWaterRow = new Row(water, .2);
+	/*Row * fourthWaterRow = new Row(water, .2);
 	fourthWaterRow->setAsWaterRow();
 	fourthWaterRow->addMovingObjects("TwoTurtles", 1, 4);
 	fourthWaterRow->addMovingObject("SubmergingTwoTurtles");
@@ -99,7 +100,7 @@ Board::Board(){
 
  	Row * firstRoadRow = new Row(ROAD);
  	firstRoadRow->addMovingObjects("Car1", 3, 3);
- 	rows.push_back(firstRoadRow);
+ 	rows.push_back(firstRoadRow);*/
 
  	rows.push_back(new Row(GRASS));
  	frog = new Frog(ROW_WIDTH/2 , rows.size(),up);
@@ -113,8 +114,8 @@ void Board::update( double t){
  		if(i == checkColisionAtY)
  			rows.at(i)->checkColisonWithFrog(frog);
  	}
- 	frog->update(t);
-	
+	frog->update(t);
+
 	if(frog->getX() < 0){
 		frog->setX(0);
 		frog->stopMovement();
