@@ -32,10 +32,10 @@ void Frog::update(double t){
       playMoveSound = false;
     }
 
-		if(totalMove > 1){
+		if(totalMove >= 1){
 			state = normal;
 			move = move - (totalMove -1);
-			   if(y < farthestY){
+			   if(y < farthestY && facingDirection == up){
 				    SCORE +=  (farthestY -(int)y ) *10;
 				    farthestY = (int)y;
 			   }
