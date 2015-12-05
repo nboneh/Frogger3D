@@ -39,6 +39,7 @@ void Frog::update(double t){
 				    SCORE +=  (farthestY -(int)y ) *10;
 				    farthestY = (int)y;
 			   }
+         totalMove =0;
 	    }
 		switch(facingDirection){
 			case up:
