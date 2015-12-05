@@ -40,7 +40,7 @@ void idle()
    double currentT = glutGet(GLUT_ELAPSED_TIME)/1000.0;
    double t = currentT - prevT;
     
-    if(!paused){
+  if(!paused){
     if(UPDATE_TIME && TIME >= 0){
        TIME = TIME - t;
        PRINT_WIN_TIME = false;
@@ -223,6 +223,17 @@ void display()
 
 void special(int key,int x,int y)
 {
+
+   if(board->getFrogLives() == 0){
+      UPDATE_TIME =true;
+      board->resetFrogLives();
+      board->resetWinningRow();
+      SCORE =0;
+      LEVEL =0;
+      PlaySound("start.wav");
+      return;
+    }
+    
      //  Right arrow - increase rotation by 5 degree
    if (key == GLUT_KEY_RIGHT)
        board->inputDirection(right);
