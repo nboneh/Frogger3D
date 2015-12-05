@@ -11,7 +11,6 @@ class Frog{
 	direction facingDirection,spawnDirection;
 	deathType typeOfDeath;
 	frogState state;
-	bool playMoveSound;
 	bool decreaseLife;
 	public:
 		Frog( float _spawnX, float _spawnY, direction _spawnDirection);

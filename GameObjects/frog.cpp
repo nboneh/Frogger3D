@@ -27,11 +27,6 @@ void Frog::update(double t){
 	case moving:
 		move = t*5;
 		totalMove += move;
-    if(playMoveSound  && totalMove > .2){
-      PlaySound("hop.wav");
-      playMoveSound = false;
-    }
-
 		if(totalMove >= 1){
 			state = normal;
 			move = move - (totalMove -1);
@@ -47,12 +42,26 @@ void Frog::update(double t){
 			 	break;
 			case down:
 				y += move;
+				if(y >= spawnY ){
+					y =spawnY;
+					return;
+				}
 				break;
 			case left:
 				x -= move;
+				if(x <= 0){
+					x = 0;
+					state = normal;
+					return;
+				}
 				break;
 			case right:
 				x += move;
+				if(x >= (ROW_WIDTH-1)){
+					x = ROW_WIDTH -1;
+					state = normal;
+					return;
+				}
 				break;
 		}
 		break;
@@ -117,9 +126,12 @@ void Frog::inputDirection(direction moveDirection){
 	if(state != normal)
 		return;
 	facingDirection = moveDirection;
+	if(facingDirection == left && x <= 0) return;
+	else if(facingDirection == right && x >= (ROW_WIDTH-1))return;
+	else if(facingDirection == down && y >= spawnY )return;
 	state = moving;
+	 PlaySound("hop.wav");
 	totalMove = 0;
-  playMoveSound = true;
 
 }
 
@@ -663,7 +675,6 @@ void Frog::setY(float _y){
 void Frog::stopMovement(){
 	if(state == moving)
 		state = normal;
-  playMoveSound = false;
   totalMove = 0;
 }
 

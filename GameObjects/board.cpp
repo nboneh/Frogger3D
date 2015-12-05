@@ -121,18 +121,6 @@ void Board::update( double t){
 	if(TIME <= 0)
 		frog->die(roadkill);
 
-	if(frog->getX() < 0){
-		frog->setX(0);
-		frog->stopMovement();
-	}
-	else if(frog->getX() > (ROW_WIDTH-1)){
-		frog->setX(ROW_WIDTH-1);
-		frog->stopMovement();
-	}
-	else if(frog->getY() > rows.size()){
-		frog->setY(rows.size());
-		frog->stopMovement();
-	}
 
 }
 
