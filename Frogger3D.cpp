@@ -3,7 +3,7 @@
 
 double dim=5.0;
 int th=0;         //  Azimuth of view angle
-int ph=45;         //  Elevation of view angle
+int ph=35;         //  Elevation of view angle
 double prevT = 0;
 Board* board;
 
@@ -19,6 +19,7 @@ unsigned int LOG;
 unsigned int WHEEL;
 unsigned int WHEEL_TREAD;
 unsigned int BACK_OF_TRUCK;
+unsigned int REDDIT;
 
 int widthOfScreen;
 int heightOfScreen;
@@ -54,7 +55,7 @@ void printLives(){
    int lives = board->getFrogLives();
    for(int i = 0; i < lives; i++){
       glPushMatrix();
-      glTranslatef(-6+i,-4 ,0);
+      glTranslatef(-5.8+i,-4 ,0);
       glScalef(.7,.7,1);
       glRotatef(-90,1,0,0);
       draw2DFrog();
@@ -209,6 +210,7 @@ void display()
 
    glEnable(GL_DEPTH_TEST);
    glEnable(GL_LIGHTING);
+    glEnable(GL_NORMALIZE);
 
 
    //  Make scene visible
@@ -223,17 +225,17 @@ void special(int key,int x,int y)
 {
      //  Right arrow - increase rotation by 5 degree
    if (key == GLUT_KEY_RIGHT)
-      th += 5;
+       board->inputDirection(right);
    //  Left arrow - decrease rotation by 5 degree
    else if (key == GLUT_KEY_LEFT)
-      th -= 5;
+        board->inputDirection(left);
 
    //  Up Arrow - increase rotation by 5 degree
    else if (key == GLUT_KEY_UP)
-      ph -= 5;
+      board->inputDirection(up);
    //  Down Arrow - decrease rotation by 5 degree
    else if (key == GLUT_KEY_DOWN)
-      ph += 5;
+       board->inputDirection(down);
 
    glutPostRedisplay();
 
@@ -244,6 +246,7 @@ void key(unsigned char ch,int x,int y)
     if(board->getFrogLives() == 0){
       UPDATE_TIME =true;
       board->resetFrogLives();
+      board->resetWinningRow();
       SCORE =0;
       LEVEL =0;
       PlaySound("start.wav");
@@ -259,25 +262,11 @@ void key(unsigned char ch,int x,int y)
    if (ch == 27)
       exit(0);
 
-   else if(ch == 'w'){
-      board->inputDirection(up);
-   }
-   else if (ch == 'd'){
-      board->inputDirection(right);
-   }
-
-   else if(ch == 's'){
-      board->inputDirection(down);
-   }
-
-   else if(ch == 'a'){
-      board->inputDirection(left);
-   }
 
     else if(ch == 'm'  || ch == 'M'){
       if(BIRD_EYE_VIEW){
         BIRD_EYE_VIEW = false;
-        ph=45; 
+        ph=35; 
       } else {
          BIRD_EYE_VIEW = true;
         ph=90; 
@@ -347,6 +336,7 @@ int main(int argc,char* argv[])
    WHEEL_TREAD = LoadTexBMP("textures/wheeltread.bmp");
 
    BACK_OF_TRUCK = LoadTexBMP("textures/backoftruck.bmp");
+   REDDIT = LoadTexBMP("textures/reddit.bmp");
 
    board = new Board();
   PlaySound("start.wav");

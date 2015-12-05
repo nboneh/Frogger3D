@@ -13,11 +13,11 @@ class WinningRow : public Row{
 		WinningRow( std::vector<unsigned int> _textures, float _textureSwitchTime, unsigned int _boundaryTexture);
 		void draw();
 		virtual void checkColisonWithFrog(Frog* frog);
+		void reset();
 	private:
 		void drawLeftBoundaryRightReg(int x, int y);
 		void drawLeftRegRightBoundary(int x,int y);
 
 		void drawLeftBoundaryRightRegWithTop(int x, int y);
 		void drawLeftRegRightBoundaryWithTop(int x,int y);
-		void reset();
 };

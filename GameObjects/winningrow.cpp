@@ -69,10 +69,12 @@ glBindTexture(GL_TEXTURE_2D,texture);
           i++;
           drawLeftRegRightBoundary(i,0);
           if(wonAreas.at(i/3)){
+            glDisable(GL_TEXTURE_2D);
             glPushMatrix();
-            glTranslatef(i-.5,0,0);
+            glTranslatef(i-.25,.01,0);
             draw2DFrog();
             glPopMatrix();
+            glEnable(GL_TEXTURE_2D);
           }
         } else{
           drawLeftBoundaryRightRegWithTop(i,j);

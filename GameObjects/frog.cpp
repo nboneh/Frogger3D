@@ -11,7 +11,7 @@ Frog::Frog(float _spawnX, float _spawnY, direction _spawnDirection){
 	state = normal;
   resetLives();
 	farthestY = (int)y;
-  decreaseLife = true;
+  decreaseLife = false;
   deathCounter = 0;
 }
 
@@ -150,6 +150,7 @@ void Frog::draw(){
     return;
 	glPushMatrix();
 	glTranslatef(x , 0, y);
+  if(state != skull){
 	switch(facingDirection){
 		case up:
 			glTranslatef(.2,0,-.2);
@@ -167,7 +168,7 @@ void Frog::draw(){
 			glTranslatef(-.8,0,-.2);
 			break;
 	}
-	glScalef(.15, .15, .09996);
+  }
 	switch(state){
 		case dying:
 			drawDeath();
@@ -397,6 +398,8 @@ static void drawLeg(){
 }
 
 void Frog::drawJumpingFrog(){
+   glPushMatrix();
+    glScalef(.15, .15, .09996);
  	drawFrogBody();
 
  	//Draw back left Leg
@@ -429,9 +432,13 @@ void Frog::drawJumpingFrog(){
    drawLeg();
    glPopMatrix();
 
+   glPopMatrix();
+
 }
 
 void Frog::drawFrog(){
+  glPushMatrix();
+    glScalef(.15, .15, .09996);
    drawFrogBody();
 
     //Draw back left leg
@@ -457,10 +464,164 @@ void Frog::drawFrog(){
    glRotatef(-90,0,1,0);
  	drawLeg();
    glPopMatrix();
+
+   glPopMatrix();
+}
+
+static void drawBone(){
+  glColor3f(1,1,1);
+  glPushMatrix();
+  glTranslatef(0,.5,0);
+  glScalef(.6,.1,.1);
+  glRotatef(90,0,1,0);
+  drawCylinderNoText();
+  glPopMatrix();
+
+  glPushMatrix();
+  glTranslatef(0,.55,0);
+  glScalef(.05,.05,.05);
+  drawBall();
+  glPopMatrix();
+
+
+  glPushMatrix();
+  glTranslatef(0,.45,0);
+    glScalef(.05,.05,.05);
+  drawBall();
+  glPopMatrix();
+
+glPushMatrix();
+  glTranslatef(.6,.55,0);
+    glScalef(.05,.05,.05);
+  drawBall();
+  glPopMatrix();
+
+
+  glPushMatrix();
+  glTranslatef(.6,.45,0);
+  glScalef(.05,.05,.05);
+  drawBall();
+  glPopMatrix();
 }
 
 void Frog::drawSkull(){
 
+  glPushMatrix();
+  glTranslatef(.3,0,0);
+  if(BIRD_EYE_VIEW){
+     glTranslatef(0,1,0) ;
+     if(y < 6 ){
+           glTranslatef(0,1,.3) ;
+     }
+    glRotatef(-90,1,0,0);
+  } else {
+    glRotatef(-20,1,0,0);
+  }
+  
+
+  //Drawing Cross Bone
+  glPushMatrix();
+  glRotatef(25,0,0,1);
+  drawBone();
+  glPopMatrix();
+
+  glPushMatrix();
+  glTranslatef(-.5,.25,0);
+  glRotatef(-25,0,0,1);
+  drawBone();
+  glPopMatrix();
+
+  //Drawing skull
+
+  //Head
+  glPushMatrix();
+  glScalef(.2,.2,.2);
+  glTranslatef(0,5,0);
+  drawBall();
+  glPopMatrix();
+
+  //Eyes
+  //Left eye 
+  glColor3f(0,0,0);
+  glPushMatrix();
+  glScalef(.07,.07,.07);
+  glTranslatef(-1,15.5,1.3);
+  drawBall();
+  glPopMatrix();
+
+   //Right eye 
+  glColor3f(0,0,0);
+  glPushMatrix();
+  glScalef(.07,.07,.07);
+  glTranslatef(1.02,15.5,1.3);
+  drawBall();
+  glPopMatrix();
+
+  //Nose
+  glColor3f(0,0,0);
+  glPushMatrix();
+  glScalef(.07,.07,.07);
+  glTranslatef(-.5,14.5,3);
+  glBegin(GL_POLYGON);
+  glNormal3f( 0, 0, 1);
+  glVertex2f(0,0);
+  glVertex2f(.5,1);
+  glVertex2f(1,0);
+  glEnd();
+  glPopMatrix();
+
+  //Mouth
+  glColor3f(1,1,1);
+  glPushMatrix();
+  glScalef(.2,.2,.2);
+  glTranslatef(-.5,4,-.2);
+  drawCube();
+  glPopMatrix();
+
+  //Teeth
+  glColor3f(0,0,0);
+  glPushMatrix();
+  glScalef(.16,.02,1);
+  glTranslatef(-.5,43,0.17);
+  drawSquare();
+  glPopMatrix();
+
+  glColor3f(0,0,0);
+  glPushMatrix();
+  glScalef(.015,.07,1);
+  glTranslatef(-6,12.1,.2);
+  drawSquare();
+  glPopMatrix();
+
+   glColor3f(0,0,0);
+  glPushMatrix();
+  glScalef(.015,.07,1);
+  glTranslatef(-3,12.1,.2);
+  drawSquare();
+  glPopMatrix();
+
+    glColor3f(0,0,0);
+  glPushMatrix();
+  glScalef(.015,.07,1);
+  glTranslatef(-1,12.1,.2);
+  drawSquare();
+  glPopMatrix();
+
+      glColor3f(0,0,0);
+  glPushMatrix();
+  glScalef(.015,.07,1);
+  glTranslatef(2,12.1,.2);
+  drawSquare();
+  glPopMatrix();
+
+    glColor3f(0,0,0);
+  glPushMatrix();
+  glScalef(.015,.07,1);
+  glTranslatef(4.9,12.1,.2);
+  drawSquare();
+  glPopMatrix();
+
+  glPopMatrix();
 }
 
 void Frog::die(deathType _typeOfDeath){

@@ -12,6 +12,15 @@ void Car::update(double t){
 	}
 }
 
+void Car::drawStationaryWheel(){
+	glColor3f(1,1,1);
+	glPushMatrix();
+	glTranslatef(.15,.21,0);
+	glScalef(.4,.4,.2);
+	drawCylinder(WHEEL_TREAD, WHEEL);
+	glPopMatrix();
+}
+
 void Car::drawWheel(){
 	glColor3f(1,1,1);
 	glPushMatrix();
@@ -26,6 +35,10 @@ void Car::drawWheel(){
 }
 
 void Car::drawWheels(){
+	drawWheels(width);
+}
+
+void Car::drawWheels(float distanceBetweenWheels){
 	//Top right wheel
 	drawWheel();
 
@@ -37,14 +50,14 @@ void Car::drawWheels(){
 
 	//Top Left Wheel
 	glPushMatrix();
-	glTranslatef(width-.3,0,0);
+	glTranslatef(distanceBetweenWheels-.3,0,0);
 	drawWheel();
 	glPopMatrix();
 
 	//Bottom Left Wheel
 	glPushMatrix();
 	glTranslatef(0,0,0.8);
-	glTranslatef(width-.3,0,0);
+	glTranslatef(distanceBetweenWheels-.3,0,0);
 	drawWheel();
 	glPopMatrix();
 

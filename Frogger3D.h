@@ -45,6 +45,9 @@ extern unsigned int LOG;
 extern unsigned int WHEEL;
 extern unsigned int WHEEL_TREAD;
 extern unsigned int BACK_OF_TRUCK;
+extern unsigned int REDDIT;
+
+extern float LIGHT_POSITION[];
 
 extern bool FROG_PASS_CARS;
 extern bool BIRD_EYE_VIEW;
@@ -54,7 +57,6 @@ extern bool PRINT_WIN_TIME;
 
 extern int WIN_TIME;
 extern int LEVEL;
-
 
 
 void Print(const char* format , ...);
@@ -70,6 +72,8 @@ void drawHalfCylinder();
 void drawBall();
 void drawCube();
 void draw2DFrog();
+
+void drawSquare();
 
 enum direction{
 	up,

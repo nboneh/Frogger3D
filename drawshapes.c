@@ -62,6 +62,15 @@ void drawCube()
 
 }
 
+void drawSquare(){
+    glBegin(GL_POLYGON);
+  glNormal3f( 0, 0, 1);
+  glTexCoord2f(0,0); glVertex2f(0,0);
+  glTexCoord2f(1,0); glVertex2f(1,0);
+  glTexCoord2f(1,1); glVertex2f(1,1);
+  glTexCoord2f(0,1); glVertex2f(0,1);
+  glEnd();
+}
 /*
 *  Draw vertex in polar coordinates with normal
 */
@@ -214,10 +223,123 @@ void drawHalfCylinder(){
 }
 
 void draw2DFrog(){
-  glColor3f(0,1,0);
+ 
+  glScalef(.09,.09,.09);
+ 
+ 
+ 
   glBegin(GL_POLYGON);
-  glVertex3f(0,.01, 0);
-  glVertex3f(.5,.01, 1);
-  glVertex3f(1,.01, 0);
-  glEnd();
+   glColor3f(0,1,0);
+   glVertex3f(0,0,0);
+   glVertex3f(0,0,7);
+   glVertex3f(6,0,7);
+   glVertex3f(6,0,0);
+   glEnd();
+   
+   glBegin(GL_POLYGON);
+   glColor3f(0,1,0);
+   glVertex3f(1,0.1,-1);
+   glVertex3f(5,0.1,-1);
+   glVertex3f(5,0.1,8);
+   glVertex3f(1,0.1,8);
+   glEnd();
+   
+   //lefttopleg
+   glColor3f(0,1,0);
+   glBegin(GL_POLYGON);
+   glVertex3f(-2,0,4);
+   glVertex3f(8,0,4);
+   glVertex3f(8,0,5);
+   glVertex3f(-2,0,5);
+   glEnd();
+   
+   glBegin(GL_POLYGON);
+   glVertex3f(-2,0,4);
+   glVertex3f(-2,0,9);
+   glVertex3f(-1,0,9);
+   glVertex3f(-1,0,4);
+   glEnd();
+   
+   glBegin(GL_POLYGON);
+   glVertex3f(-3,0,7);
+   glVertex3f(-3,0,8);
+   glVertex3f(-2,0,8);
+   glVertex3f(-2,0,7);
+   glEnd();
+   
+   //rightleftleg
+   glBegin(GL_POLYGON);
+   glVertex3f(8,0,4);
+   glVertex3f(8,0,9);
+   glVertex3f(7,0,9);
+   glVertex3f(7,0,4);
+ glEnd();
+ 
+ glBegin(GL_POLYGON);
+   glVertex3f(9,0,7);
+   glVertex3f(9,0,8);
+   glVertex3f(7,0,8);
+   glVertex3f(7,0,7);
+ glEnd();
+ 
+ 
+ 
+ //lowerlegs
+  glBegin(GL_POLYGON);
+   glVertex3f(-2,0,2.5);
+   glVertex3f(8,0,2.5);
+   glVertex3f(8,0,1);
+   glVertex3f(-2,0,1);
+   glEnd();
+ 
+ 
+  glBegin(GL_POLYGON);
+   glVertex3f(-2,0,2.5);
+   glVertex3f(-2,0,-3);
+   glVertex3f(-1,0,-3);
+   glVertex3f(-1,0,2.5);
+   glEnd();
+   
+   glBegin(GL_POLYGON);
+   glVertex3f(-2,0,-2);
+   glVertex3f(-3,0,-2);
+   glVertex3f(-3,0,-1);
+   glVertex3f(-2,0,-1);
+   glEnd();
+   
+   glBegin(GL_POLYGON);
+   glVertex3f(8,0,2.5);
+   glVertex3f(8,0,-3);
+   glVertex3f(7,0,-3);
+   glVertex3f(7,0,2.5);
+   glEnd();
+   
+   glBegin(GL_POLYGON);
+   glVertex3f(8,0,-2);
+   glVertex3f(9,0,-2);
+   glVertex3f(9,0,-1);
+   glVertex3f(8,0,-1);
+   glEnd();
+   
+   
+   //eyes
+   
+   glBegin(GL_POLYGON);
+   glColor3f(1,0,1);
+   glVertex3f(0,0.01,6);
+   glVertex3f(0,0.01,7);
+   glVertex3f(1,0.01,7);
+   glVertex3f(1,0.01,6);
+   glEnd();
+   
+    glBegin(GL_POLYGON);
+   glColor3f(1,0,1);
+   glVertex3f(6,0.01,6);
+   glVertex3f(6,0.01,7);
+   glVertex3f(5,0.01,7);
+   glVertex3f(5,0.01,6);
+   glEnd();
+   
+   
+ 
 }

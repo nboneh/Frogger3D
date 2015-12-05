@@ -27,6 +27,7 @@ class Row{
 		//current texture is position in the array of textures
 		unsigned int currentTexture;
 		int distanceBetweenMovingObjects;
+		//float E[3];
 	private:
 		void init( unsigned int _texture);
 };

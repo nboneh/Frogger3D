@@ -16,6 +16,8 @@ class Car : public MovingObject{
 		virtual void update(double t);
 	protected:
 		void drawWheels();
+		void drawWheels(float distanceBetweenWheels);
+		void drawStationaryWheel();
 	private:
 		 void drawWheel();
 };

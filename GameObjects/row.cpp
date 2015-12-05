@@ -1,6 +1,10 @@
 #include "row.h"
 #include "movingobjectsfactory.h"
 
+
+float N[] = {0, -1, 0};
+float E[] = {0,.01,0};
+
 Row::Row(unsigned int _texture){
 	init(_texture);
 }
@@ -11,6 +15,11 @@ Row::Row( std::vector<unsigned int>  _textures, float _textureSwitchTime){
   textureTicCount = 0;
   currentTexture = 0;
   distanceBetweenMovingObjects =0 ;
+}
+
+void Row::init( unsigned int _texture){
+  texture = _texture;
+  waterRow = false; 
 }
 
 void Row::setAsWaterRow(){
@@ -39,10 +48,6 @@ void Row::checkColisonWithFrog(Frog* frog){
 }
 
 
-void Row::init( unsigned int _texture){
-  texture = _texture;
-  waterRow = false; 
-}
 
 
 void Row::addMovingObject(std::string type){

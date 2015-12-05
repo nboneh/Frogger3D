@@ -12,7 +12,9 @@ int specular  =   0;  // Specular intensity (%)
 int shininess =   0;  // Shininess (power of two)
 float shinyvec[1];    // Shininess (value)
 double zh =  330;  // Light azimuth
-float ylight  =   5;  // Elevation of light
+float ylight  =   7;  // Elevation of light
+float LIGHT_POSITION[] = {distance*(float)(Cos(zh)),ylight,(float)distance*(float)(Sin(zh)),1.0};
+
 
 static void drawLight(){
 	  //  Translate intensity to color vectors
@@ -21,11 +23,10 @@ static void drawLight(){
    float Specular[]  = {0.01f*specular,0.01f*specular,0.01f*specular,1.0};
    //  Light position
 
-   float Position[]  = {distance*(float)(Cos(zh)),ylight,(float)distance*(float)(Sin(zh)),1.0};
     //  Draw light position as ball (still no lighting here)
    glColor3f(1,1,1);
    glPushMatrix();
-   glTranslatef(Position[0],Position[1],Position[2]);
+   glTranslatef(LIGHT_POSITION[0],LIGHT_POSITION[1],LIGHT_POSITION[2]);
    glScalef(.1, .1,.1);
    drawBall();
    glPopMatrix();
@@ -42,8 +43,10 @@ static void drawLight(){
    glLightfv(GL_LIGHT0,GL_AMBIENT ,Ambient);
    glLightfv(GL_LIGHT0,GL_DIFFUSE ,Diffuse);
    glLightfv(GL_LIGHT0,GL_SPECULAR,Specular);
-   glLightfv(GL_LIGHT0,GL_POSITION,Position);
+   glLightfv(GL_LIGHT0,GL_POSITION,LIGHT_POSITION);
 }
+
+
 Board::Board(){
 	std::vector<unsigned int> water;
 	water.push_back(WATER4);
@@ -51,7 +54,7 @@ Board::Board(){
 	water.push_back(WATER2);
 	water.push_back(WATER);
 
-	rows.push_back(new WinningRow( water, .2, GRASS));
+    rows.push_back(new WinningRow( water, .2, GRASS));
 	Row * fifthWaterRow = new Row(water, .2);
 	fifthWaterRow->setAsWaterRow();
 	fifthWaterRow->addMovingObjects("AverageLog", 2, 3 );
@@ -159,40 +162,38 @@ void Board::draw(){
  	}
  	glPopMatrix();
 
-
- 	//Drawing Frog
  	frog->draw();
 
 
  	//Hide wrap around edges from showing moving objects
  	glColor3f(0,0,0);
 	glBegin(GL_POLYGON);
-    glVertex3f(-7,1, -1);
+    glVertex3f(-7,1, -3);
     glVertex3f(-7,1, numOfRows+1);
     glVertex3f(0,2, numOfRows+1);
-    glVertex3f(0,2, -1);
+    glVertex3f(0,2, -3);
     glEnd();
 
     glBegin(GL_POLYGON);
-    glVertex3f(0,-1, -1);
+    glVertex3f(0,-1, -3);
     glVertex3f(0,-1, numOfRows+1);
     glVertex3f(0,2, numOfRows+1);
-    glVertex3f(0,2, -1);
+    glVertex3f(0,2, -3);
     glEnd();
 
      glBegin(GL_POLYGON);
-    glVertex3f(ROW_WIDTH+7,1, -1);
+    glVertex3f(ROW_WIDTH+7,1, -3);
     glVertex3f(ROW_WIDTH+7,1, numOfRows+1);
     glVertex3f(ROW_WIDTH,2, numOfRows+1);
-    glVertex3f(ROW_WIDTH,2, -1);
+    glVertex3f(ROW_WIDTH,2, -3);
     glEnd();
 
 
      glBegin(GL_POLYGON);
-    glVertex3f(ROW_WIDTH,-1, -1);
+    glVertex3f(ROW_WIDTH,-1, -3);
     glVertex3f(ROW_WIDTH,-1, numOfRows+1);
     glVertex3f(ROW_WIDTH,2, numOfRows+1);
-    glVertex3f(ROW_WIDTH,2, -1);
+    glVertex3f(ROW_WIDTH,2, -3);
     glEnd();
 
     drawLight();
@@ -203,4 +204,7 @@ void Board::draw(){
 
 void Board::resetFrogLives(){
 	frog->resetLives();
+}
+void Board::resetWinningRow(){
+	((WinningRow *)rows.at(0))->reset();
 }

@@ -13,5 +13,6 @@ class Board{
 		void inputDirection(direction d);
 		int getFrogLives();
 		void resetFrogLives();
+		void resetWinningRow();
 
 };

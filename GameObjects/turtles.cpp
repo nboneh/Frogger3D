@@ -20,7 +20,7 @@ static void drawTurtleBody(){
     glColor3f(1,0,0);
     glPushMatrix();
     glTranslatef(0,0,.5);
-    glScalef(.36,.08,.24);
+    glScalef(.36,.2,.24);
     drawBall();
     glPopMatrix();
 }
