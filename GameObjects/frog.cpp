@@ -1,9 +1,5 @@
 #include "frog.h"
 
-int TOTAL_DEATH_FRAME = 4;
-float DEATH_FRAME_TIC = .1;
-
-
 
 Frog::Frog(float _spawnX, float _spawnY, direction _spawnDirection){
 	spawnX = _spawnX;
@@ -16,6 +12,7 @@ Frog::Frog(float _spawnX, float _spawnY, direction _spawnDirection){
   resetLives();
 	farthestY = (int)y;
   decreaseLife = true;
+  deathCounter = 0;
 }
 
 
@@ -95,15 +92,18 @@ void Frog::update(double t){
 
 			break;
 	case dying:
-			//Playing death animation
-			deathFrameTicCount += t;
-			if(deathFrameTicCount >= DEATH_FRAME_TIC){
-				deathFrameTicCount -= DEATH_FRAME_TIC;
-				deathFrame++;
-				if(deathFrame >= TOTAL_DEATH_FRAME){
-					respawn();
-				}
-			}
+  case skull:
+		  if(deathCounter >= 1){
+        if(state == dying){
+          state =skull;
+          deathCounter = 0;
+        } else {
+          respawn();
+          deathCounter = 0;
+        }
+
+      }
+      deathCounter += t*2;
 			break;
 		}
     if(y <= 7)
@@ -178,6 +178,9 @@ void Frog::draw(){
 		case normal:
 			drawFrog();
 			break;
+    case skull:
+      drawSkull();
+      break;
 		case respawning:
 			break;
 	}
@@ -185,66 +188,17 @@ void Frog::draw(){
 }
 
 void Frog::drawDeath(){
-	switch(deathFrame){
-		case 0:
-			if(typeOfDeath == roadkill){
-				glColor3f(1,0,0);
-				glBegin(GL_POLYGON);
-    			glVertex3f(0,.01, 0);
-    			glVertex3f(0,.01, -.2);
-    			glVertex3f(.2,.01, -.2);
-    			glVertex3f(.2,.01, 0);
-    			glEnd();
-
-			}
-			else if(typeOfDeath == drown){
-
-
-			}
-			break;
-		case 1:
-			if(typeOfDeath == roadkill){
-				glColor3f(1,0,0);
-				glBegin(GL_POLYGON);
-    			glVertex3f(0,.01, 0);
-    			glVertex3f(0,.01, -.6);
-    			glVertex3f(.6,.01, -.6);
-    			glVertex3f(.6,.01, 0);
-    			glEnd();
-
-			}
-
-			else if(typeOfDeath == drown){
-
-			}
-			break;
-		case 2:
-			if(typeOfDeath == roadkill){
-				glColor3f(1,0,0);
-				glBegin(GL_POLYGON);
-    			glVertex3f(0,.01, 0);
-    			glVertex3f(0,.01, -.8);
-    			glVertex3f(.8,.01, -.8);
-    			glVertex3f(.8,.01, 0);
-    			glEnd();
-			}
-
-			else if(typeOfDeath == drown){
-
-			}
-			break;
-		case 3:
-			//Draw skull
-			glColor3f(1,0,0);
-			glBegin(GL_POLYGON);
-    		glVertex3f(0,.01, 0);
-    		glVertex3f(0,.01, -1);
-    		glVertex3f(1,.01, -1);
-    		glVertex3f(1,.01, 0);
-    		glEnd();
-		  	break;
-		case 4:
-			break;
+	if(typeOfDeath == roadkill){
+		glPushMatrix();
+    glScalef(1,1 - deathCounter,1);
+    drawFrog();
+    glPopMatrix();
+	}
+	else if(typeOfDeath == drown){
+    glPushMatrix();
+    glTranslatef(0,-(deathCounter *5),0);
+    drawFrog();
+    glPopMatrix();
 	}
 }
 
@@ -503,12 +457,14 @@ void Frog::drawFrog(){
    glRotatef(-90,0,1,0);
  	drawLeg();
    glPopMatrix();
+}
 
+void Frog::drawSkull(){
 
 }
 
 void Frog::die(deathType _typeOfDeath){
-	if(state == dying || state == respawning)
+	if(state == dying || state == respawning || state == skull)
 		return;
 	stopMovement();
 	typeOfDeath = _typeOfDeath;
@@ -518,8 +474,7 @@ void Frog::die(deathType _typeOfDeath){
     PlaySound("plunk.wav");
 
 	state = dying;
-	deathFrameTicCount = 0;
-	deathFrame = 0;
+  deathCounter = 0;
 	decreaseLife = true;
 }
 
@@ -532,13 +487,13 @@ float Frog::getX(){
 }
 
 void Frog::setX(float _x){
-  if(state==dying || state == respawning)
+  if(state==dying || state == respawning || state == skull)
     return;
 	x = _x;
 }
 
 void Frog::setY(float _y){
-  if(state==dying || state == respawning)
+  if(state==dying || state == respawning  || state == skull)
     return;
 	y = _y;
 }

@@ -5,8 +5,8 @@
 #endif
 
 class Frog{
-	float spawnX, spawnY, deathFrameTicCount;
-	int deathFrame, lives, farthestY;
+	float spawnX, spawnY, deathCounter;
+	int  lives, farthestY;
 	float x, y, totalMove, respawnRateX, respawnRateY;
 	direction facingDirection,spawnDirection;
 	deathType typeOfDeath;
@@ -31,6 +31,7 @@ class Frog{
 		void resetLives();
 	private:
 		void drawDeath();
+		void drawSkull();
 		void drawFrog();
 		void drawJumpingFrog();
 };

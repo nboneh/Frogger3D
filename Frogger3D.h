@@ -86,6 +86,7 @@ enum frogState{
 	normal,
 	moving,
 	dying,
+	skull,
 	respawning
 };
 
