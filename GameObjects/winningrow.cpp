@@ -8,7 +8,7 @@ WinningRow::WinningRow(std::vector<unsigned int> _textures, float _textureSwitch
 }
 
 void WinningRow::reset(){
-    for(unsigned int i = 0; i < numOfWinningAreas; i++){
+    for(int i = 0; i < numOfWinningAreas; i++){
         wonAreas.at(i) = false;
     }
 }

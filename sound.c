@@ -19,10 +19,9 @@ void *PlaySoundThread(void *soundname){
 	strcat(str, folder);
 	strcat(str, soundname);
 	
-	char *term = &str[0];
-	
-		system(str);
-	   pthread_exit(NULL);
+    int i = system(str);
+    if(i == 0);
+	pthread_exit(NULL);
 }
 
 void PlaySound(const char *soundname)
