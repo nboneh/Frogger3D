@@ -1,7 +1,9 @@
 #include "Frogger3D.h"
 
-void PlaySound(const char *soundname)
-{
+
+
+void *PlaySoundThread(void *soundname){
+	
 	char * command = "";
 
 	#ifdef __APPLE__
@@ -17,10 +19,17 @@ void PlaySound(const char *soundname)
 	strcat(str, folder);
 	strcat(str, soundname);
 	
-	int pid;
-	if((pid = fork()) == 0){
+	char *term = &str[0];
+	
 		system(str);
-		exit(0);
-	}
+	   pthread_exit(NULL);
+}
+
+void PlaySound(const char *soundname)
+{
+	pthread_t thread[0];
+	
+	pthread_create(&thread[0], NULL, PlaySoundThread, (void *)soundname);
+	
 }
 

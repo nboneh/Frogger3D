@@ -20,7 +20,7 @@ LIBS=-framework GLUT -framework OpenGL
 #  Linux/Unix/Solaris
 else
 CFLG=-O3 -Wall
-LIBS=-lglut -lGLU -lGL -lm
+LIBS=-lglut -lGLU -lGL -lm  -lssl -lrt -lcrypto -lpthread
 endif
 #  OSX/Linux/Unix/Solaris
 CLEAN=rm -f $(EXE) *.o *.a .DS_Store; cd GameObjects; make clean

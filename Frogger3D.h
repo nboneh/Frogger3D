@@ -8,6 +8,7 @@
 #include <math.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <pthread.h>
 
 #ifdef USEGLEW
 #include <GL/glew.h>
