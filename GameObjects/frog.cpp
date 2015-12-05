@@ -27,7 +27,7 @@ void Frog::update(double t){
 	case moving:
 		move = t*5;
 		totalMove += move;
-    if(playMoveSound  && totalMove > .1){
+    if(playMoveSound  && totalMove > .2){
       PlaySound("hop.wav");
       playMoveSound = false;
     }
@@ -662,7 +662,8 @@ void Frog::setY(float _y){
 void Frog::stopMovement(){
 	if(state == moving)
 		state = normal;
-
+  playMoveSound = false;
+  totalMove = 0;
 }
 
 bool Frog::movingVertically(){
