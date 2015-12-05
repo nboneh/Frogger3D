@@ -1,15 +1,12 @@
 #include "Frogger3D.h"
 
-
-
-void *PlaySoundThread(void *soundname){
-	
-	char * command = "";
+int PlaySoundHelper(const char * soundname){
+	char * command
 
 	#ifdef __APPLE__
-		command = "afplay";
+		= "afplay";
 	#else
-		command = "aplay";
+		 = "aplay";
 	#endif
 		
 	char* folder = "sounds/";
@@ -19,16 +16,27 @@ void *PlaySoundThread(void *soundname){
 	strcat(str, folder);
 	strcat(str, soundname);
 	
-    int i = system(str);
-    if(i == 0);
-	pthread_exit(NULL);
+    return system(str);
 }
+
+void *PlaySoundThread(void *soundname){
+	int ret = PlaySoundHelper(soundname);
+	pthread_exit((void *) &ret);
+}
+
 
 void PlaySound(const char *soundname)
 {
-	pthread_t thread[0];
-	
-	pthread_create(&thread[0], NULL, PlaySoundThread, (void *)soundname);
+	//For some reason on mac forking works and on linux threading works
+	#ifdef __APPLE__
+		if(!fork()){
+			PlaySoundHelper(soundname);
+			exit(0);
+		}
+	#else
+		pthread_t thread[0];
+		pthread_create(&thread[0], NULL, PlaySoundThread, (void *)soundname);
+	#endif
 	
 }
 
