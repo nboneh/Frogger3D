@@ -18,6 +18,7 @@ unsigned int BARK;
 unsigned int LOG;
 unsigned int WHEEL;
 unsigned int WHEEL_TREAD;
+unsigned int BACK_OF_TRUCK;
 
 int widthOfScreen;
 int heightOfScreen;
@@ -344,6 +345,8 @@ int main(int argc,char* argv[])
 
    WHEEL = LoadTexBMP("textures/wheel.bmp");
    WHEEL_TREAD = LoadTexBMP("textures/wheeltread.bmp");
+
+   BACK_OF_TRUCK = LoadTexBMP("textures/backoftruck.bmp");
 
    board = new Board();
   PlaySound("start.wav");

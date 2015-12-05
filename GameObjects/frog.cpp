@@ -92,16 +92,16 @@ void Frog::update(double t){
 
 			break;
 	case dying:
-  case skull:
-		  if(deathCounter >= 1){
-        if(state == dying){
+     if(deathCounter >= 1){
           state =skull;
           deathCounter = 0;
-        } else {
+      }
+     deathCounter += t*4;
+      break;
+  case skull:
+		  if(deathCounter >= 1){
           respawn();
           deathCounter = 0;
-        }
-
       }
       deathCounter += t*2;
 			break;

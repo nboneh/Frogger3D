@@ -44,6 +44,7 @@ extern unsigned int BARK;
 extern unsigned int LOG;
 extern unsigned int WHEEL;
 extern unsigned int WHEEL_TREAD;
+extern unsigned int BACK_OF_TRUCK;
 
 extern bool FROG_PASS_CARS;
 extern bool BIRD_EYE_VIEW;

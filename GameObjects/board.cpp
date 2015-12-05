@@ -169,30 +169,30 @@ void Board::draw(){
 	glBegin(GL_POLYGON);
     glVertex3f(-7,1, -1);
     glVertex3f(-7,1, numOfRows+1);
-    glVertex3f(0,1, numOfRows+1);
-    glVertex3f(0,1, -1);
+    glVertex3f(0,2, numOfRows+1);
+    glVertex3f(0,2, -1);
     glEnd();
 
     glBegin(GL_POLYGON);
     glVertex3f(0,-1, -1);
     glVertex3f(0,-1, numOfRows+1);
-    glVertex3f(0,1, numOfRows+1);
-    glVertex3f(0,1, -1);
+    glVertex3f(0,2, numOfRows+1);
+    glVertex3f(0,2, -1);
     glEnd();
 
      glBegin(GL_POLYGON);
     glVertex3f(ROW_WIDTH+7,1, -1);
     glVertex3f(ROW_WIDTH+7,1, numOfRows+1);
-    glVertex3f(ROW_WIDTH,1, numOfRows+1);
-    glVertex3f(ROW_WIDTH,1, -1);
+    glVertex3f(ROW_WIDTH,2, numOfRows+1);
+    glVertex3f(ROW_WIDTH,2, -1);
     glEnd();
 
 
      glBegin(GL_POLYGON);
     glVertex3f(ROW_WIDTH,-1, -1);
     glVertex3f(ROW_WIDTH,-1, numOfRows+1);
-    glVertex3f(ROW_WIDTH,1, numOfRows+1);
-    glVertex3f(ROW_WIDTH,1, -1);
+    glVertex3f(ROW_WIDTH,2, numOfRows+1);
+    glVertex3f(ROW_WIDTH,2, -1);
     glEnd();
 
     drawLight();
