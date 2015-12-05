@@ -219,21 +219,30 @@ void display()
    glutPostRedisplay();
 }
 
-
-
-void special(int key,int x,int y)
-{
-
-   if(board->getFrogLives() == 0){
+bool checkAnyButton(){
+if(board->getFrogLives() == 0){
       UPDATE_TIME =true;
       board->resetFrogLives();
       board->resetWinningRow();
       SCORE =0;
       LEVEL =0;
       PlaySound("start.wav");
-      return;
+      return true;
     }
-    
+
+    if(paused){
+      paused = false;
+      PlaySound("clickoff.wav");
+      return true;
+    }
+    return false;
+}
+
+void special(int key,int x,int y)
+{
+    if(checkAnyButton())
+      return;
+
      //  Right arrow - increase rotation by 5 degree
    if (key == GLUT_KEY_RIGHT)
        board->inputDirection(right);
@@ -254,21 +263,8 @@ void special(int key,int x,int y)
 
 void key(unsigned char ch,int x,int y)
 {
-    if(board->getFrogLives() == 0){
-      UPDATE_TIME =true;
-      board->resetFrogLives();
-      board->resetWinningRow();
-      SCORE =0;
-      LEVEL =0;
-      PlaySound("start.wav");
+     if(checkAnyButton())
       return;
-    }
-
-    if(paused){
-      paused = false;
-      PlaySound("clickoff.wav");
-      return;
-    }
    //  Exit on ESC
    if (ch == 27)
       exit(0);
