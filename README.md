@@ -7,7 +7,7 @@ m - Change between bird eye view and third person view <br />
 p - Pause game <br />
 ESC - to exit <br />
 
-ScreenShoots <br />
+ScreenShots <br />
 ![Alt Text](/ScreenShots/ScreenShot.png)
 ![Alt Text](/ScreenShots/ScreenShot2.png)
 ![Alt Text](/ScreenShots/ScreenShot3.png)
